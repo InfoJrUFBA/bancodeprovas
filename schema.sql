@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`exams` (
   `created_at` DATE NOT NULL,
   `status` TINYINT(1) NOT NULL DEFAULT 1,
   `components_id` INT NOT NULL,
+  `unit` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_exams_components1_idx` (`components_id` ASC),
   CONSTRAINT `fk_exams_components1`
