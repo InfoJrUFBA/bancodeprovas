@@ -8,9 +8,9 @@
         private $pdo;
         protected $table = "exams";
         private $professor;
-        private $semester;
+        private $period;
         private $component;
-        private $time;
+        private $created_at;
         private $unit;
         private $exam_id;
 
@@ -18,8 +18,8 @@
             $this->pdo = $pdo;
         }
 
-        public function createExam($professor, $semester, $time, $component, $unit){
-            $query = "INSERT INTO {$this->table} VALUES (NULL, '{$professor}', '{$semester}', '{$time}', '1', '{$component}', '{$unit}')";
+        public function createExam($professor, $period, $created_at, $component, $unit){
+            $query = "INSERT INTO {$this->table} VALUES (NULL, '{$professor}', '{$period}', '{$created_at}', '1', '{$component}', '{$unit}')";
             $stmt = $this->pdo->prepare($query);
             $result = $stmt->execute();
             $stmt->closeCursor();
@@ -67,8 +67,8 @@
             return $result;
         }
 
-        public function update($exam_id, $professor, $semester, $component_id, $unit){
-            $query = "UPDATE {$this->table} SET professor = '{$professor}', period = '{$semester}', components_id = '{$component_id}', unit = '{$unit}' WHERE id = $exam_id";
+        public function update($exam_id, $professor, $period, $component_id, $unit){
+            $query = "UPDATE {$this->table} SET professor = '{$professor}', period = '{$period}', components_id = '{$component_id}', unit = '{$unit}' WHERE id = $exam_id";
             $stmt = $this->pdo->prepare($query);
             $result = $stmt->execute();
             $stmt->closeCursor();
