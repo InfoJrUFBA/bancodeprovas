@@ -4,7 +4,7 @@ namespace App\Models;
 
 use PDO;
 
-class users {
+class Users {
 
   private $pdo;
   protected $table = "users";
