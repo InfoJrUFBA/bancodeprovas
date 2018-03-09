@@ -4,7 +4,7 @@ namespace App\Models;
 
 use PDO;
 
-class courses
+class Course
 {
 	private $pdo;
 	protected $table = "courses";
@@ -13,14 +13,13 @@ class courses
 	private $type; 
 
 
-	public function __construct( PDO $pdo);
-	{
+	public function __construct(PDO $pdo) {
 		$this->pdo=$pdo;
 	}
 
 	public function All () // mostra todos os dados da tabela
 	{
-		$query = " SELECT *FROM { $this->table}"
+		$query = " SELECT *FROM { $this->table}";
 		$stmt =$this->pdo->prepare($query);
 		$stmt=execute();
 		$result=$stmt->fetchAll();
@@ -40,7 +39,7 @@ class courses
 
 	}
 
-	public function find($name) //encontra o curso através do name
+	public function findByName($name) //encontra o curso através do name
 	{
 		$query = "SELECT * FROM {$this->table} WHERE name=:name";
 		$stmt =$this->pdo->prepare($query);
