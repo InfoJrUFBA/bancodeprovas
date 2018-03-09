@@ -17,8 +17,25 @@ class Course
 		$this->pdo=$pdo;
 	}
 
-	public function All () // mostra todos os dados da tabela
+
+	public function create($id, $name, $type) //adicionando curso
 	{
+<<<<<<< HEAD:Models/Course.php
+		$query = "INSERT INTO {$this->table}(id,name,type) VALUES (:NULL, :name, :type)";
+		$stmt =$this->pdo->prepare($query);
+		$stmt->bindValue(":id",$id);
+		$stmt->bindValue(":name",$name);
+		$stmt->bindValue(":type",$type);
+		$result=$stmt->execute();
+		$stmt->CloseCursor();
+		return $result;
+
+	}
+
+	public function All () // mostrando todos os dados da tabela
+	{
+=======
+>>>>>>> master:Models/course.php
 		$query = " SELECT *FROM { $this->table}";
 		$stmt =$this->pdo->prepare($query);
 		$stmt=execute();
@@ -27,7 +44,7 @@ class Course
 		return $result;
 	}
 
-	public function find($id) //encontra o curso através do id
+	public function findById($id) //encontrando o curso através do id
 	{
 		$query = "SELECT * FROM {$this->table} WHERE id=:id";
 		$stmt =$this->pdo->prepare($query);
@@ -39,7 +56,11 @@ class Course
 
 	}
 
+<<<<<<< HEAD:Models/Course.php
+	public function findByName($name) //encontrando o curso através do name
+=======
 	public function findByName($name) //encontra o curso através do name
+>>>>>>> master:Models/course.php
 	{
 		$query = "SELECT * FROM {$this->table} WHERE name=:name";
 		$stmt =$this->pdo->prepare($query);
@@ -51,18 +72,7 @@ class Course
 
 	}
 
-	public function create($id, $name, $type) //adicionando curso
-	{
-		$query = "INSERT INTO {$this->table}(id,name,type) VALUES (:NULL, :name, :type)";
-		$stmt =$this->pdo->prepare($query);
-		$stmt->bindValue(":id",$id);
-		$stmt->bindValue(":name",$name);
-		$stmt->bindValue(":type",$type);
-		$result=$stmt->execute();
-		$stmt->CloseCursor();
-		return $result;
-
-	}
+	
 
 	public function update($id, $name, $type) //atualizando cursos
 	{
@@ -83,13 +93,6 @@ class Course
         $stmt->closeCursor();
         return $result;
         
-        if ($result) 
-        {
-            echo "Curso excluído com sucesso";
-        }else 
-        {
-        	echo "Não foi possível excluir o curso";
-        }
     }
 
 } 
