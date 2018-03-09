@@ -20,8 +20,7 @@ class Course
 
 	public function create($id, $name, $type) //adicionando curso
 	{
-<<<<<<< HEAD:Models/Course.php
-		$query = "INSERT INTO {$this->table}(id,name,type) VALUES (:NULL, :name, :type)";
+		$query = "INSERT INTO {$this->table} (id,name,type) VALUES (:NULL, :name, :type)";
 		$stmt =$this->pdo->prepare($query);
 		$stmt->bindValue(":id",$id);
 		$stmt->bindValue(":name",$name);
@@ -34,8 +33,6 @@ class Course
 
 	public function All () // mostrando todos os dados da tabela
 	{
-=======
->>>>>>> master:Models/course.php
 		$query = " SELECT *FROM { $this->table}";
 		$stmt =$this->pdo->prepare($query);
 		$stmt=execute();
@@ -56,11 +53,7 @@ class Course
 
 	}
 
-<<<<<<< HEAD:Models/Course.php
 	public function findByName($name) //encontrando o curso através do name
-=======
-	public function findByName($name) //encontra o curso através do name
->>>>>>> master:Models/course.php
 	{
 		$query = "SELECT * FROM {$this->table} WHERE name=:name";
 		$stmt =$this->pdo->prepare($query);
