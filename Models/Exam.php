@@ -4,7 +4,7 @@
 
     use PDO;
 
-    class Exam{
+    class Exam {
         private $pdo;
         protected $table = "exams";
         private $professor;

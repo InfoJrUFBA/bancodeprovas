@@ -6,7 +6,7 @@ use PDO;
 class Component
 {
 	private $pdo;
-	protected $table = "component";
+	protected $table = "components";
 	private $id;
 	private $name;
 
@@ -16,9 +16,8 @@ class Component
 	}
 
 	public function create($name) {
-		$query = "INSERT INTO {$this->table} (name,type) VALUES (:name)";
+		$query = "INSERT INTO {$this->table} (name) VALUES ({$name})";
 		$stmt = $this->pdo->prepare($query);
-		$stmt->bindValue(":name", $name);
 		$result = $stmt->execute();
 		$stmt->CloseCursor();
 		return $result;
@@ -32,13 +31,30 @@ class Component
 		$stmt->CloseCursor();
 		return $result;
     }
-	public function readById() {
-		$query = "SELECT * FROM {$this->table} WHERE id=:id";
+	public function readById($id) {
+		$query = "SELECT * FROM {$this->table} WHERE id= {$id}";
 		$stmt = $this->pdo->prepare($query);
-		$stmt->bindValue(":id", $id);
 		$stmt->execute();
 		$result = $stmt->fetch();
 		$stmt->CloseCursor();
 		return $result;
-    }
+	}
+	
+	public function update($id, $name) {
+		$query = "UPDATE {$this->table} SET name = '{$professor}' WHERE id = {$id}";
+		$stmt = $this->pdo->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetch();
+		$stmt->CloseCursor();
+		return $result;
+	}
+
+	public function delete($id) {
+		$query = "UPDATE {$this->table} WHERE id = {$id}";
+		$stmt = $this->pdo->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetch();
+		$stmt->CloseCursor();
+		return $result;
+	}
 } 
