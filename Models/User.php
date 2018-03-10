@@ -4,7 +4,7 @@ namespace App\Models;
 
 use PDO;
 
-class Users {
+class User {
     private $pdo;
     protected $table = "users";
     private $id;
@@ -21,7 +21,7 @@ class Users {
         $this->pdo = $pdo;
     }
 
-    public function All () { //Mostra todos os usuários
+    public function all () { //Mostra todos os usuários
         $query = "SELECT * FROM {$this->table}";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
@@ -60,15 +60,13 @@ class Users {
         return $result;
     }
 
-    public function create($id, $name, $email, $password, $image, $score, $birthdate, $level, $courses_id) { //criando usuário
-        $query = "INSERT INTO {$this->table}(id, name, email, password, image, score, birthdate, level, courses_id) VALUES (:NULL, :name, :name, :email, :password, :image, :score, :birthdate, :level, :courses_id)";
+    public function create($name, $email, $password, $image, $birthdate, $level, $courses_id) { //criando usuário
+        $query = "INSERT INTO {$this->table}(id, name, email, password, image, score, birthdate, level, courses_id) VALUES (NULL, :name, :email, :password, :image, 0, :birthdate, :level, :courses_id)";
         $stmt = $this->pdo->prepare($query);
-        $stmt->bindValue(":id", $id);
         $stmt->bindValue(":name", $name);
         $stmt->bindValue(":email", $email);
         $stmt->bindValue(":password", $password);
         $stmt->bindValue(":image", $image);
-        $stmt->bindValue(":score", $score);
         $stmt->bindValue(":birthdate", $birthdate);
         $stmt->bindValue(":level", $level);
         $stmt->bindValue(":courses_id", $courses_id);
@@ -78,8 +76,17 @@ class Users {
     }
 
     public function update($id, $name, $email, $password, $image, $score, $birthdate, $level, $courses_id) { //atualizando o usuário
-        $query = "UPDATE {$this->table} SET name=:name, email=:email, password=:password, image=:image, score=:score, birthdate=:birthdate, level=:level, WHERE id=:id, courses_id=:courses_id";
+        $query = "UPDATE {$this->table} SET name=:name, email=:email, password=:password, image=:image, score=:score, birthdate=:birthdate, level=:level, courses_id=:courses_id WHERE id=:id";
         $stmt =$this->pdo->prepare($query);
+        $stmt->bindValue(":id", $id);
+        $stmt->bindValue(":name", $name);
+        $stmt->bindValue(":email", $email);
+        $stmt->bindValue(":password", $password);
+        $stmt->bindValue(":image", $image);
+        $stmt->bindValue(":score", $score);
+        $stmt->bindValue(":birthdate", $birthdate);
+        $stmt->bindValue(":level", $level);
+        $stmt->bindValue(":courses_id", $courses_id);
         $result=$stmt->execute();
         $stmt->CloseCursor();
         return $result;
@@ -91,12 +98,12 @@ class Users {
         $stmt->bindValue(":id",$id);
         $result = $stmt->execute();
         $stmt->closeCursor();
-        return $result;
 
         if ($result) {
-            echo "Curso excluído com sucesso";
+            echo "Usuário excluído com sucesso";
         } else {
-            echo "Não foi possível excluir o curso";
+            echo "Não foi possível excluir o usuário";
         }
+        return $result;
     }
 }
