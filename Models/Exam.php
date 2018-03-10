@@ -9,7 +9,7 @@
         protected $table = "exams";
         private $professor;
         private $period;
-        private $component;
+        private $component_id;
         private $created_at;
         private $unit;
         private $exam_id;
@@ -18,8 +18,8 @@
             $this->pdo = $pdo;
         }
 
-        public function createExam($professor, $period, $created_at, $component, $unit){
-            $query = "INSERT INTO {$this->table} VALUES (NULL, '{$professor}', '{$period}', '{$created_at}', '1', '{$component}', '{$unit}')";
+        public function createExam($professor, $period, $created_at, $component_id, $unit){
+            $query = "INSERT INTO {$this->table} VALUES (NULL, '{$professor}', '{$period}', '{$created_at}', '1', '{$component_id}', '{$unit}')";
             $stmt = $this->pdo->prepare($query);
             $result = $stmt->execute();
             $stmt->closeCursor();
@@ -72,13 +72,13 @@
             $stmt = $this->pdo->prepare($query);
             $result = $stmt->execute();
             $stmt->closeCursor();
-            return $result;
 
             if ($result) {
                 echo "Atualização sucedida";
             }else {
                 echo "Não foi possível atualizar";
             }
+            return $result;
         }
 
         public function deleteExam($exam_id){
@@ -86,13 +86,13 @@
             $stmt = $this->pdo->prepare($query);
             $result = $stmt->execute();
             $stmt->closeCursor();
-            return $result;
 
             if ($result) {
                 echo "Prova excluída com sucesso";
             }else {
                 echo "Não foi possível excluir";
             }
+            return $result;
         }
 
     }
