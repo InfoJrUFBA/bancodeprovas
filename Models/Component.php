@@ -16,7 +16,7 @@ class Component
 	}
 
 	public function create($name) {
-		$query = "INSERT INTO {$this->table} (name) VALUES ({$name})";
+		$query = "INSERT INTO {$this->table} (name) VALUES ('{$name}')";
 		$stmt = $this->pdo->prepare($query);
 		$result = $stmt->execute();
 		$stmt->CloseCursor();
@@ -27,7 +27,7 @@ class Component
 		$query = "SELECT * FROM {$this->table}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
-		$result = $stmt->fetch();
+		$result = $stmt->fetchAll();
 		$stmt->CloseCursor();
 		return $result;
     }
@@ -41,7 +41,7 @@ class Component
 	}
 	
 	public function update($id, $name) {
-		$query = "UPDATE {$this->table} SET name = '{$professor}' WHERE id = {$id}";
+		$query = "UPDATE {$this->table} SET name = '{$name}' WHERE id = {$id}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
 		$result = $stmt->fetch();
@@ -50,10 +50,9 @@ class Component
 	}
 
 	public function delete($id) {
-		$query = "UPDATE {$this->table} WHERE id = {$id}";
+		$query = "DELETE FROM {$this->table} WHERE id = {$id}";
 		$stmt = $this->pdo->prepare($query);
-		$stmt->execute();
-		$result = $stmt->fetch();
+		$result = $stmt->execute();
 		$stmt->CloseCursor();
 		return $result;
 	}
