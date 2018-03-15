@@ -1,0 +1,96 @@
+.nav-title {
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    margin: 0 20px;
+}
+.nav-title h1 {
+    font-family: "Comfortaa", 'Segoe UI', sans-serif;
+    color: rgb(241, 240, 255);
+}
+@media screen and (min-width: 800px) {
+    .nav-title h1:after {
+        content: " Micro Framework";
+    }
+}
+
+header {
+    background-color: rgb(117, 144, 223);
+    width: 100%;
+    height: 60px;
+    display: grid;
+    display: -moz-grid;
+    display: -ms-grid;
+}
+nav {
+    height: 100%;
+    float: right;
+}
+
+nav ul {
+    height: 100%;
+    list-style: none;
+    float: right;
+    display: flex;
+    margin: 12px 0;
+    padding: 0;
+    align-items: center;
+    -webkit-align-items: center;
+}
+
+nav li {
+    border: solid rgb(192, 191, 231) 1px;
+    border-radius: 5px;
+    padding : 0;
+    margin: 0 10px;
+}
+nav ul#topmenu, #check {
+    display: none;
+}
+li a {
+    display: block;
+    padding : 5px 16px;
+    text-decoration: none;
+    color: whitesmoke;
+}
+nav li:hover {
+    border: solid rgb(220, 219, 233) 1px;
+}
+li a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    header {
+        display: block;
+        height: 100%;
+        padding-bottom: 10px;
+    }
+    .nav-title h1 {
+        margin: 15px auto;
+    }
+    nav {
+        float: none;
+    }
+    nav ul {
+        float: none;
+    }
+    nav ul#menu {
+        display: none;
+    }
+    nav ul#topmenu{
+        display: list-item;
+    }
+    nav li {
+        text-align: center;
+        margin: 5px 0;
+        border-radius: 0;
+    }
+
+    #check:checked ~ #menu {
+        display: list-item;
+    }
+}
+

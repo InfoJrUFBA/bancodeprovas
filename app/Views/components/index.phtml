@@ -1,0 +1,20 @@
+<section>
+    <h1>Hello!</h1>
+    <h2><?php $this->getPageTitle() ?></h2>
+
+    <a href="/component/create"><h3>Create Component</h3></a>
+</section>
+<section>
+    ID | Código | Disciplina
+    <?php foreach ($this->view->components as $component): ?>
+    <div class="row">
+        <a href="/component/<?php echo $component->id;?>/show">
+            <?php echo "{$component->id}  | {$component->code} | {$component->name}"; ?>
+        </a>
+        <?php echo " -- ";?>
+        <a href="/component/<?php echo $component->id;?>/edit">Edit</a>
+        <?php echo " -- ";?>
+        <a href="/component/<?php echo $component->id;?>/delete">Delete</a>
+    </div>
+    <?php endforeach; ?>
+</section>
