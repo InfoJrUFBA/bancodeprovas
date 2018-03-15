@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300|Open+Sans:300,400');
+@import "navbar.css";
+
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+body {
+    font-family: "Open Sans", "Segoe UI", "Helvetica", sans-serif;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+section {
+    padding: 30px 5%
+}
+
+h1, h2 {
+    font-family: "Open Sans", "Segoe UI", sans-serif;
+    font-weight: 300;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+/* BEGIN BOXES */
+.flexbox {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+.flex-col {
+    margin: 5px;
+    padding: 15px;
+    text-align: justify;
+    flex-basis: 100%;
+}
+
+@media (max-width: 768px) {
+    .flexbox {
+        display: block;
+    }
+}
+
+.flex-col:nth-child(odd) {
+    background-color: #cfcaff;
+}
+.flex-col:nth-child(even) {
+    background-color: #eae8ff;
+}
+/* END BOXES */

@@ -1,0 +1,16 @@
+<section>
+    <h2>Edit Component</h2>
+    <h3>
+        ID: <?php echo $this->view->component->id; ?><br>
+    </h3>
+</section>
+<section>
+    <form action="/component/<?php echo $this->view->component->id;?>/update" method="post">
+        <fieldset style="width:250px;">
+            <legend>Editar Disciplina: </legend><br>
+            <label for="code">Código: </label><input type="text" name="code" id="code" value="<?php echo $this->view->component->code; ?>"><br><br>
+            <label for="name">Nome: </label><input type="text" name="name" id="name" value="<?php echo $this->view->component->name; ?>"><br><br>
+            <button type="submit">Alterar Disciplina</button>
+        </fieldset>
+    </form>
+</section>
