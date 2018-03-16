@@ -10,11 +10,6 @@
     font-family: "Comfortaa", 'Segoe UI', sans-serif;
     color: rgb(241, 240, 255);
 }
-@media screen and (min-width: 800px) {
-    .nav-title h1:after {
-        content: " Micro Framework";
-    }
-}
 
 header {
     background-color: rgb(117, 144, 223);
@@ -26,7 +21,6 @@ header {
 }
 nav {
     height: 100%;
-    float: right;
 }
 
 nav ul {
@@ -39,15 +33,12 @@ nav ul {
     align-items: center;
     -webkit-align-items: center;
 }
-
-nav li {
-    border: solid rgb(192, 191, 231) 1px;
-    border-radius: 5px;
-    padding : 0;
-    margin: 0 10px;
-}
 nav ul#topmenu, #check {
     display: none;
+}
+
+li {
+    padding: 0;
 }
 li a {
     display: block;
@@ -55,14 +46,26 @@ li a {
     text-decoration: none;
     color: whitesmoke;
 }
-nav li:hover {
+nav li:not(#search) {
+    border: solid rgb(192, 191, 231) 1px;
+    border-radius: 5px;
+    padding : 0;
+    margin: 0 10px;
+}
+nav li:hover:not(#search) {
     border: solid rgb(220, 219, 233) 1px;
 }
 li a:hover {
     text-decoration: underline;
 }
+#search {
+    height: 35px;
+}
+li > input {
+    height: 35px;
+}
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     header {
         display: block;
         height: 100%;
@@ -71,10 +74,7 @@ li a:hover {
     .nav-title h1 {
         margin: 15px auto;
     }
-    nav {
-        float: none;
-    }
-    nav ul {
+    nav, nav ul {
         float: none;
     }
     nav ul#menu {
@@ -85,6 +85,9 @@ li a:hover {
     }
     nav li {
         text-align: center;
+    }
+    nav li:not(#search) {
+        text-align: center;
         margin: 5px 0;
         border-radius: 0;
     }
@@ -93,4 +96,3 @@ li a:hover {
         display: list-item;
     }
 }
-

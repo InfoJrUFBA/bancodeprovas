@@ -6,7 +6,7 @@ use Core\DataBase;
 use App\Models\Course;
 use Core\Container;
 
-class CourseController extends BaseController 
+class CoursesController extends BaseController 
 {
 	
 	public function index ()
