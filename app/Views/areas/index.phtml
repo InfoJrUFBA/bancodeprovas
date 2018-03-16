@@ -1,0 +1,19 @@
+<div class = "container" >
+		<h1 class =" h1">
+			<?php $this->getPageTitle(); ?>
+			<a href = "/area/create" class="btn btn-primary pull-right"> Adicione nova Area</a>
+		</h1>
+	</div>
+	<?php  foreach ($this->view->areas as $area): ?>
+	<h3 class="h3">  
+	<a href="area/<?php echo $area->id ?>/show">  <?php echo $area->name;?> </a>
+	</h3>
+	<p class="text-jutify"> <?php echo $area->type;?> </p>
+	<a href = "/area/<?php echo $area->id ?>/edit" > editar </a>
+	<a href = "/area/<?php echo $area->id ?>/delete" > excluir </a>
+    </div>
+    </hr>
+	<?php endforeach; ?>
+	
+</div>
+
