@@ -1,0 +1,51 @@
+<div class="container">
+    <h1 class = "h1"> <?php echo $this->getPageTitle() ?> </h1>
+
+    <form action="/exam/store" method="post" accept-charset="utf-8">
+        <div class="form-group">
+            <label for="professor">Professor(a)</label> <br>
+            <input type="text" name="professor" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="period">Semestre</label> <br>
+            <select name="period" required>
+                <option value=""></option>
+                <option value="20111">2011.1</option>
+                <option value="20112">2011.2</option>
+                <option value="20121">2012.1</option>
+                <option value="20122">2012.2</option>
+                <option value="20131">2013.1</option>
+                <option value="20132">2013.2</option>
+                <option value="20141">2014.1</option>
+                <option value="20142">2014.2</option>
+                <option value="20151">2015.1</option>
+                <option value="20152">2015.2</option>
+                <option value="20161">2016.1</option>
+                <option value="20162">2016.2</option>
+                <option value="20171">2017.1</option>
+                <option value="20172">2017.2</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for= "component_id">Componente Curricular</label> <br>
+            <input type="radio" name="component_id" value=<?php "{$component_id}"; ?> > Cálculo <br>
+        </div>
+        <div class="form-group">
+            <label for="unit">Unidade</label> <br>
+            <select name="unit" required>
+                <option value=""></option>
+                <option value="1">1ª Prova</option>
+                <option value="2">2ª Prova</option>
+                <option value="3">3ª Prova</option>
+                <option value="4">4ª Prova</option>
+                <option value="5">1ª Prova (2ª chamada)</option>
+                <option value="6">2ª Prova (2ª chamada)</option>
+                <option value="7">3ª Prova (2ª chamada)</option>
+                <option value="8">4ª Prova (2ª chamada)</option>
+            </select>
+        </div>
+        <a href="/exams"><button type="button">Cancelar</button></a>
+        <button type="submit">Salvar</button>
+    </form>
+
+</div>

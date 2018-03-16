@@ -1,0 +1,69 @@
+<header>
+    <h1 class="h1">
+        <?php echo $this->getPageTitle(); ?>
+    </h1>
+</header>
+
+<section class="info">
+    <h3>Sobre</h3>
+    <div class="box">
+        <p>Página de provas</p>
+    </div>
+</section>
+
+<div class = "container">
+    <a href ="/exam/create" class "btn btn-primary pull-right">
+        Adicionar Prova
+    </a>
+    <?php foreach($this->view->exams as $exam): ?>
+    <h3 class = "h3"></h3>
+    <div class = "row">
+        <ul>
+            <li>Professor: <?php echo $exam->professor ?>  </li>
+            <li>Semestre: <?php echo $exam->period ?>  </li>
+            <li>
+                <?php switch($exam->unit) {
+                    case 1:
+                        echo "1ª Prova";
+                        break;
+                    case 2:
+                        echo "2ª Prova";
+                        break;
+                    case 3:
+                        echo "3ª Prova";
+                        break;
+                    case 4:
+                        echo "4ª Prova";
+                        break;
+                    case 5:
+                        echo "Segunda chamada da 1ª Prova";
+                        break;
+                    case 6:
+                        echo "Segunda chamada da 2ª Prova";
+                        break;
+                    case 7:
+                        echo "Segunda chamada da 3ª Prova";
+                        break;
+                    case 8:
+                        echo "Segunda chamada da 4ª Prova";
+                        break;
+                } ?>
+            </li>
+            <li>Adicionado em
+                <?php
+                $data = explode('-', $exam->created_at);
+                $data = array_reverse($data);
+                $data = implode('-', $data);
+                echo ($data);
+                ?>
+            </li>
+        </ul>
+        <a href="/exam/<?php echo $exam->id?>/edit">
+            <button type="button">Editar</button>
+        </a>
+        <a href="/exam/<?php echo $exam->id?>/delete">
+            <button type="button">Deletar</button>
+        </a>
+    </div>
+    <?php endforeach; ?>
+</div>
