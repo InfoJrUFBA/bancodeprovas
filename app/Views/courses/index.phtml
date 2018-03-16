@@ -1,0 +1,19 @@
+<div class = "container" >
+		<h1 class =" h1">
+			<?php $this->getPageTitle(); ?>
+			<a href = "/course/create" class="btn btn-primary pull-right"> Adicione o curso </a>
+		</h1>
+	</div>
+	<?php  foreach ($this->view->courses as $course): ?>
+	<h3 class="h3">  
+	<a href="course/<?php echo $course->id ?>/show">  <?php echo $course->name;?> </a>
+	</h3>
+	<p class="text-jutify"> <?php echo $course->type;?> </p>
+	<a href = "/course/<?php echo $course->id ?>/edit" > editar </a>
+	<a href = "/course/<?php echo $course->id ?>/delete" > excluir </a>
+    </div>
+    </hr>
+	<?php endforeach; ?>
+	
+</div>
+
