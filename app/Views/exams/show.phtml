@@ -1,0 +1,89 @@
+<div class = "container">
+    <ul>
+        <li> Professor: <?php echo $this->view->exam->professor; ?>
+        <li> Semestre:
+            <?php
+                switch($this->view->exam->period){
+                    case 20111:
+                        echo "2011.1";
+                        break;
+                    case 20112:
+                        echo "2011.2";
+                        break;
+                    case 20121:
+                        echo "2012.1";
+                        break;
+                    case 20122:
+                        echo "2012.2";
+                        break;
+                    case 20131:
+                        echo "2013.1";
+                        break;
+                    case 20132:
+                        echo "2013.2";
+                        break;
+                    case 20141:
+                        echo "2014.1";
+                        break;
+                    case 20142:
+                        echo "2014.2";
+                        break;
+                    case 20151:
+                        echo "2015.1";
+                        break;
+                    case 20152:
+                        echo "2015.2";
+                        break;
+                    case 20161:
+                        echo "2016.1";
+                        break;
+                    case 20162:
+                        echo "2016.2";
+                        break;
+                    case 20171:
+                        echo "2017.1";
+                        break;
+                    case 20172:
+                        echo "2017.2";
+                        break;
+                }
+            ?>
+        </li>
+        <li>
+            <?php switch($this->view->exam->unit) {
+                case 1:
+                    echo "1ª Prova";
+                    break;
+                case 2:
+                    echo "2ª Prova";
+                    break;
+                case 3:
+                    echo "3ª Prova";
+                    break;
+                case 4:
+                    echo "4ª Prova";
+                    break;
+                case 5:
+                    echo "Segunda chamada da 1ª Prova";
+                    break;
+                case 6:
+                    echo "Segunda chamada da 2ª Prova";
+                    break;
+                case 7:
+                    echo "Segunda chamada da 3ª Prova";
+                    break;
+                case 8:
+                    echo "Segunda chamada da 4ª Prova";
+                    break;
+            } ?>
+        </li>
+        <li>Adicionado em
+            <?php
+                $data = explode('-', $this->view->exam->created_at);
+                $data = array_reverse($data);
+                $data = implode('-', $data);
+                echo ($data);
+            ?>
+        </li>
+    </ul>
+</div>
