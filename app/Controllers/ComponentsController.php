@@ -6,8 +6,6 @@ use Core\BaseController;
 use Core\Container;
 
 class ComponentsController extends BaseController {
-    private $component;
-
     public function __construct() {
         parent::__construct();
         $this->component = Container::getModel("Component");
@@ -29,15 +27,14 @@ class ComponentsController extends BaseController {
     }
 
     public function show($id) {
-        $this->setPageTitle("Components");
         $this->view->component = $this->component->readById($id);
-        $this->setPageTitle("Component - " . $this->view->component->name);
+        $this->setPageTitle("Component - {$this->view->component->name}");
         $this->renderView('components/show', 'layout');
     }
 
     public function edit($id) {
         $this->view->component = $this->component->readById($id);
-        $this->setPageTitle("Components - Edit");
+        $this->setPageTitle("Edit - {$this->view->component->name}");
         $this->renderView('components/edit', 'layout');
     }
     public function update($id, $request) {
