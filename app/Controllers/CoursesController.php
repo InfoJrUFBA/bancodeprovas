@@ -2,68 +2,51 @@
 namespace App\Controllers;
 
 use Core\BaseController;
-use Core\DataBase;
-use App\Models\Course;
 use Core\Container;
 
-class CoursesController extends BaseController 
-{
+class CoursesController extends BaseController {
 	
-	public function index ()
-	{
+	public function __construct() {
+		parent::__construct();
+		$this->course = Container::getModel("Course");
+	}
+
+	public function index () {
 		$this->setPageTitle("Courses");
-		$model = Container::getModel("Course");
-		$this->view->courses = $model->all();
+		$this->view->courses = $this->course->all();
 		$this->renderView('courses/index', 'layout');
 	
 	}
 
 	public function show($id) {
-		$model = Container::getModel("Course");
-		$this->view->course= $model->findById($id);
+		$this->view->course = $this->course->findById($id);
 		$this->setPageTitle("{$this->view->course->name}");
 		$this->renderView('courses/show', 'layout');
 	}
 
-	public function create() 
-	{
+	public function create() {
 		$this->setPageTitle('New Course');
 		$this->renderView('courses/create', 'layout');
 	}
 
-	public function store($request)
-	{
-		
-		$model = Container::getModel("Course");
-		$model->create($request->post->name, $request->post->type, 2);
-		$this->renderView('courses/index', 'layout');
-		
+	public function store($request) {
+		$this->course->create($request->post->name, $request->post->type, $request->post->areas_id);
+		header("Location: /courses");
 	}
 
-	public function edit($id)
-	{	
-		$model = Container::getModel("Course");
-		$this->view->course= $model->findById($id);
-		$this->setPageTitle("Edite Course - {$this->view->course->name}");
+	public function edit($id) {
+		$this->view->course = $this->course->findById($id);
+		$this->setPageTitle("Edit Course - {$this->view->course->name}");
 		$this->renderView('courses/edit', 'layout');
 	}
 
-	public function update($id, $request) 
-	{
-		$model = Container::getModel("Course");
-		$this->view->course=$model->update($id, $request->post->name, $request->post->type,2);
+	public function update($id, $request) {
+		$this->view->course = $this->course->update($id, $request->post->name, $request->post->type, $request->post->areas_id);
 		header("location:/course/{$id}/show");
 	}
 
-	public function delete ($id) 
-	{
-		$model = Container::getModel("Course");
-		$this->view->course=$model->delete($id);
-		$this->renderView('courses/index', 'layout');
+	public function delete ($id) {
+		$this->view->course = $this->course->delete($id);
+		header("Location: /courses");
 	}
-
-
-
-
 }
-
