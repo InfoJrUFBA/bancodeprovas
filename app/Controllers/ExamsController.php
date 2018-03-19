@@ -15,25 +15,26 @@
         public function index(){
             $this->setPageTitle('Provas');
             $this->view->exams = $this->exam->readAll();
-            $this->renderView('/exams/index.phtml', 'layout.phtml');
+            $this->renderView('exams/index', 'layout');
         }
 
         public function show($id){
             $this->view->exam = $this->exam->readSingle($id);
             $this->setPageTitle('Prova');
             if ($this->view->exam->id){
-                $this->renderView('/exams/show.phtml', 'layout.phtml');
-            }else{
-                $this->renderView('404.phtml');
+                $this->renderView('exams/show', 'layout');
+            } else {
+                $this->renderView('404');
             }
         }
 
         public function create(){
             $this->setPageTitle('Nova Prova');
-            $this->renderView('exams/create.phtml', 'layout.phtml');
+            $this->renderView('exams/create', 'layout');
         }
 
         public function store($request){
+            date_default_timezone_set("America/Bahia");
             $this->exam->createExam("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), 1, "{$request->post->unit}");
             header("location: /exams");
         }
@@ -41,7 +42,7 @@
         public function edit($id){
             $this->view->exam = $this->exam->readSingle($id);
             $this->setPageTitle('Edição de prova');
-            $this->renderView('exams/edit.phtml', 'layout.phtml');
+            $this->renderView('exams/edit', 'layout');
         }
 
         public function update($id, $request){
