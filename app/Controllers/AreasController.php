@@ -19,7 +19,7 @@ class AreasController extends BaseController {
 
     public function show($id) {
         $this->view->area = $this->area->findById($id);
-        $this->setPageTitle("Area - {$this->view->areas->name}");
+        $this->setPageTitle("Area - {$this->view->area->name}");
         $this->renderView('areas/show', 'layout');
     }
 
@@ -30,7 +30,7 @@ class AreasController extends BaseController {
 
     public function store($request) {
         $this->area->create($request->post->name);
-        header("location: /components");
+        header("location: /areas");
     }
 
     public function edit($id) {
