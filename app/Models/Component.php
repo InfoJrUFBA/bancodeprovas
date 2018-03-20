@@ -44,7 +44,6 @@ class Component
 		$query = "UPDATE {$this->table} SET name = '{$name}' WHERE id = {$id}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
-		$result = $stmt->fetch();
 		$stmt->CloseCursor();
 		return $result;
 	}

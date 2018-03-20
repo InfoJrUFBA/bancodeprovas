@@ -62,7 +62,7 @@
             $query = "SELECT * FROM {$this->table} WHERE id = $exam_id";
             $stmt = $this->pdo->prepare($query);
             $stmt->execute();
-            $result = $stmt->fetchAll();
+            $result = $stmt->fetch();
             $stmt->closeCursor();
             return $result;
         }
