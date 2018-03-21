@@ -36,4 +36,13 @@ $route[] = ['/area/{id}/edit', 'AreasController@edit'];
 $route[] = ['/area/{id}/update', 'AreasController@update'];
 $route[] = ['/area/{id}/delete', 'AreasController@delete'];
 
+$route[] = ['/users', 'UsersController@index'];
+$route[] = ['/user/{id}/show', 'UsersController@show'];
+$route[] = ['/user/create', 'UsersController@create'];
+$route[] = ['/user/store', 'UsersController@store'];
+$route[] = ['/user/{id}/edit', 'UsersController@edit'];
+$route[] = ['/user/{id}/update', 'UsersController@update'];
+$route[] = ['/user/{id}/delete', 'UsersController@delete'];
+
+
 return $route;

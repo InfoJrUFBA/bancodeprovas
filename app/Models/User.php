@@ -60,32 +60,29 @@ class User {
         return $result;
     }
 
-    public function create($name, $email, $password, $image, $birthdate, $level, $courses_id) { //criando usuário
-        $query = "INSERT INTO {$this->table}(id, name, email, password, image, score, birthdate, level, courses_id) VALUES (NULL, :name, :email, :password, :image, 0, :birthdate, :level, :courses_id)";
+    public function create($name, $email, $password, $image = NULL, $birthdate, $courses_id) { //criando usuário
+        $query = "INSERT INTO {$this->table} (name, email, password, image, birthdate, level, courses_id) VALUES (:name, :email, :password, :image, :birthdate, 1, :courses_id)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(":name", $name);
         $stmt->bindValue(":email", $email);
         $stmt->bindValue(":password", $password);
         $stmt->bindValue(":image", $image);
         $stmt->bindValue(":birthdate", $birthdate);
-        $stmt->bindValue(":level", $level);
         $stmt->bindValue(":courses_id", $courses_id);
         $result = $stmt->execute();
         $stmt->closeCursor();
         return $result;
     }
 
-    public function update($id, $name, $email, $password, $image, $score, $birthdate, $level, $courses_id) { //atualizando o usuário
-        $query = "UPDATE {$this->table} SET name=:name, email=:email, password=:password, image=:image, score=:score, birthdate=:birthdate, level=:level, courses_id=:courses_id WHERE id=:id";
+    public function update($id, $name, $email, $password, $image = NULL, $birthdate, $courses_id) { //atualizando o usuário
+        $query = "UPDATE {$this->table} SET name=:name, email=:email, password=:password, image=:image, birthdate=:birthdate WHERE id=:id AND courses_id=:courses_id";
         $stmt =$this->pdo->prepare($query);
         $stmt->bindValue(":id", $id);
         $stmt->bindValue(":name", $name);
         $stmt->bindValue(":email", $email);
         $stmt->bindValue(":password", $password);
         $stmt->bindValue(":image", $image);
-        $stmt->bindValue(":score", $score);
         $stmt->bindValue(":birthdate", $birthdate);
-        $stmt->bindValue(":level", $level);
         $stmt->bindValue(":courses_id", $courses_id);
         $result=$stmt->execute();
         $stmt->CloseCursor();
@@ -98,12 +95,12 @@ class User {
         $stmt->bindValue(":id",$id);
         $result = $stmt->execute();
         $stmt->closeCursor();
+        return $result;
 
         if ($result) {
             echo "Usuário excluído com sucesso";
         } else {
             echo "Não foi possível excluir o usuário";
         }
-        return $result;
     }
 }
