@@ -9,11 +9,13 @@
 		</div>
 		<div class ="form-group">
 			<label for = "title" > Type </label><br>
-			<input type ="number" name="type" class ="form-control" value=" <?php echo $this->view->course->type ?>" > 
+			<input type ="number" name="type" class ="form-control" value="<?php echo $this->view->course->type ?>" > 
+		</div> 
+		<div class ="form-group">
+			<label for = "title" > Area </label><br>
+			<input type ="number" name="areas_id" class ="form-control" value="<?php echo $this->view->course->areas_id ?>" > 
 		</div> 
 		<a href = "/courses" class ="btn btn-default"> Cancel </a> <br>
 		<button type = "submit" class = "btn btn-primary" > Save </button>
 	</form>
 </div>
-
-//colacar o value

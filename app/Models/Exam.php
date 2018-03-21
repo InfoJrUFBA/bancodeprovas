@@ -9,7 +9,7 @@
         protected $table = "exams";
         private $professor;
         private $period;
-        private $component_id;
+        private $components_id;
         private $created_at;
         private $unit;
         private $exam_id;
@@ -18,8 +18,8 @@
             $this->pdo = $pdo;
         }
 
-        public function createExam($professor, $period, $created_at, $component_id, $unit){
-            $query = "INSERT INTO {$this->table} VALUES (NULL, '{$professor}', '{$period}', '{$created_at}', '1', '{$component_id}', '{$unit}')";
+        public function createExam($professor, $period, $created_at, $components_id, $unit){
+            $query = "INSERT INTO {$this->table} VALUES (NULL, '{$professor}', '{$period}', '{$created_at}', '1', '{$components_id}', '{$unit}')";
             $stmt = $this->pdo->prepare($query);
             $result = $stmt->execute();
             $stmt->closeCursor();
@@ -50,8 +50,8 @@
             $stmt->closeCursor();
             return $result;
         }
-        public function readByComponent($component_id){
-            $query = "SELECT * FROM {$this->table} WHERE components_id = $component_id";
+        public function readByComponent($components_id){
+            $query = "SELECT * FROM {$this->table} WHERE components_id = $components_id";
             $stmt = $this->pdo->prepare($query);
             $stmt->execute();
             $result = $stmt->fetchAll();
@@ -67,8 +67,8 @@
             return $result;
         }
 
-        public function update($exam_id, $professor, $period, $component_id, $unit){
-            $query = "UPDATE {$this->table} SET professor = '{$professor}', period = '{$period}', components_id = '{$component_id}', unit = '{$unit}' WHERE id = $exam_id";
+        public function update($exam_id, $professor, $period, $components_id, $unit){
+            $query = "UPDATE {$this->table} SET professor = '{$professor}', period = '{$period}', components_id = '{$components_id}', unit = '{$unit}' WHERE id = $exam_id";
             $stmt = $this->pdo->prepare($query);
             $result = $stmt->execute();
             $stmt->closeCursor();
