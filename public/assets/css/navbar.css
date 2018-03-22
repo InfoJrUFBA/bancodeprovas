@@ -6,7 +6,7 @@
     -webkit-align-items: center;
     margin: 0 20px;
 }
-.nav-title h1 {
+h1 {
     font-family: "Comfortaa", 'Segoe UI', sans-serif;
     color: rgb(241, 240, 255);
 }
@@ -28,12 +28,13 @@ nav ul {
     list-style: none;
     float: right;
     display: flex;
+    display: -webkit-flex;
     margin: 12px 0;
     padding: 0;
     align-items: center;
     -webkit-align-items: center;
 }
-nav ul#topmenu, #check {
+#topmenu, #check {
     display: none;
 }
 
@@ -77,10 +78,10 @@ li > input {
     nav, nav ul {
         float: none;
     }
-    nav ul#menu {
+    nav #menu {
         display: none;
     }
-    nav ul#topmenu{
+    nav #topmenu{
         display: list-item;
     }
     nav li {

@@ -1,9 +1,3 @@
-<header>
-    <h1 class="h1">
-        <?php echo $this->getPageTitle(); ?>
-    </h1>
-</header>
-
 <section class="info">
     <h3>Sobre</h3>
     <div class="box">
@@ -51,10 +45,7 @@
             </li>
             <li>Adicionado em
                 <?php
-                $data = explode('-', $exam->created_at);
-                $data = array_reverse($data);
-                $data = implode('-', $data);
-                echo ($data);
+                echo date('d-m-Y', strtotime($exam->created_at));
                 ?>
             </li>
         </ul>

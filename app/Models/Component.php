@@ -8,15 +8,15 @@ class Component
 	private $pdo;
 	protected $table = "components";
 	private $id;
+	private $code;
 	private $name;
-
 
 	public function __construct(PDO $pdo) {
 		$this->pdo = $pdo;
 	}
 
-	public function create($name) {
-		$query = "INSERT INTO {$this->table} (name) VALUES ('{$name}')";
+	public function create($code, $name) {
+		$query = "INSERT INTO {$this->table} (code, name) VALUES ('{$code}', '{$name}')";
 		$stmt = $this->pdo->prepare($query);
 		$result = $stmt->execute();
 		$stmt->CloseCursor();
@@ -40,10 +40,10 @@ class Component
 		return $result;
 	}
 	
-	public function update($id, $name) {
-		$query = "UPDATE {$this->table} SET name = '{$name}' WHERE id = {$id}";
+	public function update($id, $code, $name) {
+		$query = "UPDATE {$this->table} SET code='{$code}', name='{$name}' WHERE id = {$id}";
 		$stmt = $this->pdo->prepare($query);
-		$stmt->execute();
+		$result = $stmt->execute();
 		$stmt->CloseCursor();
 		return $result;
 	}
