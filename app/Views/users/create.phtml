@@ -1,18 +1,10 @@
 <div class="container">
-    <h1 class="h1"><?php $this->getPageTitle() ?></h1>
+    <h1 class="h1"><?php echo $this->getPageTitle() ?></h1>
 
     <form action="/user/store" method= "post" accept-charset="utf-8">
       <div class="form-group">
         <label for="name">Nome</label>
         <input type="text" name="name" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" name="password" class="form-control">
       </div>
       <div class="form-group">
         <label for="image">Image</label>
@@ -25,6 +17,18 @@
       <div class="form-group">
         <label for="courses_id">Número do Curso</label>
         <input type="number" name="courses_id" class="form-control">
+      </div>
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" class="form-control">
+      </div>
+      <div class="form-group">
+          <label for="password">Password (mínimo 5 caracteres, máximo 10)</label>
+          <input type="password" name="password" class="form-control" pattern=".{5,}" maxlength="10">
+      </div>
+      <div class="form-group">
+          <label for="password">Password(confirmação)</label>
+          <input type="password" name="password_confirmation" class="form-control" pattern=".{5,}" maxlength="10">
       </div>
       <a href="/users" class="btn btn-default">Cancel</a>
       <button type="submit" class="btn btn-primary">Save</button>

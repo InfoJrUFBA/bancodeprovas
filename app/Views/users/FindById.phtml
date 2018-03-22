@@ -7,7 +7,7 @@
         <ul>
             <li>Nome: <?php echo $this->view->users->name; ?> </li>
             <li>Email: <?php echo $this->view->users->email; ?> </li>
-            <li>Data de Nascimento: <?php echo $this->view->users->birthdate; ?> </li>
+            <li>Data de Nascimento: <?php echo date('d-m-Y', strtotime($this->view->users->birthdate)); ?> </li>
             <li>Score: <?php echo $this->view->users->score; ?> </li>
             <li>ID do Curso: <?php echo $this->view->users->courses_id; ?>
         </ul>
