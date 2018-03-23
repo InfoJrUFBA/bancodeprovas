@@ -42,10 +42,13 @@
 
         public function store($request){
           if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$request->post->password}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
-            $this->renderView('/users/index', 'layout');
+            header("Location: /users");
             Email::send("{$request->post->name}","{$request->post->email}");
             //PARA AÍ 
+          }else {
+            echo "Não foi possivel criar usuário!";
           }
+
         }
         public function edit($id){
           $this->view->user = $this->user->findById($id);
