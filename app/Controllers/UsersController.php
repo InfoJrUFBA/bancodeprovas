@@ -42,11 +42,9 @@
 
         public function store($request){
           if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$request->post->password}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
+            $this->renderView('/users/index', 'layout');
             Email::send("{$request->post->name}","{$request->post->email}");
-            Redirect::route("/users");
-
-          }else{
-            echo "Não foi possivel criar usuário!";
+            //PARA AÍ 
           }
         }
         public function edit($id){

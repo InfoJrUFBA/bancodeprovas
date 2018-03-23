@@ -4,6 +4,7 @@ namespace Core;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+
 include '../vendor/autoload.php';
 
 
@@ -17,7 +18,7 @@ class Email{
         $mail = new PHPMailer(true);                              
         try {
            
-            $mail->SMTPDebug = 2;                                 
+            $mail->SMTPDebug = 0;                                 
             $mail->isSMTP();                                      
             $mail->Host = 'smtp.gmail.com.';  
             $mail->SMTPAuth = true;                               
@@ -36,7 +37,7 @@ class Email{
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             $mail->send();
-            echo 'Message has been sent';
+            //echo 'Message has been sent'; 
         } catch (Exception $e) {
             echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
