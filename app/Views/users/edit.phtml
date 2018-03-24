@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="h1"><?php $this->getPageTitle() ?></h1>
+    <h1 class="h1"><?php echo $this->getPageTitle() ?></h1>
 
     <form action="/user/<?php echo $this->view->user->id ?>/update" method= "post" accept-charset="utf-8">
       <div class="form-group">

@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use Core\BaseController;
 use Core\Container;
+use Core\Redirect;
 
 class AreasController extends BaseController {
     public function __construct() {
@@ -30,7 +31,7 @@ class AreasController extends BaseController {
 
     public function store($request) {
         $this->area->create($request->post->name);
-        header("location: /areas");
+        Redirect::route("/areas");
     }
 
     public function edit($id) {
@@ -41,11 +42,11 @@ class AreasController extends BaseController {
 
     public function update($id, $request) {
         $this->area->update($id, $request->post->name);
-        header("location:/area/{$id}/show");
+        Redirect::route("/area/{$id}/show");
     }
 
     public function delete ($id) {
         $this->area->delete($id);
-        header("location: /areas");
+        Redirect::route("/areas");
     }
 }
