@@ -53,7 +53,7 @@
         public function edit($id){
           $this->view->user = $this->user->findById($id);
           $this->setPageTitle('Edit user - ' . $this->view->user->name);
-          $this->renderView('users/edit.' , 'layout');
+          $this->renderView('users/edit' , 'layout');
         }
 
         public function update($id, $request){
