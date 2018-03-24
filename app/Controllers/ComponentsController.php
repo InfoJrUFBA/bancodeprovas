@@ -13,7 +13,7 @@ class ComponentsController extends BaseController {
 
     public function index() {
         $this->setPageTitle("Components");
-        $this->view->components = $this->component->readAll();
+        $this->view->components = $this->component->all();
         $this->renderView('components/index', 'layout');
     }
 
@@ -23,7 +23,7 @@ class ComponentsController extends BaseController {
     }
     public function store($request) {
         $this->component->create($request->post->code, $request->post->name);
-        header("location: /components");
+        Redirect::route("/components");
     }
 
     public function show($id) {
@@ -39,11 +39,11 @@ class ComponentsController extends BaseController {
     }
     public function update($id, $request) {
         $this->component->update($id, $request->post->code, $request->post->name);
-        header("location: /component/{$id}/show");
+        Redirect::("/component/{$id}/show");
     }
 
     public function delete($id) {
         $this->component->delete($id);
-        header("location: /components");
+        Redirect::("/components");
     }
 }

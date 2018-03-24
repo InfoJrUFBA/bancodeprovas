@@ -23,8 +23,17 @@
         <input type="date" name="birthdate" class="form-control" value="<?php echo $this->view->user->birthdate ?>">
       </div>
       <div class="form-group">
-        <label for="courses_id">Número do Curso</label>
-        <input type="number" name="courses_id" class="form-control" value="<?php echo $this->view->user->courses_id ?>">
+          <label for="courses_id">Curso</label> <br>
+          <?php
+          foreach($this->obj as $course){
+              echo "<input type='radio' name='courses_id' value=" .  $course->id;
+              if($this->view->user->courses_id == $course->id){
+                  echo " checked ";
+              }
+              echo ">";
+              echo $course->name . "<br>";
+          }
+          ?>
       </div>
       <a href="/users" class="btn btn-default">Cancel</a>
       <button type="submit" class="btn btn-primary">Save</button>
