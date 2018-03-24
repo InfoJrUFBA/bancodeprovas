@@ -28,7 +28,9 @@
         </div>
         <div class="form-group">
             <label for= "components_id">Componente Curricular</label> <br>
-            <input type="radio" name="components_id" value="1"> Cálculo <br>
+            <?php foreach($this->obj as $component):?>
+                <input type="radio" name="components_id" value=" <?php echo $component->id; ?>"> <?php echo $component->code . " - " . $component->name ?> <br>
+            <?php endforeach; ?>
         </div>
         <div class="form-group">
             <label for="unit">Unidade</label> <br>

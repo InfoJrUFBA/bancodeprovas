@@ -8,6 +8,7 @@
     use Core\Container;
     use Core\Redirect;
     use Core\Email;
+
     class UsersController extends BaseController
     {
         private $user;
@@ -26,6 +27,11 @@
             $this->user = Container::getModel("User");
         }
 
+        public function getCourses(){
+            $obj = new CoursesController;
+            $this->obj = $obj->course->all();
+        }
+
         public function index(){
             $this->setPageTitle('Users');
             $this->view->users = $this->user->all();
@@ -39,26 +45,28 @@
         }
 
         public function create(){
+            $this->getCourses();
             $this->setPageTitle('Novo Usuário');
             $this->renderView('/users/create', 'layout');
         }
 
         public function store($request){
             if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
-               header("Location: /users");
-                Email::send("{$request->post->name}","{$request->post->email}"); 
+                Redirect::route("/users");
+                Email::send("{$request->post->name}","{$request->post->email}");
             }else {
             echo "Não foi possivel criar usuário!";
             }
         }
         public function edit($id){
+            $this->getCourses();
             $this->view->user = $this->user->findById($id);
             $this->setPageTitle('Edit user - ' . $this->view->user->name);
             $this->renderView('users/edit' , 'layout');
         }
 
         public function update($id, $request){
-            if($this->user->update("$id", "{$request->post->name}", "{$request->post->email}", "{$request->post->password}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
+            if($this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$request->post->password}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
                 Redirect::route("/users");
             }else{
                 echo "Não foi possivel atualizar usuário!";
