@@ -2,10 +2,12 @@
 
     namespace App\Controllers;
 
+    include "../vendor/autoload.php";
+
     use Core\BaseController;
     use Core\Container;
     use Core\Redirect;
-
+    use Core\Email;
     class UsersController extends BaseController
     {
         private $user;
@@ -43,9 +45,10 @@
 
         public function store($request){
             if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
-                Redirect::route("/users");
-            }else{
-                echo "Não foi possivel criar usuário!";
+               header("Location: /users");
+                Email::send("{$request->post->name}","{$request->post->email}"); 
+            }else {
+            echo "Não foi possivel criar usuário!";
             }
         }
         public function edit($id){
