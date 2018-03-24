@@ -23,7 +23,7 @@ class Component
 		return $result;
 	}
 
-	public function readAll() {
+	public function all() {
 		$query = "SELECT * FROM {$this->table}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
