@@ -63,6 +63,14 @@
             }
         }
 
+        public function dataInsertionVerify($request){
+            if( !empty($request->post->name) && !empty($request->post->email) && !empty($request->post->birthdate) && !empty($request->post->courses_id) && !empty($request->post->password) && !empty($request->post->password_confirmation) ){
+                return true;
+            }else {
+                return false;
+            }
+        }
+
         public function index(){
             if(Session::get('success')){
                 $this->view->success = Session::get('success');
@@ -94,30 +102,34 @@
         }
 
         public function store($request){
-
-            if ($this->newEmailVerify($request)) {
-                if ($request->post->password == $request->post->password_confirmation) {
-                    if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
-                        return Redirect::route("/users", [
-                            'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
-                        ]);
-                        Email::send("{$request->post->name}","{$request->post->email}");
+            if ($this->dataInsertionVerify($request)){
+                if ($this->newEmailVerify($request)) {
+                    if ($request->post->password == $request->post->password_confirmation) {
+                        if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
+                            return Redirect::route("/users", [
+                                'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
+                            ]);
+                            Email::send("{$request->post->name}","{$request->post->email}");
+                        }else {
+                            return Redirect::route("/users", [
+                                'errors' => ['Erro ao criar novo usuário.']
+                            ]);
+                        }
                     }else {
-                        return Redirect::route("/users", [
-                            'errors' => ['Erro ao criar novo usuário.']
+                        return Redirect::route("/user/create", [
+                            'errors' => ['Senhas inseridas apresentam discordância.']
                         ]);
                     }
                 }else {
                     return Redirect::route("/user/create", [
-                        'errors' => ['Senhas inseridas apresentam discordância.']
+                        'errors' => ['Email já cadastrado, por favor insira outro email válido.']
                     ]);
                 }
-            }else {
+            }else{
                 return Redirect::route("/user/create", [
-                    'errors' => ['Email já cadastrado, por favor insira outro email válido.']
+                    'errors' => ['Há campos vazios.']
                 ]);
             }
-
         }
         public function edit($id){
             if(Session::get('errors')){
