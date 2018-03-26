@@ -1,2 +1,5 @@
 # Para ignorar o arquivo local 'bancodeprovas.bat'
 /bancodeprovas.bat
+
+# Ignorar a pasta Vendor
+/vendor/
