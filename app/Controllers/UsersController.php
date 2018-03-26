@@ -7,7 +7,9 @@
     use Core\BaseController;
     use Core\Container;
     use Core\Redirect;
+    use Core\Session;
     use Core\Email;
+    use Core\Validator;
 
     class UsersController extends BaseController
     {
@@ -17,8 +19,8 @@
             return date('Y-m-d',strtotime($request->post->birthdate));
         }
 
-        public function passwordHash($request){
-            $hashedPswd = password_hash($request->post->password, PASSWORD_DEFAULT);
+        public function passwordHash($pswd){
+            $hashedPswd = password_hash($pswd, PASSWORD_DEFAULT);
             return $hashedPswd;
         }
 
@@ -32,52 +34,177 @@
             $this->obj = $obj->course->all();
         }
 
+        public function updateVerify($id, $request){
+            $this->info = $this->user->findById($id);
+            if( !($request->post->name == $this->info->name) || !($request->post->email == $this->info->email) || !($request->post->image == $this->info->image) || !($this->dateConvert($request) == $this->info->birthdate) || !($request->post->courses_id == $this->info->courses_id)){
+                return true;
+            }else {
+                return false;
+            }
+        }
+
+        public function newEmailVerify($request, $id=null){
+            $this->information = $this->user->all();
+            $newEmail = 1;
+
+            foreach ($this->information as $allUsers) {
+                if( $allUsers->id == $id ){
+                    continue;
+                }
+                if($allUsers->email == $request->post->email){
+                    $newEmail = 0;
+                }
+            }
+
+            if($newEmail){
+                return true;
+            }else {
+                return false;
+            }
+        }
+
         public function index(){
+            if(Session::get('success')){
+                $this->view->success = Session::get('success');
+                Session::destroy('success');
+            }
+            if(Session::get('errors')){
+                $this->view->errors = Session::get('errors');
+                Session::destroy('errors');
+            }
             $this->setPageTitle('Users');
             $this->view->users = $this->user->all();
-            $this->renderView('/users/index', 'layout');
+            return $this->renderView('/users/index', 'layout');
         }
 
         public function show($id){
             $this->view->users = $this->user->findById($id);
             $this->setPageTitle("{$this->view->users->name}");
-            $this->renderView('/users/FindById', 'layout');
+            return $this->renderView('/users/FindById', 'layout');
         }
 
         public function create(){
+            if(Session::get('errors')){
+                $this->view->errors = Session::get('errors');
+                Session::destroy('errors');
+            }
             $this->getCourses();
             $this->setPageTitle('Novo Usuário');
-            $this->renderView('/users/create', 'layout');
+            return $this->renderView('/users/create', 'layout');
         }
 
         public function store($request){
-            if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
-                Redirect::route("/users");
-                Email::send("{$request->post->name}","{$request->post->email}");
+
+            if ($this->newEmailVerify($request)) {
+                if ($request->post->password == $request->post->password_confirmation) {
+                    if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
+                        return Redirect::route("/users", [
+                            'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
+                        ]);
+                        Email::send("{$request->post->name}","{$request->post->email}");
+                    }else {
+                        return Redirect::route("/users", [
+                            'errors' => ['Erro ao criar novo usuário.']
+                        ]);
+                    }
+                }else {
+                    return Redirect::route("/user/create", [
+                        'errors' => ['Senhas inseridas apresentam discordância.']
+                    ]);
+                }
             }else {
-            echo "Não foi possivel criar usuário!";
+                return Redirect::route("/user/create", [
+                    'errors' => ['Email já cadastrado, por favor insira outro email válido.']
+                ]);
             }
+
         }
         public function edit($id){
+            if(Session::get('errors')){
+                $this->view->errors = Session::get('errors');
+                Session::destroy('errors');
+            }
             $this->getCourses();
             $this->view->user = $this->user->findById($id);
             $this->setPageTitle('Edit user - ' . $this->view->user->name);
-            $this->renderView('users/edit' , 'layout');
+            return $this->renderView('users/edit' , 'layout');
         }
 
         public function update($id, $request){
-            if($this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$request->post->password}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
-                Redirect::route("/users");
-            }else{
-                echo "Não foi possivel atualizar usuário!";
+
+            $data = [
+                'name' => $request->post->name,
+                'email' => $request->post->email,
+                'password' => $request->post->password,
+                'image' => $request->post->image,
+                'birthdate' => $this->dateConvert($request),
+                'courses_id' => $request->post->courses_id
+            ];
+            $rules = [
+                'name' => 'required',
+                'email' => 'email',
+                'password' => 'required',
+                'image' => '',
+                'birthdate' => 'required',
+                'courses_id' => 'required'
+            ];
+            $validator = Validator::make($data, $rules);
+            if($validator){
+                return Redirect::route("/users");
+            }
+
+            $this->info = $this->user->findById($id);
+
+            if( password_verify ($request->post->password, $this->info->password) ){
+                if($this->newEmailVerify($request, $id)){
+                    if( isset($request->post->new_password) ){
+                        if($request->post->new_password == $request->post->new_password_confirmation){
+                            if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->new_password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                return Redirect::route("/user/{$id}/show", [
+                                    'success' => ['Informações atualizadas com sucesso.']
+                                ]);
+                            }else {
+                                return Redirect::route("/users", [
+                                    'errors' => ['Erro ao alterar usuário.']
+                                ]);
+                            }
+                        }else {
+                            return Redirect::route("/users", [
+                                'errors' => ['Senhas inseridas discordantes.']
+                            ]);
+                        }
+                    }else{
+                        if($this->updateVerify($id,$request)){
+                            if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                return Redirect::route("/user/{$id}/show", [
+                                    'success' => ['Informações atualizadas com sucesso.']
+                                ]);
+                            }else{
+                                return Redirect::route("/users", [
+                                    'errors' => ['Erro ao alterar usuário.']
+                                ]);
+                            }
+                        }
+                    }
+                }else {
+                    return Redirect::route("/user/create", [
+                        'errors' => ['Email já cadastrado, por favor insira outro email válido.']
+                    ]);
+                }
+            }else {
+                return Redirect::route("/users", [
+                    'errors' => ['Senha incorreta.']
+                ]);
             }
         }
 
         public function delete($id){
             if($this->user->delete($id)){
-                Redirect::route('/users');
+                return Redirect::route('/users');
             }else{
-                echo "Erro ao excluir usuário!";
+                return Redirect::route("/users", [
+                    'errors' => ['Erro ao excluir usuário.']
+                ]);
             }
         }
   }
