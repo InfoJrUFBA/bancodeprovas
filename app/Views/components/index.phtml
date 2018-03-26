@@ -6,7 +6,10 @@
 </section>
 <section>
     ID | Código | Disciplina
-    <?php foreach ($this->view->components as $component): ?>
+    <?php
+    var_dump($this->view->success);
+    var_dump($this->view->errors);
+    foreach ($this->view->components as $component): ?>
     <div class="row">
         <a href="/component/<?php echo $component->id;?>/show">
             <?php echo "{$component->id}  | {$component->code} | {$component->name}"; ?>
