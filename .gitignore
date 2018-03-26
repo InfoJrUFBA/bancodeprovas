@@ -3,3 +3,5 @@
 
 # Ignorar a pasta Vendor
 /vendor/
+vendor/
+/vendor
