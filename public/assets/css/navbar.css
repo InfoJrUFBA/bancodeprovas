@@ -48,39 +48,39 @@ nav ul {
     width: 20px;
 }
 
-nav li {
+#menu li {
     float: left;
     padding: 0;
 }
-li a {
+nav a {
     display: block;
     padding : 5px 16px;
     text-decoration: none;
     color: whitesmoke;
 }
-nav li:not(.search) {
+#menu li {
     border: solid rgb(192, 191, 231) 1px;
     border-radius: 5px;
     padding : 0;
     margin: 0 10px;
 }
-nav li:hover:not(.search) {
+#menu li:hover {
     border: solid rgb(220, 219, 233) 1px;
 }
-li a:hover {
+#menu a:hover {
     text-decoration: underline;
 }
 
 @media (max-width: 900px) {
     header {
         display: block;
-        height: 100%;
         padding-bottom: 10px;
+        height: 100%;
     }
     .nav-title h1 {
         margin: 15px auto;
     }
-    nav, #menu, #btn-menu {
+    .nav-title, nav, #menu, #btn-menu {
         float: none;
     }
     nav #menu {
