@@ -4,6 +4,7 @@ namespace App\Controllers;
 use Core\BaseController;
 use Core\Container;
 use Core\Redirect;
+use Core\Session;
 
 class AreasController extends BaseController {
     public function __construct() {
@@ -12,41 +13,67 @@ class AreasController extends BaseController {
     }
 
     public function index () {
+        if(Session::get('success')){
+            $this->view->success = Session::get('success');
+            Session::destroy('success');
+        }
+        if(Session::get('errors')){
+            $this->view->errors = Session::get('errors');
+            Session::destroy('errors');
+        }
         $this->setPageTitle("Areas");
         $this->view->areas = $this->area->all();
-        $this->renderView('areas/index', 'layout');
-    
+        return $this->renderView('areas/index', 'layout');
     }
 
     public function show($id) {
         $this->view->area = $this->area->findById($id);
         $this->setPageTitle("Area - {$this->view->area->name}");
-        $this->renderView('areas/show', 'layout');
+        return $this->renderView('areas/show', 'layout');
     }
 
     public function create() {
         $this->setPageTitle('New Area');
-        $this->renderView('areas/create', 'layout');
+        return $this->renderView('areas/create', 'layout');
     }
 
     public function store($request) {
-        $this->area->create($request->post->name);
-        Redirect::route("/areas");
+        if($this->area->create($request->post->name)){
+            return Redirect::route("/areas", [
+                'success' => ['Sucesso em acrescentar área']
+            ]);
+        }else {
+            return Redirect::route("/areas", [
+                'errors' => ['Erro ao inserir nova área no banco de dados.']
+            ]);
+        }
     }
 
     public function edit($id) {
         $this->view->area = $this->area->findById($id);
         $this->setPageTitle("Edite Area - {$this->view->area->name}");
-        $this->renderView('areas/edit', 'layout');
+        return $this->renderView('areas/edit', 'layout');
     }
 
     public function update($id, $request) {
-        $this->area->update($id, $request->post->name);
-        Redirect::route("/area/{$id}/show");
+        if($this->area->update($id, $request->post->name)){
+            return Redirect::route("/area/{$id}/show", [
+                'success' => ['Área atualizada com sucesso.']
+            ]);
+        }else {
+            return Redirect::route("/areas", [
+                'errors' => ['Erro ao atualizar.']
+            ]);
+        }
     }
 
-    public function delete ($id) {
-        $this->area->delete($id);
-        Redirect::route("/areas");
+    public function delete($id) {
+        if($this->area->delete($id)){
+            return Redirect::route("/areas");
+        }else {
+            return Redirect::route("/areas", [
+                'errors' => ['Erro ao excluir.']
+            ]);
+        }
     }
 }
