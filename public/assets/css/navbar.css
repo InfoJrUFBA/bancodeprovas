@@ -1,7 +1,5 @@
 .nav-title {
     height: inherit;
-    display: flex;
-    display: -webkit-flex;
     align-items: center;
     -webkit-align-items: center;
     margin-left: 10px;
@@ -48,10 +46,6 @@ nav ul {
     width: 20px;
 }
 
-#menu li {
-    float: left;
-    padding: 0;
-}
 nav a {
     display: block;
     padding : 5px 16px;
@@ -59,19 +53,23 @@ nav a {
     color: whitesmoke;
 }
 #menu li {
+    float: left;
+    padding: 0;
+}
+li:not(.search) {
     border: solid rgb(192, 191, 231) 1px;
     border-radius: 5px;
     padding : 0;
     margin: 0 10px;
 }
-#menu li:hover {
+#menu li:hover:not(.search) {
     border: solid rgb(220, 219, 233) 1px;
 }
 #menu a:hover {
     text-decoration: underline;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     header {
         display: block;
         padding-bottom: 10px;
@@ -91,14 +89,17 @@ nav a {
     }
     nav li {
         text-align: center;
+        float: none;
     }
     nav li:not(.search) {
         text-align: center;
-        margin: 5px 0;
         border-radius: 0;
     }
 
     #check:checked ~ #menu {
-        display: list-item;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: center;
+        margin-top: 10px;
     }
 }
