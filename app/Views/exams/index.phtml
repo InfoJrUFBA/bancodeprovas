@@ -4,6 +4,10 @@
         <p>Página de provas</p>
     </div>
 </section>
+<?php  if($this->auth->check()) : ?>
+     <li > <?php echo $this->auth->name() ?> </li>
+    <?php else : ?>
+     <?php endif; ?>
 
 <div class = "container">
     <a href ="/exam/create" class "btn btn-primary pull-right">

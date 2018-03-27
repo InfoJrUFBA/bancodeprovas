@@ -1,3 +1,7 @@
 <section id="">
+<?php  if($this->auth->check()) : ?>
+     <li > <?php echo $this->auth->name() ?> </li>
+    <?php else : ?>
+     <?php endif; ?>
 
 </section>

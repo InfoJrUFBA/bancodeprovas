@@ -5,6 +5,10 @@
     <a href="/component/create"><h3>Create Component</h3></a>
 </section>
 <section>
+    <?php  if($this->auth->check()) : ?>
+     <li > <?php echo $this->auth->name() ?> </li>
+    <?php else : ?>
+     <?php endif; ?>
     ID | Código | Disciplina
     <?php
     var_dump($this->view->success);
