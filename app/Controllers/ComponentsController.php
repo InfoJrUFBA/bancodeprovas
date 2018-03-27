@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use Core\BaseController;
 use Core\Container;
+use Core\Redirect;
+use Core\Session;
 
 class ComponentsController extends BaseController {
     public function __construct() {
@@ -12,38 +14,63 @@ class ComponentsController extends BaseController {
     }
 
     public function index() {
+        if(Session::get('success')){
+            $this->view->success = Session::get('success');
+            Session::destroy('success');
+        }
+        if (Session::get('errors')) {
+            $this->view->errors = Session::get('errors');
+            Session::destroy('errors');
+        }
         $this->setPageTitle("Components");
-        $this->view->components = $this->component->readAll();
-        $this->renderView('components/index', 'layout');
+        $this->view->components = $this->component->all();
+        return $this->renderView('components/index', 'layout');
     }
 
     public function create() {
         $this->setPageTitle("Components - Create");
-        $this->renderView('components/create', 'layout');
+        return $this->renderView('components/create', 'layout');
     }
     public function store($request) {
-        $this->component->create($request->post->code, $request->post->name);
-        header("location: /components");
+        if($this->component->create($request->post->code, $request->post->name)){
+            return Redirect::route("/components");
+        } else {
+            return Redirect::route("/components", [
+                'errors' => ['Erro ao inserir disciplina no banco de dados.']
+            ]);
+        }
     }
 
     public function show($id) {
         $this->view->component = $this->component->readById($id);
         $this->setPageTitle("Component - {$this->view->component->name}");
-        $this->renderView('components/show', 'layout');
+        return $this->renderView('components/show', 'layout');
     }
 
     public function edit($id) {
         $this->view->component = $this->component->readById($id);
         $this->setPageTitle("Edit - {$this->view->component->name}");
-        $this->renderView('components/edit', 'layout');
+        return $this->renderView('components/edit', 'layout');
     }
     public function update($id, $request) {
-        $this->component->update($id, $request->post->code, $request->post->name);
-        header("location: /component/{$id}/show");
+        if($this->component->update($id, $request->post->code, $request->post->name)){
+            return Redirect::route("/component/{$id}/show", [
+                'success' => ['Disciplina atualizada com sucesso.']
+            ]);
+        }else {
+            return Redirect::route("/components", [
+                'errors' => ['Falha ao atualizar disciplina.']
+            ]);
+        }
     }
 
     public function delete($id) {
-        $this->component->delete($id);
-        header("location: /components");
+        if($this->component->delete($id)){
+            return Redirect::route("/components");
+        }else {
+            return Redirect::route("/components", [
+                'errors' => ['Falha ao deletar disciplina.']
+            ]);
+        }
     }
 }

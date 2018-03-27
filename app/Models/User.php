@@ -75,7 +75,7 @@ class User {
     }
 
     public function update($id, $name, $email, $password, $image = NULL, $birthdate, $courses_id) { //atualizando o usuário
-        $query = "UPDATE {$this->table} SET name=:name, email=:email, password=:password, image=:image, birthdate=:birthdate WHERE id=:id AND courses_id=:courses_id";
+        $query = "UPDATE {$this->table} SET name=:name, email=:email, password=:password, image=:image, birthdate=:birthdate, courses_id=:courses_id WHERE id=:id";
         $stmt =$this->pdo->prepare($query);
         $stmt->bindValue(":id", $id);
         $stmt->bindValue(":name", $name);
