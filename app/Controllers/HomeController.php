@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use Core\BaseController;
+use Core\Session;
+
 
 class HomeController extends BaseController {
 
