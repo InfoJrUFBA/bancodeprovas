@@ -60,6 +60,16 @@ class Course
 		return $result;
 	}
 
+	public function findByArea($areas_id) {
+		$query = "SELECT {$this->table}.name, {$this->table}.type, areas.name AS area FROM {$this->table} JOIN areas ON courses.areas_id = areas.id WHERE areas_id=:areas_id";
+		$stmt = $this->pdo->prepare($query);
+		$stmt->bindValue(":areas_id",$areas_id);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		$stmt->CloseCursor();
+		return $result;
+	}
+
 	public function update($id, $name, $type, $areas_id) //atualizando cursos
 	{
 		$query = "UPDATE {$this->table} SET name=:name, type=:type, areas_id=:areas_id WHERE id=:id";
