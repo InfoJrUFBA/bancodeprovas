@@ -33,6 +33,9 @@ nav ul {
 #btn-menu, #check {
     display: none;
 }
+#btn-menu a {
+    text-align: center;
+}
 
 .search {
     display: flex;
