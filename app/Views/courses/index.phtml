@@ -4,6 +4,11 @@
 			<a href = "/course/create" class="btn btn-primary pull-right"> Adicione o curso </a>
 		</h1>
 	</div>
+	<?php  if($this->auth->check()) : ?>
+     <li > <?php echo $this->auth->name() ?> </li>
+    <?php else : ?>
+     <?php endif; ?>
+	
 	<?php
 	var_dump($this->view->success);
     var_dump($this->view->errors);

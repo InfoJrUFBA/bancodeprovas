@@ -103,4 +103,13 @@ class User {
             echo "Não foi possível excluir o usuário";
         }
     }
+    public function where($email) { 
+        $query = "SELECT id, name, email, password, level FROM {$this->table} WHERE email=:email";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(":email", $email);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        $stmt->closeCursor();
+        return $result;
+    }
 }

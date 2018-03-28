@@ -7,9 +7,11 @@ abstract class BaseController {
     private $viewPath;
     private $layoutPath;
     private $pageTitle;
+    protected $auth;
 
     public function __construct() {
         $this->view = new \stdClass;
+        $this->auth = new Auth;
     }
 
     protected function renderView($viewPath, $layoutPath = null) {

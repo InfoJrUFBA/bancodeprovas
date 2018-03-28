@@ -21,6 +21,9 @@ class AreasController extends BaseController {
             $this->view->errors = Session::get('errors');
             Session::destroy('errors');
         }
+        if(Session::get('login')){
+                $this->view->login=Session::get('login');
+            }
         $this->setPageTitle("Areas");
         $this->view->areas = $this->area->all();
         return $this->renderView('areas/index', 'layout');
@@ -75,5 +78,9 @@ class AreasController extends BaseController {
                 'errors' => ['Erro ao excluir.']
             ]);
         }
+    }
+     public function forbiden()
+    {
+        return Redirect::route('/');
     }
 }

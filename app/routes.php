@@ -1,16 +1,14 @@
 <?php
 
 $route[] = ['/', 'HomeController@index'];
-$route[] = ['/posts', 'PostsController@index'];
-$route[] = ['/post/{id}/show', 'PostsController@show'];
 
 $route[] = ['/components', 'ComponentsController@index'];
-$route[] = ['/component/create', 'ComponentsController@create'];
-$route[] = ['/component/store', 'ComponentsController@store'];
+$route[] = ['/component/create', 'ComponentsController@create','auth'];
+$route[] = ['/component/store', 'ComponentsController@store','auth'];
 $route[] = ['/component/{id}/show', 'ComponentsController@show'];
-$route[] = ['/component/{id}/edit', 'ComponentsController@edit'];
-$route[] = ['/component/{id}/update', 'ComponentsController@update'];
-$route[] = ['/component/{id}/delete', 'ComponentsController@delete'];
+$route[] = ['/component/{id}/edit', 'ComponentsController@edit','auth'];
+$route[] = ['/component/{id}/update', 'ComponentsController@update','auth'];
+$route[] = ['/component/{id}/delete', 'ComponentsController@delete','auth'];
 
 $route[] = ['/exams', 'ExamsController@index'];
 $route[] = ['/exam/create', 'ExamsController@create'];
@@ -18,31 +16,36 @@ $route[] = ['/exam/store', 'ExamsController@store'];
 $route[] = ['/exam/{id}/show', 'ExamsController@show'];
 $route[] = ['/exam/{id}/edit', 'ExamsController@edit'];
 $route[] = ['/exam/{id}/update', 'ExamsController@update'];
-$route[] = ['/exam/{id}/delete', 'ExamsController@delete'];
+$route[] = ['/exam/{id}/delete', 'ExamsController@delete','auth'];
 
 $route[] = ['/courses', 'CoursesController@index'];
-$route[] = ['/course/create', 'CoursesController@create'];
-$route[] = ['/course/store', 'CoursesController@store'];
+$route[] = ['/course/create', 'CoursesController@create','auth'];
+$route[] = ['/course/store', 'CoursesController@store','auth'];
 $route[] = ['/course/{id}/show', 'CoursesController@show'];
-$route[] = ['/course/{id}/edit', 'CoursesController@edit'];
-$route[] = ['/course/{id}/update', 'CoursesController@update'];
-$route[] = ['/course/{id}/delete', 'CoursesController@delete'];
+$route[] = ['/course/{id}/edit', 'CoursesController@edit','auth'];
+$route[] = ['/course/{id}/update', 'CoursesController@update','auth'];
+$route[] = ['/course/{id}/delete', 'CoursesController@delete','auth'];
 
 $route[] = ['/areas', 'AreasController@index'];
-$route[] = ['/area/create', 'AreasController@create'];
-$route[] = ['/area/store', 'AreasController@store'];
+$route[] = ['/area/create', 'AreasController@create','auth'];
+$route[] = ['/area/store', 'AreasController@store','auth'];
 $route[] = ['/area/{id}/show', 'AreasController@show'];
-$route[] = ['/area/{id}/edit', 'AreasController@edit'];
-$route[] = ['/area/{id}/update', 'AreasController@update'];
-$route[] = ['/area/{id}/delete', 'AreasController@delete'];
+$route[] = ['/area/{id}/edit', 'AreasController@edit','auth'];
+$route[] = ['/area/{id}/update', 'AreasController@update','auth'];
+$route[] = ['/area/{id}/delete', 'AreasController@delete','auth'];
 
 $route[] = ['/users', 'UsersController@index'];
 $route[] = ['/user/{id}/show', 'UsersController@show'];
-$route[] = ['/user/create', 'UsersController@create'];
+$route[] = ['/user/create', 'UsersController@create',];
 $route[] = ['/user/store', 'UsersController@store'];
 $route[] = ['/user/{id}/edit', 'UsersController@edit'];
 $route[] = ['/user/{id}/update', 'UsersController@update'];
 $route[] = ['/user/{id}/delete', 'UsersController@delete'];
+
+
+$route[] = ['/auth', 'UsersController@auth'];
+$route[] = ['/logout', 'UsersController@logout'];
+
 
 
 return $route;

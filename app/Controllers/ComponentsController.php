@@ -14,6 +14,9 @@ class ComponentsController extends BaseController {
     }
 
     public function index() {
+        if(Session::get('login')){
+                $this->view->login=Session::get('login');
+            }
         if(Session::get('success')){
             $this->view->success = Session::get('success');
             Session::destroy('success');
@@ -72,5 +75,9 @@ class ComponentsController extends BaseController {
                 'errors' => ['Falha ao deletar disciplina.']
             ]);
         }
+    }
+    public function forbiden()
+    {
+        return Redirect::route('/');
     }
 }

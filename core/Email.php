@@ -8,9 +8,6 @@ use PHPMailer\PHPMailer\Exception;
 include '../vendor/autoload.php';
 
 
-$email= new Email;
-$email->send();
-
 class Email{
 
     public function send () { 

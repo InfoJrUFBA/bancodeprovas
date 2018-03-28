@@ -10,6 +10,7 @@
     use Core\Session;
     use Core\Email;
     use Core\Validator;
+    use Core\Auth;
 
     class UsersController extends BaseController
     {
@@ -109,7 +110,7 @@
                             return Redirect::route("/users", [
                                 'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
                             ]);
-                            Email::send("{$request->post->name}","{$request->post->email}");
+                            Email::send();
                         }else {
                             return Redirect::route("/users", [
                                 'errors' => ['Erro ao criar novo usuário.']
@@ -210,6 +211,45 @@
             }
         }
 
+
+        public function auth($request)
+        {
+            if(!empty($request->post->email) && !empty($request->post->password)){
+
+                    $result= $this->user->where($request->post->email);
+                
+                    if($result && password_verify($request->post->password, $result->password)){
+                        $login = [
+                            'id' => $result->id,
+                            'name' => $result->name,
+                            'email' => $result->email,
+                            'level'=>$result->level
+                        ]; 
+                        
+                        Session::destroy('errors');          
+                        Session::set('login', $login);
+
+                        return Redirect::route('/users');
+                        
+                    }
+                    
+                }else{
+               
+                return Redirect::route('/users', [
+                     'errors' => ['Os Campos devem ser preenchidos']
+                    ]);      
+            }
+                
+        }
+
+
+        public function logout()
+        {
+            Session::destroy('login');
+            return Redirect::route('/');
+        }
+
+
         public function delete($id){
             if($this->user->delete($id)){
                 return Redirect::route('/users');
@@ -218,5 +258,10 @@
                     'errors' => ['Erro ao excluir usuário.']
                 ]);
             }
+        }
+
+        public function forbiden()
+        {
+        return Redirect::route('/');
         }
   }
