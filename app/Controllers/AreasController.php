@@ -19,6 +19,9 @@ class AreasController extends BaseController {
     }
 
     public function show($id) {
+        $this->courses = Container::getModel("Course");
+        $this->view->courses = $this->courses->findByArea($id);
+        
         $this->view->area = $this->area->findById($id);
         $this->setPageTitle("Area - {$this->view->area->name}");
         $this->renderView('areas/show', 'layout');

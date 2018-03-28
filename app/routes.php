@@ -1,8 +1,6 @@
 <?php
 
 $route[] = ['/', 'HomeController@index'];
-$route[] = ['/posts', 'PostsController@index'];
-$route[] = ['/post/{id}/show', 'PostsController@show'];
 
 $route[] = ['/components', 'ComponentsController@index'];
 $route[] = ['/component/create', 'ComponentsController@create'];
@@ -43,6 +41,5 @@ $route[] = ['/user/store', 'UsersController@store'];
 $route[] = ['/user/{id}/edit', 'UsersController@edit'];
 $route[] = ['/user/{id}/update', 'UsersController@update'];
 $route[] = ['/user/{id}/delete', 'UsersController@delete'];
-
 
 return $route;
