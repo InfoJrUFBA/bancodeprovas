@@ -1,6 +1,4 @@
-# Para ignorar o arquivo local 'bancodeprovas.bat'
-/bancodeprovas.bat
+bancodeprovas.bat
 
-# Ignorar Vendor e Composer
 /vendor/
 composer.phar
