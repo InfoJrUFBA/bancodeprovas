@@ -1,0 +1,21 @@
+{
+    "name": "guero/microframework",
+    "description": "Um micro framework em MVC",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {"name": "Valdinei Ferreira", "email": "valdineiferreira@infojr.com.br"}
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "core/"
+        }
+    },
+    "require": {
+        "php": ">=5.4",
+        "phpmailer/phpmailer": "^6.0",
+        "components/jquery": "^3.3",
+        "datatables/datatables": "^1.10"
+    }
+}
