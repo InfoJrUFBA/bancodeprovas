@@ -8,8 +8,15 @@
 </section>
 
 <div class="container">
+<?php  if($this->auth->check()) : ?>
+     <li > <?php echo $this->auth->name() ?> </li>
+    <?php else : ?>
+     <?php endif; ?>
 
     <?php
+
+    var_dump($this->view->success);
+    var_dump($this->view->errors);
     foreach ($this->view->users as $user):?>
     <div class="row">
         <ul>

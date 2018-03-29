@@ -64,6 +64,30 @@ input[type=text]:focus, input[type=password]:focus {
     border: 1px solid #ebecff;
 }
 
+.form-pswd-group{
+    visibility: hidden;
+    display: none;
+    input: disabled;
+}
+
+#pswd_setting{
+    display: none;
+}
+
+.new_pswd{
+    border: 1px black solid;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 1px;
+    margin: 20px 10px;
+}
+
+input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
+    visibility: visible;
+    display: block;
+    input: active;
+}
+
 /* BEGIN BOXES */
 .flexbox {
     display: flex;

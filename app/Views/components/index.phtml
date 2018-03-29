@@ -5,8 +5,15 @@
     <a href="/component/create"><h3>Create Component</h3></a>
 </section>
 <section>
+    <?php  if($this->auth->check()) : ?>
+     <li > <?php echo $this->auth->name() ?> </li>
+    <?php else : ?>
+     <?php endif; ?>
     ID | Código | Disciplina
-    <?php foreach ($this->view->components as $component): ?>
+    <?php
+    var_dump($this->view->success);
+    var_dump($this->view->errors);
+    foreach ($this->view->components as $component): ?>
     <div class="row">
         <a href="/component/<?php echo $component->id;?>/show">
             <?php echo "{$component->id}  | {$component->code} | {$component->name}"; ?>

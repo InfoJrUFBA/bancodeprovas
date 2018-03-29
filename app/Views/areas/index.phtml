@@ -3,9 +3,16 @@
 			<?php $this->getPageTitle(); ?>
 			<a href = "/area/create" class="btn btn-primary pull-right"> Adicione nova Area</a>
 		</h1>
+		<?php  if($this->auth->check()) : ?>
+     <li > <?php echo $this->auth->name() ?> </li>
+    <?php else : ?>
+     <?php endif; ?>
 	</div>
-	<?php  foreach ($this->view->areas as $area): ?>
-	<h3 class="h3">  
+	<?php
+	var_dump($this->view->success);
+	var_dump($this->view->errors);
+	foreach ($this->view->areas as $area): ?>
+	<h3 class="h3">
 	<a href="area/<?php echo $area->id ?>/show">  <?php echo $area->name;?> </a>
 	</h3>
 	<a href = "/area/<?php echo $area->id ?>/edit" > editar </a>
@@ -13,6 +20,5 @@
     </div>
     </hr>
 	<?php endforeach; ?>
-	
-</div>
 
+</div>
