@@ -19,8 +19,13 @@
         }
 
         public function createExam($professor, $period, $created_at, $components_id, $unit){
-            $query = "INSERT INTO {$this->table} VALUES (NULL, '{$professor}', '{$period}', '{$created_at}', '1', '{$components_id}', '{$unit}')";
+            $query = "INSERT INTO {$this->table} VALUES (NULL, :professor, :period, :created_at, '1', :components_id:, :unit)";
             $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":professor", $professor);
+            $stmt->bindValue(":period", $period);
+            $stmt->bindValue(":created_at", $created_at);
+            $stmt->bindValue(":components_id", $components_id);
+            $stmt->bindValue(":unit", $unit);
             $result = $stmt->execute();
             $stmt->closeCursor();
             return $result;
@@ -51,16 +56,18 @@
             return $result;
         }
         public function readByComponent($components_id){
-            $query = "SELECT * FROM {$this->table} WHERE components_id = $components_id";
+            $query = "SELECT * FROM {$this->table} WHERE components_id = :components_id";
             $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":components_id", $components_id);
             $stmt->execute();
             $result = $stmt->fetchAll();
             $stmt->closeCursor();
             return $result;
         }
         public function readSingle($exam_id){
-            $query = "SELECT * FROM {$this->table} WHERE id = $exam_id";
+            $query = "SELECT * FROM {$this->table} WHERE id = :exam_id";
             $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":exam_id", $exam_id);
             $stmt->execute();
             $result = $stmt->fetch();
             $stmt->closeCursor();
@@ -68,31 +75,24 @@
         }
 
         public function update($exam_id, $professor, $period, $components_id, $unit){
-            $query = "UPDATE {$this->table} SET professor = '{$professor}', period = '{$period}', components_id = '{$components_id}', unit = '{$unit}' WHERE id = $exam_id";
+            $query = "UPDATE {$this->table} SET professor = :professor, period = :period, components_id = :components_id, unit = :unit WHERE id = :exam_id";
             $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":professor", $professor);
+            $stmt->bindValue(":period", $period);
+            $stmt->bindValue(":components_id", $components_id);
+            $stmt->bindValue(":unit", $unit);
+            $stmt->bindValue(":exam_id", $exam_id);
             $result = $stmt->execute();
             $stmt->closeCursor();
-
-            if ($result) {
-                echo "Atualização sucedida";
-            }else {
-                echo "Não foi possível atualizar";
-            }
             return $result;
         }
 
         public function deleteExam($exam_id){
-            $query = "DELETE FROM {$this->table} WHERE id = $exam_id";
+            $query = "DELETE FROM {$this->table} WHERE id = :exam_id";
             $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":exam_id", $exam_id);
             $result = $stmt->execute();
             $stmt->closeCursor();
-
-            if ($result) {
-                echo "Prova excluída com sucesso";
-            }else {
-                echo "Não foi possível excluir";
-            }
             return $result;
         }
-
     }

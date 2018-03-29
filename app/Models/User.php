@@ -96,12 +96,6 @@ class User {
         $result = $stmt->execute();
         $stmt->closeCursor();
         return $result;
-
-        if ($result) {
-            echo "Usuário excluído com sucesso";
-        } else {
-            echo "Não foi possível excluir o usuário";
-        }
     }
     public function where($email) { 
         $query = "SELECT id, name, email, password, level FROM {$this->table} WHERE email=:email";
