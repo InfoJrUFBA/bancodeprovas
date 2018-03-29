@@ -7,6 +7,8 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 body {
@@ -18,7 +20,7 @@ body {
 }
 
 section {
-    padding: 30px 5%
+    padding: 30px 5%;
 }
 
 h2 {
@@ -30,17 +32,36 @@ a {
     text-decoration-line: none;
 }
 
-.center {
+.txt-center {
     text-align: center;
+}
+.box-center {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    -webkit-justify-content: center;
 }
 label[for] {
     text-align: left;
 }
 
-div > .text-input {
-    border: 1px solid #444;
-    border-radius: 2px;
-    height: 25px;
+input[type=text], input[type=password] {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 0px;
+    transition: all 0.30s ease-in-out;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none; 
+}
+input[type=text]:focus, input[type=password]:focus {
+    box-shadow: 0 0 8px #ebecff;
+    -moz-box-shadow: 0 0 8px #ebecff;
+    -webkit-box-shadow: 0 0 8px #ebecff;
+    border: 1px solid #ebecff;
 }
 
 .form-pswd-group{
@@ -73,11 +94,13 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
     display: -webkit-flex;
     display: -ms-flexbox;
 }
-
 .flex-col {
     margin: 5px;
     padding: 15px;
-    text-align: justify;
+    text-align: center;
+    flex-basis: 100%;
+}
+.flexbox a {
     flex-basis: 100%;
 }
 

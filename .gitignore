@@ -1,2 +1,6 @@
-# Para ignorar o arquivo local 'bancodeprovas.bat'
-/bancodeprovas.bat
+# Ocultar arquivo .bat para facilitar o PHP
+bancodeprovas.bat
+
+# Removendo pasta vendor e arquivos composer
+/vendor/
+composer.phar

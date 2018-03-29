@@ -11,13 +11,11 @@ class Area
 	private $id;
 	private $name;
 
-	public function __construct(PDO $pdo)
-	{
+	public function __construct(PDO $pdo) {
 		$this->pdo = $pdo;
 	}
 
-	public function create($name) 
-	{
+	public function create($name) {
 		$query = "INSERT INTO {$this->table} (id,name) VALUES (NULL, :name)";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindValue(":name",$name);
@@ -27,8 +25,7 @@ class Area
 
 	}
 
-	public function all () 
-	{
+	public function all () {
 		$query = "SELECT * FROM {$this->table}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt -> execute();
@@ -37,8 +34,7 @@ class Area
 		return $result;
 	}
 
-	public function findById($id) 
-	{
+	public function findById($id) {
 		$query = "SELECT * FROM {$this->table} WHERE id=:id";
 		$stmt =$this->pdo->prepare($query);
 		$stmt->bindValue(":id",$id);
@@ -49,8 +45,7 @@ class Area
 
 	}
 
-	public function findByName($name) 
-	{
+	public function findByName($name) {
 		$query = "SELECT * FROM {$this->table} WHERE name=:name";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindValue(":name",$name);
@@ -61,8 +56,7 @@ class Area
 
 	}
 
-	public function update($id, $name) 
-	{
+	public function update($id, $name) {
 		$query = "UPDATE {$this->table} SET name=:name WHERE id=:id";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindValue(":id",$id);
@@ -73,8 +67,7 @@ class Area
 
 	}
 
-	public function delete($id) 
-	{
+	public function delete($id) {
         $query = "DELETE FROM {$this->table} WHERE id =:id";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(":id",$id);
