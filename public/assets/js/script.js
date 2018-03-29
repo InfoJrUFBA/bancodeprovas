@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    $('#courses').DataTable();
+});
+
 function activateInsertion() {
 
     if(userUpdateForm.new_pswd_setting.checked){

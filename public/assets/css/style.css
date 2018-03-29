@@ -2,6 +2,7 @@
 @import "navbar.css";
 @import "login.css";
 @import "button.css";
+@import "https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css";
 
 * {
     box-sizing: border-box;

@@ -1,9 +1,3 @@
-<section id="">
-    <?php  if($this->auth->check()) : ?>
-        <li><?php echo $this->auth->name() ?></li>
-    <?php else : ?>
-    <?php endif; ?>
-</section>
 <section class="flexbox">
     <?php foreach ($this->view->areas as $area): ?>
     <a href="area/<?php echo $area->id;?>/show"><section class="flex-col">
