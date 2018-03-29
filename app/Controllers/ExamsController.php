@@ -6,6 +6,7 @@
     use Core\Container;
     use Core\Redirect;
     use Core\Session;
+    use Core\Auth;
 
     class ExamsController extends BaseController{
 
@@ -54,7 +55,7 @@
 
         public function store($request){
             date_default_timezone_set("America/Bahia");
-            if( $this->exam->createExam("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), "{$request->post->components_id}", "{$request->post->unit}") ){
+            if( $this->exam->createExam("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), "{$request->post->components_id}", "{$request->post->unit}", Auth::id()) ){
                 return Redirect::route("/exams", [
                     'success' => ['Prova enviada para moderação.']
                 ]);

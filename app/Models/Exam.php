@@ -13,13 +13,14 @@
         private $created_at;
         private $unit;
         private $exam_id;
+        private $users_id;
 
         public function __construct(PDO $pdo){
             $this->pdo = $pdo;
         }
 
-        public function createExam($professor, $period, $created_at, $components_id, $unit){
-            $query = "INSERT INTO {$this->table} VALUES (NULL, '{$professor}', '{$period}', '{$created_at}', '1', '{$components_id}', '{$unit}')";
+        public function createExam($professor, $period, $created_at, $components_id, $unit, $users_id){
+            $query = "INSERT INTO {$this->table} VALUES (NULL, '{$professor}', '{$period}', '{$created_at}', '1', '{$components_id}', '{$unit}', '{$users_id}')";
             $stmt = $this->pdo->prepare($query);
             $result = $stmt->execute();
             $stmt->closeCursor();

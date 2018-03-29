@@ -9,7 +9,6 @@
     use Core\Redirect;
     use Core\Session;
     use Core\Email;
-    use Core\Validator;
     use Core\Auth;
 
     class UsersController extends BaseController
@@ -48,13 +47,19 @@
             $this->information = $this->user->all();
             $newEmail = 1;
 
-            foreach ($this->information as $allUsers) {
-                if( $allUsers->id == $id ){
-                    continue;
+            if( filter_var($request->post->email, FILTER_VALIDATE_EMAIL) ){
+                foreach ($this->information as $allUsers) {
+                    if( $allUsers->id == $id ){
+                        continue;
+                    }
+                    if($allUsers->email == $request->post->email){
+                        $newEmail = 0;
+                    }
                 }
-                if($allUsers->email == $request->post->email){
-                    $newEmail = 0;
-                }
+            }else {
+                return Session::set('errors', [
+                    'O campo email não é válido.'
+                ]);
             }
 
             if($newEmail){
@@ -65,7 +70,7 @@
         }
 
         public function dataInsertionVerify($request){
-            if( !empty($request->post->name) && !empty($request->post->email) && !empty($request->post->birthdate) && !empty($request->post->courses_id) && !empty($request->post->password) && !empty($request->post->password_confirmation) ){
+            if( !empty($request->post->name) && !empty($request->post->email) && !empty($request->post->birthdate) && !empty($request->post->courses_id) && !empty($request->post->password) ){
                 return true;
             }else {
                 return false;
@@ -103,27 +108,38 @@
         }
 
         public function store($request){
+
             if ($this->dataInsertionVerify($request)){
-                if ($this->newEmailVerify($request)) {
-                    if ($request->post->password == $request->post->password_confirmation) {
-                        if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
-                            return Redirect::route("/users", [
-                                'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
-                            ]);
-                            Email::send();
+                if( (strlen($request->post->password) >= 5) && (strlen($request->post->password) <=10 ) ){
+                    if ($this->newEmailVerify($request)) {
+                        if ($request->post->password == $request->post->password_confirmation) {
+                            if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
+                                return Redirect::route("/users", [
+                                    'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
+                                ]);
+                                Email::send("{$request->post->name}","{$request->post->email}");
+                            }else {
+                                return Redirect::route("/users", [
+                                    'errors' => ['Erro ao criar novo usuário.']
+                                ]);
+                            }
                         }else {
-                            return Redirect::route("/users", [
-                                'errors' => ['Erro ao criar novo usuário.']
+                            return Redirect::route("/user/create", [
+                                'errors' => ['Senhas inseridas apresentam discordância.']
                             ]);
                         }
                     }else {
-                        return Redirect::route("/user/create", [
-                            'errors' => ['Senhas inseridas apresentam discordância.']
-                        ]);
+                        if(Session::get('errors')){
+                            return Redirect::route("/user/create", ['errors']);
+                        }else{
+                            return Redirect::route("/user/create", [
+                                'errors' => ['Email já cadastrado, por favor insira outro email válido.']
+                            ]);
+                        }
                     }
-                }else {
+                }else{
                     return Redirect::route("/user/create", [
-                        'errors' => ['Email já cadastrado, por favor insira outro email válido.']
+                        'errors' => ['Sua senha deve conter entre 5 e 10 caracteres.']
                     ]);
                 }
             }else{
@@ -145,68 +161,63 @@
 
         public function update($id, $request){
 
-            $data = [
-                'name' => $request->post->name,
-                'email' => $request->post->email,
-                'password' => $request->post->password,
-                'image' => $request->post->image,
-                'birthdate' => $this->dateConvert($request),
-                'courses_id' => $request->post->courses_id
-            ];
-            $rules = [
-                'name' => 'required',
-                'email' => 'email',
-                'password' => 'required',
-                'image' => '',
-                'birthdate' => 'required',
-                'courses_id' => 'required'
-            ];
-            $validator = Validator::make($data, $rules);
-            if($validator){
-                return Redirect::route("/users");
-            }
-
             $this->info = $this->user->findById($id);
 
-            if( password_verify ($request->post->password, $this->info->password) ){
-                if($this->newEmailVerify($request, $id)){
-                    if( isset($request->post->new_password) ){
-                        if($request->post->new_password == $request->post->new_password_confirmation){
-                            if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->new_password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
-                                return Redirect::route("/user/{$id}/show", [
-                                    'success' => ['Informações atualizadas com sucesso.']
-                                ]);
-                            }else {
-                                return Redirect::route("/users", [
-                                    'errors' => ['Erro ao alterar usuário.']
-                                ]);
-                            }
-                        }else {
-                            return Redirect::route("/users", [
-                                'errors' => ['Senhas inseridas discordantes.']
-                            ]);
-                        }
-                    }else{
-                        if($this->updateVerify($id,$request)){
-                            if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
-                                return Redirect::route("/user/{$id}/show", [
-                                    'success' => ['Informações atualizadas com sucesso.']
-                                ]);
+            if ($this->dataInsertionVerify($request)){
+                if( password_verify ($request->post->password, $this->info->password) ){
+                    if($this->newEmailVerify($request, $id)){
+                        if( isset($request->post->new_password) ){
+                            if( (strlen($request->post->new_password) >= 5) && (strlen($request->post->new_password) <=10 ) ){
+                                if($request->post->new_password == $request->post->new_password_confirmation){
+                                    if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->new_password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                        return Redirect::route("/user/{$id}/show", [
+                                            'success' => ['Informações atualizadas com sucesso.']
+                                        ]);
+                                    }else {
+                                        return Redirect::route("/users", [
+                                            'errors' => ['Erro ao alterar usuário.']
+                                        ]);
+                                    }
+                                }else {
+                                    return Redirect::route("/users", [
+                                        'errors' => ['Senhas inseridas discordantes.']
+                                    ]);
+                                }
                             }else{
-                                return Redirect::route("/users", [
-                                    'errors' => ['Erro ao alterar usuário.']
+                                return Redirect::route("/user/create", [
+                                    'errors' => ['Sua nova senha deve conter entre 5 e 10 caracteres.']
                                 ]);
                             }
+                        }else{
+                            if($this->updateVerify($id,$request)){
+                                if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                    return Redirect::route("/user/{$id}/show", [
+                                        'success' => ['Informações atualizadas com sucesso.']
+                                    ]);
+                                }else{
+                                    return Redirect::route("/users", [
+                                        'errors' => ['Erro ao alterar usuário.']
+                                    ]);
+                                }
+                            }
+                        }
+                    }else {
+                        if(Session::get('errors')){
+                            return Redirect::route("/user/{$id}/edit", ['errors']);
+                        }else{
+                            return Redirect::route("/user/create", [
+                                'errors' => ['Email já cadastrado, por favor insira outro email válido.']
+                            ]);
                         }
                     }
                 }else {
-                    return Redirect::route("/user/create", [
-                        'errors' => ['Email já cadastrado, por favor insira outro email válido.']
+                    return Redirect::route("/users", [
+                        'errors' => ['Senha incorreta.']
                     ]);
                 }
-            }else {
-                return Redirect::route("/users", [
-                    'errors' => ['Senha incorreta.']
+            }else{
+                return Redirect::route("/user/create", [
+                    'errors' => ['Há campos vazios.']
                 ]);
             }
         }
@@ -217,29 +228,29 @@
             if(!empty($request->post->email) && !empty($request->post->password)){
 
                     $result= $this->user->where($request->post->email);
-                
+
                     if($result && password_verify($request->post->password, $result->password)){
                         $login = [
                             'id' => $result->id,
                             'name' => $result->name,
                             'email' => $result->email,
                             'level'=>$result->level
-                        ]; 
-                        
-                        Session::destroy('errors');          
+                        ];
+
+                        Session::destroy('errors');
                         Session::set('login', $login);
 
                         return Redirect::route('/users');
-                        
+
                     }
-                    
+
                 }else{
-               
+
                 return Redirect::route('/users', [
                      'errors' => ['Os Campos devem ser preenchidos']
-                    ]);      
+                    ]);
             }
-                
+
         }
 
 
