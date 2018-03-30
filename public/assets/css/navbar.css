@@ -1,10 +1,9 @@
 .nav-title {
-    height: 100%;
-    display: flex;
-    display: -webkit-flex;
+    height: inherit;
     align-items: center;
     -webkit-align-items: center;
-    margin: 0 20px;
+    margin-left: 10px;
+    float: left;
 }
 h1 {
     font-family: "Comfortaa", 'Segoe UI', sans-serif;
@@ -15,9 +14,6 @@ header {
     background-color: rgb(117, 144, 223);
     width: 100%;
     height: 60px;
-    display: grid;
-    display: -moz-grid;
-    display: -ms-grid;
 }
 nav {
     height: 100%;
@@ -27,73 +23,86 @@ nav ul {
     height: 100%;
     list-style: none;
     float: right;
+    margin: 0 0;
+    padding: 0;
     display: flex;
     display: -webkit-flex;
-    margin: 12px 0;
-    padding: 0;
     align-items: center;
     -webkit-align-items: center;
 }
-#topmenu, #check {
+#btn-menu, #check {
     display: none;
 }
-
-li {
-    padding: 0;
+#btn-menu a {
+    text-align: center;
 }
-li a {
+
+.search {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    margin-right: 20px;
+}
+.lupa {
+    margin-left: 5px;
+    width: 20px;
+}
+
+nav a {
     display: block;
     padding : 5px 16px;
     text-decoration: none;
     color: whitesmoke;
 }
-nav li:not(#search) {
+#menu li {
+    float: left;
+    padding: 0;
+}
+li:not(.search) {
     border: solid rgb(192, 191, 231) 1px;
     border-radius: 5px;
     padding : 0;
     margin: 0 10px;
 }
-nav li:hover:not(#search) {
+#menu li:hover:not(.search) {
     border: solid rgb(220, 219, 233) 1px;
 }
-li a:hover {
+#menu a:hover {
     text-decoration: underline;
 }
-#search {
-    height: 35px;
-}
-li > input {
-    height: 35px;
-}
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     header {
         display: block;
-        height: 100%;
         padding-bottom: 10px;
+        height: 100%;
     }
     .nav-title h1 {
         margin: 15px auto;
     }
-    nav, nav ul {
+    .nav-title, nav, #menu, #btn-menu {
         float: none;
     }
     nav #menu {
         display: none;
     }
-    nav #topmenu{
+    nav #btn-menu{
         display: list-item;
     }
     nav li {
         text-align: center;
+        float: none;
     }
-    nav li:not(#search) {
+    nav li:not(.search) {
         text-align: center;
-        margin: 5px 0;
         border-radius: 0;
     }
 
     #check:checked ~ #menu {
-        display: list-item;
+        display: flex;
+        display: -webkit-flex;
+        justify-content: center;
+        margin-top: 10px;
     }
 }

@@ -1,7 +1,14 @@
 <section id="">
-<?php  if($this->auth->check()) : ?>
-     <li > <?php echo $this->auth->name() ?> </li>
+    <?php  if($this->auth->check()) : ?>
+        <li><?php echo $this->auth->name() ?></li>
     <?php else : ?>
-     <?php endif; ?>
-
+    <?php endif; ?>
+</section>
+<section class="flexbox">
+    <?php foreach ($this->view->areas as $area): ?>
+    <a href="area/<?php echo $area->id;?>/show"><section class="flex-col">
+        <h2>Área <?php echo $area->id;?></h2>
+        <h3><?php echo $area->name;?></h3>
+    </section></a>
+    <?php endforeach;?>
 </section>

@@ -42,10 +42,8 @@ $route[] = ['/user/{id}/edit', 'UsersController@edit'];
 $route[] = ['/user/{id}/update', 'UsersController@update'];
 $route[] = ['/user/{id}/delete', 'UsersController@delete'];
 
-
 $route[] = ['/auth', 'UsersController@auth'];
 $route[] = ['/logout', 'UsersController@logout'];
-
 
 
 return $route;
