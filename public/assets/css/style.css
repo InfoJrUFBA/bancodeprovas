@@ -55,7 +55,7 @@ input[type=text], input[type=password] {
     -moz-transition: all 0.30s ease-in-out;
     -ms-transition: all 0.30s ease-in-out;
     -o-transition: all 0.30s ease-in-out;
-    outline: none; 
+    outline: none;
 }
 input[type=text]:focus, input[type=password]:focus {
     box-shadow: 0 0 8px #ebecff;
@@ -67,7 +67,6 @@ input[type=text]:focus, input[type=password]:focus {
 .form-pswd-group{
     visibility: hidden;
     display: none;
-    input: disabled;
 }
 
 #pswd_setting{
@@ -85,7 +84,6 @@ input[type=text]:focus, input[type=password]:focus {
 input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
     visibility: visible;
     display: block;
-    input: active;
 }
 
 /* BEGIN BOXES */

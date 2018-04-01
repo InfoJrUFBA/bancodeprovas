@@ -77,13 +77,8 @@
                     break;
             } ?>
         </li>
-        <li>Adicionado em
-            <?php
-                $data = explode('-', $this->view->exam->created_at);
-                $data = array_reverse($data);
-                $data = implode('-', $data);
-                echo ($data);
-            ?>
-        </li>
+        <li>Adicionado em <?php echo date('d-m-Y', strtotime($this->view->exam->created_at)); ?> </li>
+        <li>Adicionado por <a href="user/<?php echo $this->view->exam->creator_id ?>/show"> <?php echo $this->view->exam->created_by;?> </a></li>
+        <li> <?php echo $this->view->exam->code . " - " . $this->view->exam->name; ?> </li>
     </ul>
 </div>

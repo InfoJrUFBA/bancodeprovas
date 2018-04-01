@@ -19,11 +19,6 @@
             return date('Y-m-d',strtotime($request->post->birthdate));
         }
 
-        public function passwordHash($pswd){
-            $hashedPswd = password_hash($pswd, PASSWORD_DEFAULT);
-            return $hashedPswd;
-        }
-
         public function __construct(){
             parent::__construct();
             $this->user = Container::getModel("User");
@@ -32,6 +27,11 @@
         public function getCourses(){
             $obj = new CoursesController;
             $this->obj = $obj->course->all();
+        }
+
+        public function tokenHash(){
+            $this->token = md5(rand());
+            return $this->token;
         }
 
         public function updateVerify($id, $request){
@@ -113,11 +113,11 @@
                 if( (strlen($request->post->password) >= 5) && (strlen($request->post->password) <=10 ) ){
                     if ($this->newEmailVerify($request)) {
                         if ($request->post->password == $request->post->password_confirmation) {
-                            if($this->user->create("{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}")){
+                            if($this->user->create("{$request->post->name}", "{$request->post->email}", password_hash($request->post->password, PASSWORD_DEFAULT), "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}", $this->tokenHash() )){
+                                Email::send("{$request->post->name}","{$request->post->email}","{$this->token}");
                                 return Redirect::route("/users", [
                                     'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
                                 ]);
-                                Email::send("{$request->post->name}","{$request->post->email}");
                             }else {
                                 return Redirect::route("/users", [
                                     'errors' => ['Erro ao criar novo usuário.']
@@ -169,7 +169,7 @@
                         if( isset($request->post->new_password) ){
                             if( (strlen($request->post->new_password) >= 5) && (strlen($request->post->new_password) <=10 ) ){
                                 if($request->post->new_password == $request->post->new_password_confirmation){
-                                    if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->new_password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                    if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", password_hash($request->post->new_password, PASSWORD_DEFAULT), "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
                                         return Redirect::route("/user/{$id}/show", [
                                             'success' => ['Informações atualizadas com sucesso.']
                                         ]);
@@ -190,7 +190,7 @@
                             }
                         }else{
                             if($this->updateVerify($id,$request)){
-                                if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->passwordHash($request->post->password)}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->info->password}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
                                     return Redirect::route("/user/{$id}/show", [
                                         'success' => ['Informações atualizadas com sucesso.']
                                     ]);
@@ -199,6 +199,8 @@
                                         'errors' => ['Erro ao alterar usuário.']
                                     ]);
                                 }
+                            }else {
+                                return Redirect::route("/users");
                             }
                         }
                     }else {
@@ -274,5 +276,17 @@
         public function forbiden()
         {
         return Redirect::route('/');
+        }
+
+        public function validate($token){
+            if($this->user->activityUpdate($token, 1)){
+                return Redirect::route("/", [
+                    'success' => ['Autenticação de email sucedida.']
+                ]);
+            }else{
+                return Redirect::route("/", [
+                    'errors' => ['Falha ao tentar autenticar, por favor tente novamente.']
+                ]);
+            }
         }
   }
