@@ -19,11 +19,21 @@ class Course
 	}
 
 	public function replaceToType($course) {
-		foreach ($course as $c):
-			$type = ($c->type == 1) ? "Bacharelado" : "Pós-Graduação";
-			$c->type = $type;
-		endforeach;
-		return $course;
+		// Se for vários registros pesquisados, retornará um array de objects
+		if (is_array($course)) {
+			foreach ($course as $c):
+				$type = ($c->type == 1) ? "Bacharelado" : "Pós-Graduação";
+				$c->type = $type;
+			endforeach;
+			return $course;
+		}
+		
+		// Se for apenas um registro, retornará apenas um object, sem array
+		if (is_object($course)) {
+			$type = ($course->type == 1) ? "Bacharelado" : "Pós-Graduação";
+			$course->type = $type;
+			return $course;
+		}
 	}
 
 	public function create($name, $type, $areas_id) //adicionando curso
