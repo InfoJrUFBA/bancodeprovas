@@ -118,3 +118,7 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
     background-color: #eae8ff;
 }
 /* END BOXES */
+
+.display td:last-child {
+    display: none;
+}

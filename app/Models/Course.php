@@ -68,7 +68,7 @@ class Course
 	}
 
 	public function findByArea($areas_id) {
-		$query = "SELECT {$this->table}.name, {$this->table}.type, areas.name AS area FROM {$this->table} JOIN areas ON courses.areas_id = areas.id WHERE areas_id=:areas_id";
+		$query = "SELECT {$this->table}.id, {$this->table}.name, {$this->table}.type, areas.name AS area FROM {$this->table} JOIN areas ON courses.areas_id = areas.id WHERE areas_id=:areas_id";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindValue(":areas_id",$areas_id);
 		$stmt->execute();
