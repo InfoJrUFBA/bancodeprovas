@@ -15,7 +15,14 @@
             <li><a href="/components">Disciplinas</a></li>
             <li><a href="/exams">Provas</a></li>
             <li><a href="/users">Usuários</a></li>
-            <li><a href="#popup-login">Login</a></li>
+            <?php if($this->auth->check()) : ?>
+                <li><a href="/user/<?php echo $this->auth->id(); ?>/show"> <?php echo $this->auth->name() ?> </a></li>
+                <li><a href="/user/<?php echo $this->auth->id(); ?>/edit"> User edit </a></li>
+                <li><a href="/logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
+            <?php else : ?>
+                <li><a href="#popup-login">Login</a></li>
+            <?php endif; ?>
+
         </ul>
     </nav>
 </header>

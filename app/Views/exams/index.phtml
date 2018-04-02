@@ -55,6 +55,8 @@
                 echo date('d-m-Y', strtotime($exam->created_at));
                 ?>
             </li>
+            <li>Adicionado por <a href="user/<?php echo $exam->creator_id ?>/show"> <?php echo $exam->created_by;?> </a></li>
+            <li> <?php echo $exam->code . " - " . $exam->name; ?> </li>
         </ul>
         <a href="/exam/<?php echo $exam->id?>/edit">
             <button type="button">Editar</button>
