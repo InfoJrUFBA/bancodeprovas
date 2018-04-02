@@ -18,6 +18,13 @@ class Course
 		$this->pdo = $pdo;
 	}
 
+	public function replaceToType($course) {
+		foreach ($course as $c):
+			$type = ($c->type == 1) ? "Bacharelado" : "Pós-Graduação";
+			$c->type = $type;
+		endforeach;
+		return $course;
+	}
 
 	public function create($name, $type, $areas_id) //adicionando curso
 	{
@@ -47,7 +54,7 @@ class Course
 		$stmt->execute();
 		$result = $stmt->fetch();
 		$stmt->CloseCursor();
-		return $result;
+		return $this->replaceToType($result);
 	}
 
 	public function findByName($name) {
@@ -57,7 +64,7 @@ class Course
 		$stmt->execute();
 		$result = $stmt->fetch();
 		$stmt->CloseCursor();
-		return $result;
+		return $this->replaceToType($result);
 	}
 
 	public function findByArea($areas_id) {
@@ -67,7 +74,7 @@ class Course
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		$stmt->CloseCursor();
-		return $result;
+		return $this->replaceToType($result);
 	}
 
 	public function update($id, $name, $type, $areas_id) {

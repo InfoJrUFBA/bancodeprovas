@@ -12,9 +12,9 @@
             </li>
             <li><a href="/areas">Áreas</a></li>
             <li class="not-menu">|</li>
-            <li><a href="/user/<?php echo $this->auth->id();?>/show">Perfil</a></li>
             <?php
             if ($this->auth->check()):
+                echo '<li><a href="/user/'. $this->auth->id() . '/show">Perfil</a></li>';
                 echo '<li><a href="/logout">Sair</a></li>';
             else:
                 echo '<li><a href="#popup-login">Login</a></li>';
