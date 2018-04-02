@@ -117,6 +117,48 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
 }
 /* END BOXES */
 
-.display td:last-child {
-    display: none;
+
+/* BEGIN TABLES */
+.tbl {
+    width: 100%;
+    border-collapse:collapse;
+    border-spacing:0;
+    border: 1px solid #ccc;
 }
+.tbl td{
+    border: 0 solid #ccc;
+    border-top-width:1px;
+    border-bottom-width:1px;
+    padding:10px 5px;
+    overflow:hidden;
+    word-break:normal;
+}
+.tbl thead td, .tbl tfoot td {
+    font-weight: bold;
+    padding:10px 5px;
+    border: 0 solid #bbb;
+    overflow:hidden;
+    word-break:normal;
+    border-top-width:1px;
+    border-bottom-width:1px;
+    border-color:#ccc;
+    color:#333;
+    background-color:rgb(173, 206, 255);
+}
+.tbl tr {
+    vertical-align:top;
+}
+.tbl tr:nth-child(odd) {
+    background: #f1f1f1;
+}
+.tbl tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.tbl tr:hover {
+    background-color: rgb(216, 216, 216);
+}
+.tbl tr[onclick]:hover {
+    cursor: pointer;
+}
+/* END TABLES */

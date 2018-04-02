@@ -1,20 +1,18 @@
 <section>
-	<table id="courses" class="display">
+	<table class="tbl">
 		<thead>
 			<tr>
 				<td>Nome</td>
 				<td>Tipo</td>
 				<td>Área</td>
-				<td>&nbsp</td>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach ($this->view->courses as $course):?>
-			<tr class="<?php echo $course->id;?>">
+			<tr class="<?php echo $course->id;?>" onclick="window.location='/course/<?php echo $course->id;?>/show'">
 				<td><?php echo $course->name;?></td>
 				<td><?php echo $course->type;?></td>
 				<td><?php echo $course->area;?></td>
-				<td><a href="/course/<?php echo $course->id;?>/show">ID</a></td>
 			</tr>
 			<?php endforeach?>
 		</tbody>
@@ -23,7 +21,6 @@
 				<td>Nome</td>
 				<td>Tipo</td>
 				<td>Área</td>
-				<td>&nbsp</td>
 			</tr>
 		</tfoot>
 	</table>
