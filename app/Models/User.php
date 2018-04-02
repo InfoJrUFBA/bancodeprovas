@@ -16,6 +16,8 @@ class User {
     private $birthdate;
     private $level;
     private $courses_id;
+    private $token;
+    private $active;
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
@@ -60,8 +62,8 @@ class User {
         return $result;
     }
 
-    public function create($name, $email, $password, $image = NULL, $birthdate, $courses_id) { //criando usuário
-        $query = "INSERT INTO {$this->table} (name, email, password, image, birthdate, level, courses_id) VALUES (:name, :email, :password, :image, :birthdate, 1, :courses_id)";
+    public function create($name, $email, $password, $image = NULL, $birthdate, $courses_id, $token) { //criando usuário
+        $query = "INSERT INTO {$this->table} (name, email, password, image, birthdate, level, courses_id, token) VALUES (:name, :email, :password, :image, :birthdate, 1, :courses_id, :token)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(":name", $name);
         $stmt->bindValue(":email", $email);
@@ -69,6 +71,7 @@ class User {
         $stmt->bindValue(":image", $image);
         $stmt->bindValue(":birthdate", $birthdate);
         $stmt->bindValue(":courses_id", $courses_id);
+        $stmt->bindValue(":token", $token);
         $result = $stmt->execute();
         $stmt->closeCursor();
         return $result;
@@ -97,12 +100,23 @@ class User {
         $stmt->closeCursor();
         return $result;
     }
-    public function where($email) { 
+
+    public function where($email) {
         $query = "SELECT id, name, email, password, level FROM {$this->table} WHERE email=:email";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(":email", $email);
         $stmt->execute();
         $result = $stmt->fetch();
+        $stmt->closeCursor();
+        return $result;
+    }
+
+    public function activityUpdate($token, $active){
+        $query = "UPDATE {$this->table} SET active=:active WHERE token=:token ";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(":active", $active);
+        $stmt->bindValue(":token", $token);
+        $result = $stmt->execute();
         $stmt->closeCursor();
         return $result;
     }

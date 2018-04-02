@@ -6,6 +6,7 @@
     use Core\Container;
     use Core\Redirect;
     use Core\Session;
+    use Core\Auth;
 
     class ExamsController extends BaseController{
 
@@ -17,6 +18,14 @@
         public function getComponents(){
             $obj = new ComponentsController;
             $this->obj = $obj->component->all();
+        }
+
+        public function dataVerify($request){
+            if( !empty($request->post->professor) && !empty($request->post->period) && !empty($request->post->components_id) && !empty($request->post->unit) ){
+                return true;
+            }else {
+                return false;
+            }
         }
 
         public function index(){
@@ -54,13 +63,19 @@
 
         public function store($request){
             date_default_timezone_set("America/Bahia");
-            if( $this->exam->createExam("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), "{$request->post->components_id}", "{$request->post->unit}") ){
-                return Redirect::route("/exams", [
-                    'success' => ['Prova enviada para moderação.']
-                ]);
-            } else {
-                return Redirect::route("/exams", [
-                    'errors' => ['Erro ao inserir prova no banco de dados.']
+            if($this->dataVerify($request)){
+                if( $this->exam->create("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), "{$request->post->components_id}", "{$request->post->unit}", Auth::id(), "img") ){
+                    return Redirect::route("/exams", [
+                        'success' => ['Prova enviada para moderação.']
+                    ]);
+                } else {
+                    return Redirect::route("/exams", [
+                        'errors' => ['Erro ao inserir prova no banco de dados.']
+                    ]);
+                }
+            }else {
+                return Redirect::route("/exam/create", [
+                    'errors' => ['Há campos vazios.']
                 ]);
             }
         }
@@ -73,14 +88,19 @@
         }
 
         public function update($id, $request){
-            if ($this->exam->update("{$id}", "{$request->post->professor}", "{$request->post->period}", "{$request->post->components_id}","{$request->post->unit}") ){
-                //Redirect::route("/exam/{$id}/show";
-                return Redirect::route("/exams", [
-                    'success' => ['Prova atualizada com sucesso.']
-                ]);
+            if($this->dataVerify($request)){
+                if ($this->exam->update("{$id}", "{$request->post->professor}", "{$request->post->period}", "{$request->post->components_id}","{$request->post->unit}") ){
+                    return Redirect::route("/exams", [
+                        'success' => ['Prova atualizada com sucesso.']
+                    ]);
+                }else {
+                    return Redirect::route("/exams", [
+                        'errors' => ['Erro ao atualizar.']
+                    ]);
+                }
             }else {
-                return Redirect::route("/exams", [
-                    'errors' => ['Erro ao atualizar.']
+                return Redirect::route("/exam/{$id}/edit", [
+                    'errors' => ['Há campos vazios.']
                 ]);
             }
         }

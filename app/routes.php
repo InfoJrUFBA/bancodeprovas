@@ -45,5 +45,7 @@ $route[] = ['/user/{id}/delete', 'UsersController@delete'];
 $route[] = ['/auth', 'UsersController@auth'];
 $route[] = ['/logout', 'UsersController@logout'];
 
+$route[] = ['/validation/{token}', 'UsersController@validate'];
+
 
 return $route;
