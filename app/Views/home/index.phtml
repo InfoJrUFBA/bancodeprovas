@@ -1,6 +1,10 @@
 <section class="flexbox">
     <?php foreach ($this->view->areas as $area): ?>
-    <a href="area/<?php echo $area->id;?>/show"><section class="flex-col">
+    <a href="area/<?php echo $area->id;?>/show"><section class="flex-col txt-center">
+        <h2>Área <?php echo $area->id;?></h2>
+        <h3><?php echo $area->name;?></h3>
+    </section></a>
+    <a href="area/<?php echo $area->id;?>/show"><section class="flex-col txt-center">
         <h2>Área <?php echo $area->id;?></h2>
         <h3><?php echo $area->name;?></h3>
     </section></a>
