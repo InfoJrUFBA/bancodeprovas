@@ -9,6 +9,8 @@
     use Core\Auth;
 
     class ExamsController extends BaseController{
+        public $img;
+
 
         public function __construct(){
             parent::__construct();
@@ -28,6 +30,46 @@
             }
         }
 
+        public function imageRedirect() {
+            $file = $_FILES['image'];
+            $fileName = $_FILES['image']['name'];
+            //local atual do arquivo
+            $fileTmpName = $_FILES['image']['tmp_name'];
+            $fileSize = $_FILES['image']['size'];
+            $fileError = $_FILES['image']['error'];
+            $fileType = $_FILES['image']['type'];
+            $fileExt= explode('.',$fileName);
+            $fileActualExt= strtolower(end($fileExt));
+            $allowed = array('jpg','jpeg','png','pdf');
+
+            if(in_array($fileActualExt, $allowed)){
+                if($fileError===0){
+                    if($fileSize<(3*1024*1024)){
+
+                        $fileNameNew= uniqid('',true).".".$fileActualExt;
+                        $this->fileDestination = 'uploads/'.$fileNameNew;
+                        move_uploaded_file( $fileTmpName,$this->fileDestination);
+                        $img=1;
+                        return $fileDestination;
+
+                    }else{
+                        return Redirect::route("/exams", [
+                        'errors' => ['Tamanho permitido excedido']
+                    ]);                        
+                    }
+                }else{ 
+                     return Redirect::route("/exams", [
+                        'errors' => [' Falha no upload do arquivo']
+                    ]);
+                }
+            }else{
+                $img=0;
+                return Redirect::route("/exams", [
+                      'errors' => ['Formato inválido']
+                    ]);
+            } 
+        }
+
         public function index(){
             if(Session::get('login')){
             $this->view->login=Session::get('login');
@@ -43,6 +85,7 @@
             $this->setPageTitle('Provas');
             $this->view->exams = $this->exam->all();
             return $this->renderView('exams/index', 'layout');
+         
         }
 
         public function show($id){
@@ -63,18 +106,27 @@
 
         public function store($request){
             date_default_timezone_set("America/Bahia");
-            if($this->dataVerify($request)){
-                if( $this->exam->create("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), "{$request->post->components_id}", "{$request->post->unit}", Auth::id(), "img") ){
+
+           if($this->dataVerify($request)){
+                $this->imageRedirect();
+                //if($img==1){
+                    if( $this->exam->create("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), "{$request->post->components_id}", "{$request->post->unit}", Auth::id() ,"{$this->fileDestination}") ){
+                        
+                        return Redirect::route("/exams", [
+                            'success' => ['Prova enviada para moderação.']
+                        ]);
+                    } else {
+                        return Redirect::route("/exams", [
+                            'errors' => ['Erro ao inserir prova no banco de dados.']
+                        ]);
+                    }  
+                /*}else{ 
                     return Redirect::route("/exams", [
-                        'success' => ['Prova enviada para moderação.']
-                    ]);
-                } else {
-                    return Redirect::route("/exams", [
-                        'errors' => ['Erro ao inserir prova no banco de dados.']
-                    ]);
-                }
+                    'errors' => ['erro no upload.']
+                ]);
+                }*/
             }else {
-                return Redirect::route("/exam/create", [
+                return Redirect::route("/exams", [
                     'errors' => ['Há campos vazios.']
                 ]);
             }

@@ -62,7 +62,7 @@ class User {
         return $result;
     }
 
-    public function create($name, $email, $password, $image = NULL, $birthdate, $courses_id, $token) { //criando usuário
+    public function create($name, $email, $password, $image, $birthdate, $courses_id, $token) { //criando usuário
         $query = "INSERT INTO {$this->table} (name, email, password, image, birthdate, level, courses_id, token) VALUES (:name, :email, :password, :image, :birthdate, 1, :courses_id, :token)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(":name", $name);
@@ -77,7 +77,7 @@ class User {
         return $result;
     }
 
-    public function update($id, $name, $email, $password, $image = NULL, $birthdate, $courses_id) { //atualizando o usuário
+    public function update($id, $name, $email, $password, $image, $birthdate, $courses_id) { //atualizando o usuário
         $query = "UPDATE {$this->table} SET name=:name, email=:email, password=:password, image=:image, birthdate=:birthdate, courses_id=:courses_id WHERE id=:id";
         $stmt =$this->pdo->prepare($query);
         $stmt->bindValue(":id", $id);

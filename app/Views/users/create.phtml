@@ -3,15 +3,12 @@
 
     <?php var_dump($this->view->errors); ?>
 
-    <form action="/user/store" method= "post" accept-charset="utf-8">
+    <form action="/user/store" method= "post" accept-charset="utf-8" enctype="multipart/form-data">
       <div class="form-group">
         <label for="name">Nome</label>
         <input type="text" name="name" class="form-control" required>
       </div>
-      <div class="form-group">
-        <label for="image">Image</label>
-        <input type="file" name="image" class="form-control">
-      </div>
+     
       <div class="form-group">
         <label for="birthdate">Data de Nascimento</label>
         <input type="date" name="birthdate" class="form-control" required>
@@ -36,6 +33,10 @@
       <div class="form-group">
           <label for="password">Password(confirmação)</label>
           <input type="password" name="password_confirmation" class="form-control" pattern=".{5,}" maxlength="10" required>
+           <div class="form-group">
+        <label for="image">Image</label>
+        <input type="file" name="image" class="form-control">
+      </div>
       </div>
       <a href="/users" class="btn btn-default">Cancel</a>
       <button type="submit" class="btn btn-primary">Save</button>

@@ -34,6 +34,38 @@
             return $this->token;
         }
 
+        public function imageRedirect() {
+            $file = $_FILES['image'];
+            $fileName = $_FILES['image']['name'];
+            //local atual do arquivo
+            $fileTmpName = $_FILES['image']['tmp_name'];
+            $fileSize = $_FILES['image']['size'];
+            $fileError = $_FILES['image']['error'];
+            $fileType = $_FILES['image']['type'];
+            $fileExt= explode('.',$fileName);
+            $fileActualExt= strtolower(end($fileExt));
+            $allowed = array('jpg','jpeg','png','pdf');
+
+            if(in_array($fileActualExt, $allowed)){
+                if($fileError===0){
+                    if($fileSize<(3*1024*1024)){
+                        $fileNameNew= uniqid('',true).".".$fileActualExt;
+                        $this->fileDestination = 'uploads/'.$fileNameNew;
+                        move_uploaded_file( $fileTmpName,$this->fileDestination);
+                        return $fileDestination;
+                    }else{
+                        " Tamanho permitido excedido";
+                    }
+                }else{ 
+                    echo " Falha no upload do arquivo";
+                }
+            }else {
+                echo " Formato inválido";
+                } 
+        }
+
+        
+
         public function updateVerify($id, $request){
             $this->info = $this->user->findById($id);
             if( !($request->post->name == $this->info->name) || !($request->post->email == $this->info->email) || !($request->post->image == $this->info->image) || !($this->dateConvert($request) == $this->info->birthdate) || !($request->post->courses_id == $this->info->courses_id)){
@@ -113,7 +145,7 @@
                 if( (strlen($request->post->password) >= 5) && (strlen($request->post->password) <=10 ) ){
                     if ($this->newEmailVerify($request)) {
                         if ($request->post->password == $request->post->password_confirmation) {
-                            if($this->user->create("{$request->post->name}", "{$request->post->email}", password_hash($request->post->password, PASSWORD_DEFAULT), "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}", $this->tokenHash() )){
+                            if($this->user->create("{$request->post->name}", "{$request->post->email}", password_hash($request->post->password, PASSWORD_DEFAULT), "{$this->fileDestination}", "{$this->dateConvert($request)}", "{$request->post->courses_id}", $this->tokenHash() )){
                                 Email::send("{$request->post->name}","{$request->post->email}","{$this->token}");
                                 return Redirect::route("/users", [
                                     'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
