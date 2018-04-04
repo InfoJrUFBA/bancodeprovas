@@ -9,8 +9,6 @@
     use Core\Auth;
 
     class ExamsController extends BaseController{
-        public $img;
-
 
         public function __construct(){
             parent::__construct();
@@ -49,7 +47,6 @@
                         $fileNameNew= uniqid('',true).".".$fileActualExt;
                         $this->fileDestination = 'uploads/'.$fileNameNew;
                         move_uploaded_file( $fileTmpName,$this->fileDestination);
-                        $img=1;
                         return true;
 
                     }else{
@@ -59,15 +56,16 @@
                         return false;
                     }
                 }else{
-                     return Redirect::route("/exams", [
-                        'errors' => [' Falha no upload do arquivo']
-                    ]);
+                      Session::set('errors', [
+                            'Falha no upload do arquivo'
+                        ]);
+                        return false;
                 }
             }else{
-                $img=0;
-                return Redirect::route("/exams", [
-                      'errors' => ['Formato inválido']
-                    ]);
+                Session::set('errors', [
+                            'Formato inválido'
+                        ]);
+                        return false;
             }
         }
 
