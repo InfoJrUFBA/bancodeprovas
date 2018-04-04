@@ -50,14 +50,15 @@
                         $this->fileDestination = 'uploads/'.$fileNameNew;
                         move_uploaded_file( $fileTmpName,$this->fileDestination);
                         $img=1;
-                        return $fileDestination;
+                        return true;
 
                     }else{
-                        return Redirect::route("/exams", [
-                        'errors' => ['Tamanho permitido excedido']
-                    ]);                        
+                        Session::set('errors', [
+                            'Tamanho permitido excedido'
+                        ]);
+                        return false;
                     }
-                }else{ 
+                }else{
                      return Redirect::route("/exams", [
                         'errors' => [' Falha no upload do arquivo']
                     ]);
@@ -67,7 +68,7 @@
                 return Redirect::route("/exams", [
                       'errors' => ['Formato inválido']
                     ]);
-            } 
+            }
         }
 
         public function index(){
@@ -85,7 +86,7 @@
             $this->setPageTitle('Provas');
             $this->view->exams = $this->exam->all();
             return $this->renderView('exams/index', 'layout');
-         
+
         }
 
         public function show($id){
@@ -108,10 +109,10 @@
             date_default_timezone_set("America/Bahia");
 
            if($this->dataVerify($request)){
-                $this->imageRedirect();
+                if($this->imageRedirect()){
                 //if($img==1){
                     if( $this->exam->create("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), "{$request->post->components_id}", "{$request->post->unit}", Auth::id() ,"{$this->fileDestination}") ){
-                        
+
                         return Redirect::route("/exams", [
                             'success' => ['Prova enviada para moderação.']
                         ]);
@@ -119,12 +120,11 @@
                         return Redirect::route("/exams", [
                             'errors' => ['Erro ao inserir prova no banco de dados.']
                         ]);
-                    }  
-                /*}else{ 
-                    return Redirect::route("/exams", [
-                    'errors' => ['erro no upload.']
-                ]);
-                }*/
+                    }
+              }else {
+                Session::get('errors');
+                return Redirect::route("/exams");
+              }
             }else {
                 return Redirect::route("/exams", [
                     'errors' => ['Há campos vazios.']
