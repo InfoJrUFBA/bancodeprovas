@@ -39,12 +39,16 @@ a:visited {
 .txt-center {
     text-align: center;
 }
+.div-center {
+    margin: 0 auto;
+}
 .box-center {
     display: flex;
     display: -webkit-flex;
     justify-content: center;
     -webkit-justify-content: center;
 }
+
 label[for] {
     text-align: left;
 }
@@ -194,4 +198,10 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
 
 .closebtn:hover {
     color: black;
+}
+
+
+/* FORMS */
+form label {
+    
 }

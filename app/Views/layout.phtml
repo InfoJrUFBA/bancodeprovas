@@ -13,20 +13,26 @@
     <body>
         <div id="popup-login" class="overlay">
             <a class="cancel" href="#"></a>
-            <div class="popup div-center">
-                <div class="center">
+            <div class="popup">
+                <div class="txt-center">
                     <h2>Login</h2>
-                </div>
+                </div><br>
                 <a href="#" class="close">&times;</a>
                 <form method="post" action="/auth">
                     <div>
                         <label for="email">E-Mail:</label><br>
-                        <input type="text" name="email">
+                        <input type="text" name="email" required>
                     </div>
                     <div>
                         <label for="password">Senha:</label><br>
-                        <input type="password" name="password">
+                        <input type="password" name="password" required>
                     </div>
+                    <?php if(isset($this->view->erros)): ?>
+                    	<div class="alert warning">
+                    		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    		<?php echo $this->view->errors[0]; ?>
+                    	</div>
+                    <?php endif; ?>
                     <button class="btn" type="submit">Login</button>
                 </form>
             </div>

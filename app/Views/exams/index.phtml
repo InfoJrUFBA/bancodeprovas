@@ -12,12 +12,12 @@
     <a href ="/exam/create" >
         Adicionar Prova
     </a>
-    
+
     <?php
    // var_dump($this->view->success);
     //var_dump($this->view->errors);
-    foreach($this->view->exams as $exam): 
-    
+    foreach($this->view->exams as $exam):
+
     if($exam->status > 1 ||$this->auth->level()) :  ?>
     <div >
         <ul>
@@ -61,7 +61,7 @@
 
             <img src= " <?php echo  $exam->image;?> "  width=200 height=200 />
             <?php  echo "<br>"; ?>
-            <a href= "<?php echo $exam->image;?>"> Dowload </a>
+            <a href= "<?php echo $exam->image;?>"> Download </a>
         </ul>
         <?php  if($this->auth->level()) : ?>
             <li>Status: <?php echo $exam->status;?></li>
@@ -78,5 +78,5 @@
     </div>
     <?php endif; ?>
     <?php endforeach; ?>
-    
+
 </div>
