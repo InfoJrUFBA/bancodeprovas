@@ -1,15 +1,15 @@
-<div class ="container ">
+<div >
 
-<h1 class ="h1"> <?php echo $this->getPageTitle() ?> </h1>
+<h1 > <?php echo $this->getPageTitle() ?> </h1>
 
 	<form action = "/course/<?php echo $this->view->course->id?>/update" method="post" accept-charset="utf-8">
 			<div class = "form-group">
 			<label for ="title"> Course </label> <br>
-			<input type = "text" name = "name" class ="form-control" value= "<?php echo $this->view->course->name ?>" >
+			<input type = "text" name = "name"  value= "<?php echo $this->view->course->name ?>" >
 		</div>
 		<div class ="form-group">
 			<label for = "title" > Type </label><br>
-			<input type ="number" name="type" class ="form-control" value="<?php echo $this->view->course->type ?>" >
+			<input type ="number" name="type"  value="<?php echo $this->view->course->type ?>" >
 		</div>
 		<div class ="form-group">
 			<label for = "title" > Area </label><br>
@@ -24,7 +24,7 @@
 	        }
 	        ?>
 		</div>
-		<a href = "/courses" class ="btn btn-default"> Cancel </a> <br>
-		<button type = "submit" class = "btn btn-primary" > Save </button>
+		<a href = "/courses" > Cancel </a> <br>
+		<button type = "submit"  > Save </button>
 	</form>
 </div>

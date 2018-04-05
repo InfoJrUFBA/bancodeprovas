@@ -1,7 +1,7 @@
-<div class = "container" >
-		<h1 class =" h1">
+<div >
+		<h1 >
 			<?php $this->getPageTitle(); ?>
-			<a href = "/area/create" class="btn btn-primary pull-right"> Adicione nova Area</a>
+			<a href = "/area/create"> Adicione nova Area</a>
 		</h1>
 		<?php  if($this->auth->check()) : ?>
      <li > <?php echo $this->auth->name() ?> </li>
@@ -9,16 +9,19 @@
      <?php endif; ?>
 	</div>
 	<?php
-	var_dump($this->view->success);
-	var_dump($this->view->errors);
+	//var_dump($this->view->success);
+	//var_dump($this->view->errors);
 	foreach ($this->view->areas as $area): ?>
-	<h3 class="h3">
+	<h3 >
 	<a href="area/<?php echo $area->id ?>/show">  <?php echo $area->name;?> </a>
 	</h3>
+	<?php  if($this->auth->level()) : ?>
 	<a href = "/area/<?php echo $area->id ?>/edit" > editar </a>
 	<a href = "/area/<?php echo $area->id ?>/delete" > excluir </a>
     </div>
     </hr>
-	<?php endforeach; ?>
+     <?php endif;?>
+ <?php endforeach;?>
+
 
 </div>
