@@ -22,15 +22,21 @@ class Course
 		// Se for vários registros pesquisados, retornará um array de objects
 		if (is_array($course)) {
 			foreach ($course as $c):
-				$type = ($c->type == 1) ? "Bacharelado" : "Pós-Graduação";
+				($c->type == 1) ? $type="Bacharelado" : null;
+				($c->type == 2) ? $type="Licenciatura" : null;
+				($c->type == 3) ? $type="Mestrado" : null;
+				($c->type == 4) ? $type="Doutorado" : null;
 				$c->type = $type;
 			endforeach;
 			return $course;
 		}
-		
+
 		// Se for apenas um registro, retornará apenas um object, sem array
 		if (is_object($course)) {
-			$type = ($course->type == 1) ? "Bacharelado" : "Pós-Graduação";
+			($course->type == 1) ? $type="Bacharelado" : null;
+			($course->type == 2) ? $type="Licenciatura" : null;
+			($course->type == 3) ? $type="Mestrado" : null;
+			($course->type == 4) ? $type="Doutorado" : null;
 			$course->type = $type;
 			return $course;
 		}
@@ -49,12 +55,12 @@ class Course
 	}
 
 	public function all() {
-		$query = "SELECT * FROM {$this->table}";
+		$query = "SELECT * FROM {$this->table} ORDER BY {$this->table}.name";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		$stmt->CloseCursor();
-		return $result;
+		return $this->replaceToType($result);
 	}
 
 	public function findById($id) {
@@ -78,7 +84,7 @@ class Course
 	}
 
 	public function findByArea($areas_id) {
-		$query = "SELECT {$this->table}.id, {$this->table}.name, {$this->table}.type, areas.name AS area FROM {$this->table} JOIN areas ON courses.areas_id = areas.id WHERE areas_id=:areas_id";
+		$query = "SELECT {$this->table}.id, {$this->table}.name, {$this->table}.type, areas.name AS area FROM {$this->table} JOIN areas ON courses.areas_id = areas.id WHERE areas_id=:areas_id ORDER BY {$this->table}.name";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindValue(":areas_id",$areas_id);
 		$stmt->execute();
