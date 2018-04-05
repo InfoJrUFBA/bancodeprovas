@@ -13,7 +13,7 @@
         public function __construct(){
             parent::__construct();
             $this->exam = Container::getModel("Exam");
-            Container::getModel("User");
+            $this->user = Container::getModel("User");
         }
 
         public function getComponents(){
@@ -111,7 +111,6 @@
                 if($this->imageRedirect()){
                 //if($img==1){
                     if( $this->exam->create("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), "{$request->post->components_id}", "{$request->post->unit}", Auth::id() ,"{$this->fileDestination}") ){
-
                         return Redirect::route("/exams", [
                             'success' => ['Prova enviada para moderação.']
                         ]);
@@ -129,7 +128,6 @@
                     'errors' => ['Há campos vazios.']
                 ]);
             }
-            $this->points();
         }
 
         public function edit($id){
@@ -141,7 +139,10 @@
 
         public function update($id, $request){
             if($this->dataVerify($request)){
-                if ($this->exam->update("{$id}", "{$request->post->professor}", "{$request->post->period}", "{$request->post->components_id}","{$request->post->unit}") ){
+                if ($this->exam->update("{$id}", "{$request->post->professor}", "{$request->post->period}", "{$request->post->components_id}","{$request->post->status}","{$request->post->unit}") ){
+                    if($request->post->status > 1){
+                        $this->points($id);
+                    }
                     return Redirect::route("/exams", [
                         'success' => ['Prova atualizada com sucesso.']
                     ]);
@@ -156,9 +157,9 @@
                 ]);
             }
         }
-        public function points(){
-          $this->user->updatePointsExam();
-          $idpoint = $this->auth->id;
+        public function points($id){
+            $userId = $this->exam->readSingle($id)->creator_id;
+            $this->user->updatePointsExam($userId);
         }
         public function delete($id){
             if($this->exam->deleteExam($id)){

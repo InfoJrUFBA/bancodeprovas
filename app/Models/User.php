@@ -62,7 +62,7 @@ class User {
         return $result;
     }
 
-    public function create($name, $email, $password, $image, $birthdate, $courses_id, $token) { //criando usuário
+    public function create($name, $email, $password, $image = null, $birthdate, $courses_id, $token) { //criando usuário
         $query = "INSERT INTO {$this->table} (name, email, password, image, birthdate, level, courses_id, token) VALUES (:name, :email, :password, :image, :birthdate, 1, :courses_id, :token)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(":name", $name);

@@ -24,7 +24,7 @@ class Area {
 	}
 
 	public function all () {
-		$query = "SELECT * FROM {$this->table}";
+		$query = "SELECT {$this->table}.id, {$this->table}.name, courses.id as courses_id, courses.name as courses_name, courses.type as courses_type, courses.areas_id FROM {$this->table} JOIN `courses` WHERE {$this->table}.id = courses.areas_id";
 		$stmt = $this->pdo->prepare($query);
 		$stmt -> execute();
 		$result = $stmt->fetchAll();
@@ -33,11 +33,12 @@ class Area {
 	}
 
 	public function findById($id) {
-		$query = "SELECT * FROM {$this->table} WHERE id=:id";
+		$query = "SELECT {$this->table}.id, {$this->table}.name, courses.id as courses_id, courses.name as courses_name, courses.type as courses_type, courses.areas_id FROM {$this->table} JOIN `courses` WHERE {$this->table}.id = :id AND courses.areas_id = :id";
+		"SELECT * FROM {$this->table} WHERE id=:id";
 		$stmt =$this->pdo->prepare($query);
 		$stmt->bindValue(":id", $id);
 		$stmt->execute();
-		$result = $stmt->fetch();
+		$result = $stmt->fetchAll();
 		$stmt->CloseCursor();
 		return $result;
 	}
