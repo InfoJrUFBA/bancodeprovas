@@ -1,5 +1,5 @@
 <div >
-    <h1 > <?php echo $this->getPageTitle() ?> </h1>
+    <h1 class = "h1"> <?php echo $this->getPageTitle() ?> </h1>
 
     <form action="/exam/<?php echo $this->view->exam->id ?>/update" method="post" accept-charset="utf-8">
         <div class="form-group">
@@ -129,8 +129,16 @@
                 <option value="8">4ª Prova (2ª chamada)</option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="status">Status de Aprovação</label> <br>
+            <select name="status" >
+                <option value=1>Pendente</option>
+                <option value=2>Aprovado</option>
+            </select>
+        </div>
         <a href="/exams"><button type="button">Cancelar</button></a>
         <button type="submit">Salvar</button>
+
     </form>
 
 </div>

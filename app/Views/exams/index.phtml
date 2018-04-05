@@ -16,8 +16,9 @@
     <?php
    // var_dump($this->view->success);
     //var_dump($this->view->errors);
-    foreach($this->view->exams as $exam): ?>
-    <?php if($exam->status> 1) : ?>
+    foreach($this->view->exams as $exam): 
+    
+    if($exam->status > 1 ||$this->auth->level()) :  ?>
     <div >
         <ul>
             <li>Professor: <?php echo $exam->professor ?>  </li>
@@ -63,6 +64,7 @@
             <a href= "<?php echo $exam->image;?>"> Dowload </a>
         </ul>
         <?php  if($this->auth->level()) : ?>
+            <li>Status: <?php echo $exam->status;?></li>
         <a href="/exam/<?php echo $exam->id?>/edit">
             <button type="button">Editar</button>
         </a>

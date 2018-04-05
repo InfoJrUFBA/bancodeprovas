@@ -9,6 +9,7 @@
         protected $table = "exams";
         private $professor;
         private $period;
+        private $status;
         private $components_id;
         private $created_at;
         private $unit;
@@ -60,11 +61,7 @@
             return $result;
         }
         public function readByComponent($components_id){
-            $query = "
-            SELECT {$this->table}.*, users.name  FROM {$this->table}
-            JOIN users ON users.id = {$this->table}.users_id
-            WHERE components_id = :components_id";
-
+            $query = "SELECT * FROM {$this->table} WHERE components_id = :components_id";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":components_id", $components_id);
             $stmt->execute();
@@ -82,16 +79,23 @@
             return $result;
         }
 
-        public function update($exam_id, $professor, $period, $components_id, $unit){
-            $query = "UPDATE {$this->table} SET professor = :professor, period = :period, components_id = :components_id, unit = :unit WHERE id = :exam_id";
+        public function update($exam_id, $professor, $period,$status, $components_id, $unit){
+            $query = "UPDATE {$this->table} SET professor = :professor, period = :period, status =:status, components_id = :components_id, unit = :unit WHERE id = :exam_id";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":professor", $professor);
             $stmt->bindValue(":period", $period);
             $stmt->bindValue(":components_id", $components_id);
             $stmt->bindValue(":unit", $unit);
+            $stmt->bindValue(":status", $status);
             $stmt->bindValue(":exam_id", $exam_id);
             $result = $stmt->execute();
             $stmt->closeCursor();
+
+            if ($result) {
+                echo "Atualização sucedida";
+            }else {
+                echo "Não foi possível atualizar";
+            }
             return $result;
         }
 
@@ -101,6 +105,13 @@
             $stmt->bindValue(":exam_id", $exam_id);
             $result = $stmt->execute();
             $stmt->closeCursor();
+
+            if ($result) {
+                echo "Prova excluída com sucesso";
+            }else {
+                echo "Não foi possível excluir";
+            }
             return $result;
         }
+
     }
