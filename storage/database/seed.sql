@@ -1,3 +1,5 @@
+USE mydb;
+
 INSERT INTO areas (name) VALUES
 ('Ciências Físicas, Matemática e Tecnologia'),
 ('Ciências Biológicas e Profissões da Saúde'),
