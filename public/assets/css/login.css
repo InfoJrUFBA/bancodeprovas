@@ -31,6 +31,7 @@
     width: 300px;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
     position: relative;
+    z-index: 3;
 }
 .light .popup {
     border-color: #aaa;

@@ -1,5 +1,33 @@
 <section>
-    ID: <?php echo $this->view->component->id; ?><br>
-    Código: <?php echo $this->view->component->code; ?><br>
-    Disciplina: <?php echo $this->view->component->name; ?><br>
+    <table class="display">
+		<thead>
+			<tr>
+				<td>Criado em</td>
+				<td>Professor</td>
+				<td>Período</td>
+				<td>Unidade</td>
+				<td>Criado por</td>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->view->exam as $exam):?>
+			<tr onclick="window.location='/component/<?php echo $exam->id;?>/show'">
+				<td><?php echo date('d-m-Y', strtotime($exam->created_at));?></td>
+				<td><?php echo $exam->professor;?></td>
+				<td><?php echo $exam->period;?></td>
+				<td><?php echo $exam->unit;?></td>
+				<td><?php echo $exam->creator_id;?></td>
+			</tr>
+			<?php endforeach?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>Criado em</td>
+				<td>Professor</td>
+				<td>Período</td>
+				<td>Unidade</td>
+				<td>Criado por</td>
+			</tr>
+		</tfoot>
+	</table>
 </section>

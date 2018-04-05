@@ -60,7 +60,11 @@
             return $result;
         }
         public function readByComponent($components_id){
-            $query = "SELECT * FROM {$this->table} WHERE components_id = :components_id";
+            $query = "
+            SELECT {$this->table}.*, users.name  FROM {$this->table}
+            JOIN users ON users.id = {$this->table}.users_id
+            WHERE components_id = :components_id";
+
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":components_id", $components_id);
             $stmt->execute();
