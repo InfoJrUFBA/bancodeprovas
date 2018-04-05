@@ -34,7 +34,7 @@ $route[] = ['/area/{id}/edit', 'AreasController@edit','auth'];
 $route[] = ['/area/{id}/update', 'AreasController@update','auth'];
 $route[] = ['/area/{id}/delete', 'AreasController@delete','auth'];
 
-$route[] = ['/users', 'UsersController@index'];
+$route[] = ['/users', 'UsersController@index', 'auth'];
 $route[] = ['/user/{id}/show', 'UsersController@show'];
 $route[] = ['/user/create', 'UsersController@create',];
 $route[] = ['/user/store', 'UsersController@store'];
