@@ -13,6 +13,7 @@
         public function __construct(){
             parent::__construct();
             $this->exam = Container::getModel("Exam");
+            Container::getModel("User");
         }
 
         public function getComponents(){
@@ -128,6 +129,7 @@
                     'errors' => ['Há campos vazios.']
                 ]);
             }
+            $this->points();
         }
 
         public function edit($id){
@@ -154,7 +156,10 @@
                 ]);
             }
         }
-
+        public function points(){
+          $this->user->updatePointsExam();
+          $idpoint = $this->auth->id;
+        }
         public function delete($id){
             if($this->exam->deleteExam($id)){
                 return Redirect::route("/exams");

@@ -91,6 +91,14 @@ class User {
         $stmt->CloseCursor();
         return $result;
     }
+    public function updatePointsExam($idpoint){
+    $query = "UPDATE {$this->table} SET score = score + 5 WHERE id=:idpoint";
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(":idpoint", $idpoint);
+    $result = $stmt->execute();
+    $stmt->closeCursor();
+    return $result;
+    }
 
     public function delete($id) { //excluindo usuário
         $query = "DELETE FROM {$this->table} WHERE id =:id";
