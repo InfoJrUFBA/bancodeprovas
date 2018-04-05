@@ -53,8 +53,14 @@
 				break;
 		}?>
 	</p>
+
+	<?php  if($this->auth->level()) : ?>
 	<a href = "/course/<?php echo $course->id ?>/edit" > editar </a>
 	<a href = "/course/<?php echo $course->id ?>/delete" > excluir </a>
+    </div>
+    </hr>
+     <?php endif;?>
+  
     </div>
     </hr>
 	<?php endforeach; ?>

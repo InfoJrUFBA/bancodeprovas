@@ -15,10 +15,13 @@
 	<h3 >
 	<a href="area/<?php echo $area->id ?>/show">  <?php echo $area->name;?> </a>
 	</h3>
+	<?php  if($this->auth->level()) : ?>
 	<a href = "/area/<?php echo $area->id ?>/edit" > editar </a>
 	<a href = "/area/<?php echo $area->id ?>/delete" > excluir </a>
     </div>
     </hr>
-	<?php endforeach; ?>
+     <?php endif;?>
+ <?php endforeach;?>
+
 
 </div>
