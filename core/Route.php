@@ -64,6 +64,9 @@ class Route {
                 if(isset($route[3]) && $route[3] == 'auth' && !$auth->level()){
                     $action = 'forbiden';
                 }
+                if(isset($route[3]) && $route[3] == 'create' && !$auth->check()){
+                    $action = 'forbiden';
+                }
                 break;
             }
         }

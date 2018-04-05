@@ -11,8 +11,8 @@ $route[] = ['/component/{id}/update', 'ComponentsController@update','auth'];
 $route[] = ['/component/{id}/delete', 'ComponentsController@delete','auth'];
 
 $route[] = ['/exams', 'ExamsController@index'];
-$route[] = ['/exam/create', 'ExamsController@create'];
-$route[] = ['/exam/store', 'ExamsController@store'];
+$route[] = ['/exam/create', 'ExamsController@create','create'];
+$route[] = ['/exam/store', 'ExamsController@store','create'];
 $route[] = ['/exam/{id}/show', 'ExamsController@show'];
 $route[] = ['/exam/{id}/edit', 'ExamsController@edit'];
 $route[] = ['/exam/{id}/update', 'ExamsController@update'];

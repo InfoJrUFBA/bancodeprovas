@@ -57,6 +57,14 @@
             </li>
             <li>Adicionado por <a href="user/<?php echo $exam->creator_id ?>/show"> <?php echo $exam->created_by;?> </a></li>
             <li> <?php echo $exam->code . " - " . $exam->name; ?> </li>
+
+            <img src= " <?php echo  $exam->image;?> "  width=200 height=200 />
+            <?php  echo "<br>"; ?>
+            <a href= "<?php echo $exam->image;?>"> Dowload </a>
+
+        
+           
+         
         </ul>
         <a href="/exam/<?php echo $exam->id?>/edit">
             <button type="button">Editar</button>
