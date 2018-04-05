@@ -24,7 +24,7 @@ class Area {
 	}
 
 	public function all () {
-		$query = "SELECT {$this->table}.id, {$this->table}.name, courses.id as courses_id, courses.name as courses_name, courses.type as courses_type, courses.areas_id FROM {$this->table} JOIN `courses` WHERE {$this->table}.id = courses.areas_id";
+		$query = "SELECT * FROM {$this->table}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt -> execute();
 		$result = $stmt->fetchAll();
