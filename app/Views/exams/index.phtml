@@ -8,17 +8,17 @@
      <li > <?php echo $this->auth->name() ?> </li>
     <?php else : ?>
      <?php endif; ?>
-
-<div ">
-    <a href ="/exam/create" class "btn btn-primary pull-right">
+<div >
+    <a href ="/exam/create" >
         Adicionar Prova
     </a>
+    
     <?php
-    //var_dump($this->view->success);
+   // var_dump($this->view->success);
     //var_dump($this->view->errors);
     foreach($this->view->exams as $exam): ?>
-    <h3 class = "h3"></h3>
-    <div class = "row">
+    <?php if($exam->status> 1) : ?>
+    <div >
         <ul>
             <li>Professor: <?php echo $exam->professor ?>  </li>
             <li>Semestre: <?php echo $exam->period ?>  </li>
@@ -61,17 +61,20 @@
             <img src= " <?php echo  $exam->image;?> "  width=200 height=200 />
             <?php  echo "<br>"; ?>
             <a href= "<?php echo $exam->image;?>"> Dowload </a>
-
-
-
-
         </ul>
+        <?php  if($this->auth->level()) : ?>
         <a href="/exam/<?php echo $exam->id?>/edit">
             <button type="button">Editar</button>
         </a>
+        <?php endif;?>
+        <?php  if($this->auth->level()) : ?>
         <a href="/exam/<?php echo $exam->id?>/delete">
             <button type="button">Deletar</button>
         </a>
+        <?php endif;?>
+
     </div>
+    <?php endif; ?>
     <?php endforeach; ?>
+    
 </div>
