@@ -1,68 +1,74 @@
 <div>
-		<h1>
-			<?php $this->getPageTitle(); ?>
-			<a href = "/course/create" > Adicione o curso </a>
-		</h1>
+<h1>
+	<?php $this->getPageTitle(); ?>
+	<a href = "/course/create" > Adicione o curso </a>
+</h1>
+</div>
+<?php  if($this->auth->check()) : ?>
+ <li > <?php echo $this->auth->name() ?> </li>
+<?php else : ?>
+ <?php endif; ?>
+
+<?php if(isset($this->view->success)): ?>
+	<div class="alert success">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		<?php echo $this->view->success[0]; ?>
 	</div>
-	<?php  if($this->auth->check()) : ?>
-     <li > <?php echo $this->auth->name() ?> </li>
-    <?php else : ?>
-     <?php endif; ?>
+<?php endif; ?>
 
-	<?php
-	//var_dump($this->view->success);
-    //var_dump($this->view->errors);
-	foreach ($this->view->courses as $course): ?>
-	<h3 >
-	<a href="course/<?php echo $course->id ?>/show">  <?php echo $course->name;?> </a>
-	</h3>
-	<p class="text-jutify"> Tipo:
-		<?php
-		switch($course->type){
-			case 1:
-				echo "Graduação";
-				break;
-			case 2:
-				echo "Especialização";
-				break;
-			case 3:
-				echo "Mestrado";
-				break;
-			case 4:
-				echo "Doutorado";
-				break;
-		}?>
-	</p>
-	<p class="text-jutify">
-		<?php
-		switch($course->areas_id){
-			case 1:
-				echo "Exatas";
-				break;
-			case 2:
-				echo "Humanidades";
-				break;
-			case 3:
-				echo "Saúde";
-				break;
-			case 4:
-				echo "Artes";
-				break;
-			case 5:
-				echo "Bacharelado Interdisciplinar";
-				break;
-		}?>
-	</p>
+<?php if(isset($this->view->erros)): ?>
+	<div class="alert warning">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		<?php echo $this->view->errors[0]; ?>
+	</div>
+<?php endif; ?>
 
-	<?php  if($this->auth->level()) : ?>
-	<a href = "/course/<?php echo $course->id ?>/edit" > editar </a>
-	<a href = "/course/<?php echo $course->id ?>/delete" > excluir </a>
-    </div>
-    </hr>
-     <?php endif;?>
-  
-    </div>
-    </hr>
-	<?php endforeach; ?>
+<?php foreach ($this->view->courses as $course): ?>
+<h3 >
+<a href="course/<?php echo $course->id ?>/show">  <?php echo $course->name;?> </a>
+</h3>
+<p class="text-jutify"> Tipo:
+<?php
+switch($course->type){
+	case 1:
+		echo "Graduação";
+		break;
+	case 2:
+		echo "Especialização";
+		break;
+	case 3:
+		echo "Mestrado";
+		break;
+	case 4:
+		echo "Doutorado";
+		break;
+}?>
+</p>
+<p class="text-jutify">
+<?php
+switch($course->areas_id){
+	case 1:
+		echo "Exatas";
+		break;
+	case 2:
+		echo "Humanidades";
+		break;
+	case 3:
+		echo "Saúde";
+		break;
+	case 4:
+		echo "Artes";
+		break;
+	case 5:
+		echo "Bacharelado Interdisciplinar";
+		break;
+}?>
+</p>
 
+<?php  if($this->auth->level()) : ?>
+<a href = "/course/<?php echo $course->id ?>/edit" > editar </a>
+<a href = "/course/<?php echo $course->id ?>/delete" > excluir </a>
+<?php endif;?>
+
+<?php endforeach; ?>
 </div>
