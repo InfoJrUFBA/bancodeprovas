@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#courses').DataTable();
+    $('.display').DataTable();
 });
 
 function activateInsertion() {

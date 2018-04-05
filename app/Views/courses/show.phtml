@@ -2,25 +2,22 @@
 	<table class="display">
 		<thead>
 			<tr>
+				<td>Código</td>
 				<td>Nome</td>
-				<td>Tipo</td>
-				<td>Área</td>
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($this->view->courses as $course):?>
-			<tr class="<?php echo $course->id;?>" onclick="window.location='/course/<?php echo $course->id;?>/show'">
-				<td><?php echo $course->name;?></td>
-				<td><?php echo $course->type;?></td>
-				<td><?php echo $course->area;?></td>
+			<?php foreach ($this->view->components as $component):?>
+			<tr onclick="window.location='/component/<?php echo $component->id;?>/show'">
+				<td><?php echo $component->code;?></td>
+				<td><?php echo $component->name;?></td>
 			</tr>
 			<?php endforeach?>
 		</tbody>
 		<tfoot>
 			<tr>
+				<td>Código</td>
 				<td>Nome</td>
-				<td>Tipo</td>
-				<td>Área</td>
 			</tr>
 		</tfoot>
 	</table>

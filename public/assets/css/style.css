@@ -97,22 +97,19 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
     display: -ms-flexbox;
 }
 .flex-col {
+    background-color: #eae8ff;
     margin: 5px;
     padding: 15px;
     flex-basis: 100%;
 }
+.flexbox a {
+    flex-basis: 100%;
+}
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .flexbox {
         display: block;
     }
-}
-
-.flex-col:nth-child(odd) {
-    background-color: #cfcaff;
-}
-.flex-col:nth-child(even) {
-    background-color: #eae8ff;
 }
 /* END BOXES */
 
@@ -160,4 +157,10 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
 .tbl tr[onclick]:hover {
     cursor: pointer;
 }
+
+
+.display tr[onclick] {
+    cursor: pointer;
+}
+
 /* END TABLES */
