@@ -6,23 +6,19 @@
         </ul>
         <input type="checkbox" id="check">
         <ul id="menu">
-            <li class="search">
+            <li class="search not-menu">
                 <input type="text" name="search" placeholder="Cód. da Disciplina" size="15">
                 <input type="image" src="/assets/img/lupa.png" alt="Pesquisar" class="lupa">
             </li>
             <li><a href="/areas">Áreas</a></li>
-            <li><a href="/courses">Cursos</a></li>
-            <li><a href="/components">Disciplinas</a></li>
-            <li><a href="/exams">Provas</a></li>
-            <li><a href="/users">Usuários</a></li>
-            <?php if($this->auth->check()) : ?>
-                <li><a href="/user/<?php echo $this->auth->id(); ?>/show"> <?php echo $this->auth->name() ?> </a></li>
-                <li><a href="/user/<?php echo $this->auth->id(); ?>/edit"> User edit </a></li>
-                <li><a href="/logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
-            <?php else : ?>
-                <li><a href="#popup-login">Login</a></li>
-            <?php endif; ?>
-
+            <li class="not-menu">|</li>
+            <?php
+            if ($this->auth->check()):
+                echo '<li><a href="/user/'. $this->auth->id() . '/show">Perfil</a></li>';
+                echo '<li><a href="/logout">Sair</a></li>';
+            else:
+                echo '<li><a href="#popup-login">Login</a></li>';
+            endif;?>
         </ul>
     </nav>
 </header>

@@ -2,6 +2,7 @@
 @import "navbar.css";
 @import "login.css";
 @import "button.css";
+@import "https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css";
 
 * {
     box-sizing: border-box;
@@ -29,7 +30,10 @@ h2 {
 }
 
 a {
-    text-decoration-line: none;
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
 }
 
 .txt-center {
@@ -93,25 +97,70 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
     display: -ms-flexbox;
 }
 .flex-col {
+    background-color: #eae8ff;
     margin: 5px;
     padding: 15px;
-    text-align: center;
     flex-basis: 100%;
 }
 .flexbox a {
     flex-basis: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .flexbox {
         display: block;
     }
 }
-
-.flex-col:nth-child(odd) {
-    background-color: #cfcaff;
-}
-.flex-col:nth-child(even) {
-    background-color: #eae8ff;
-}
 /* END BOXES */
+
+
+/* BEGIN TABLES */
+.tbl {
+    width: 100%;
+    border-collapse:collapse;
+    border-spacing:0;
+    border: 1px solid #ccc;
+}
+.tbl td{
+    border: 0 solid #ccc;
+    border-top-width:1px;
+    border-bottom-width:1px;
+    padding:10px 5px;
+    overflow:hidden;
+    word-break:normal;
+}
+.tbl thead td, .tbl tfoot td {
+    font-weight: bold;
+    padding:10px 5px;
+    border: 0 solid #bbb;
+    overflow:hidden;
+    word-break:normal;
+    border-top-width:1px;
+    border-bottom-width:1px;
+    border-color:#ccc;
+    color:#333;
+    background-color:rgb(173, 206, 255);
+}
+.tbl tr {
+    vertical-align:top;
+}
+.tbl tr:nth-child(odd) {
+    background: #f1f1f1;
+}
+.tbl tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.tbl tr:hover {
+    background-color: rgb(216, 216, 216);
+}
+.tbl tr[onclick]:hover {
+    cursor: pointer;
+}
+
+
+.display tr[onclick] {
+    cursor: pointer;
+}
+
+/* END TABLES */

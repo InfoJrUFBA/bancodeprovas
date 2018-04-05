@@ -9,7 +9,7 @@
         }
 
         public static function get($key){
-            if($_SESSION[$key]){
+            if(isset($_SESSION[$key])) {
                 return $_SESSION[$key];
             }else {
                 return false;

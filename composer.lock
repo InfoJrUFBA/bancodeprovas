@@ -4,74 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "978853bc3289a8227b4362409dc6422c",
-    "content-hash": "f8f2408243f18b56c619343bf601a2dd",
+    "content-hash": "f1e6f15a5b2afddb450504983c38ad81",
     "packages": [
-        {
-            "name": "components/jquery",
-            "version": "3.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/components/jquery.git",
-                "reference": "459648cda77875519c5da3ae1dd0ed5d170aa649"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/459648cda77875519c5da3ae1dd0ed5d170aa649",
-                "reference": "459648cda77875519c5da3ae1dd0ed5d170aa649",
-                "shasum": ""
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "jquery.js"
-                    ],
-                    "files": [
-                        "jquery.min.js",
-                        "jquery.min.map",
-                        "jquery.slim.js",
-                        "jquery.slim.min.js",
-                        "jquery.slim.min.map"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "JS Foundation and other contributors"
-                }
-            ],
-            "description": "jQuery JavaScript Library",
-            "homepage": "http://jquery.com",
-            "time": "2018-03-04 13:23:48"
-        },
-        {
-            "name": "datatables/datatables",
-            "version": "1.10.16",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/DataTables/DataTables.git",
-                "reference": "75a665f64f02982c0f4666b15a25c4670e5e6b18"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/DataTables/DataTables/zipball/75a665f64f02982c0f4666b15a25c4670e5e6b18",
-                "reference": "75a665f64f02982c0f4666b15a25c4670e5e6b18",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table.",
-            "homepage": "http://www.datatables.net/",
-            "time": "2017-08-31 13:52:17"
-        },
         {
             "name": "phpmailer/phpmailer",
             "version": "v6.0.5",
@@ -136,7 +70,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2018-03-27 13:49:45"
+            "time": "2018-03-27T13:49:45+00:00"
         }
     ],
     "packages-dev": [],

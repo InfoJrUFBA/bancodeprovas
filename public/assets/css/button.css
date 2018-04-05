@@ -1,9 +1,23 @@
 .btn {
     display: block;
-    color: whitesmoke;
+	font-family: "Segoe UI";
+    font-size: 12pt;
+    color: #000;
+    background-color: whitesmoke;
     margin: 10px 5px;
     padding: 6px 15px;
     border: 0;
     border-radius: 3px;
     box-shadow: 0 0 5px rgb(156, 156, 156);
+	transition: box-shadow 0.5s;
+    max-width: fit-content;
+}
+
+.btn:hover {
+    box-shadow: 0 0 10px rgb(117, 144, 223);
+	cursor: pointer;
+}
+
+.btn a:visited {
+    text-decoration: none;
 }

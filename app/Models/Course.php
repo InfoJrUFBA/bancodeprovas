@@ -18,18 +18,37 @@ class Course
 		$this->pdo = $pdo;
 	}
 
+	public function replaceToType($course) {
+		// Se for vários registros pesquisados, retornará um array de objects
+		if (is_array($course)) {
+			foreach ($course as $c):
+				$type = ($c->type == 1) ? "Bacharelado" : "Pós-Graduação";
+				$c->type = $type;
+			endforeach;
+			return $course;
+		}
+		
+		// Se for apenas um registro, retornará apenas um object, sem array
+		if (is_object($course)) {
+			$type = ($course->type == 1) ? "Bacharelado" : "Pós-Graduação";
+			$course->type = $type;
+			return $course;
+		}
+	}
 
 	public function create($name, $type, $areas_id) //adicionando curso
 	{
-		$query = "INSERT INTO {$this->table} (name, type, areas_id) VALUES ('{$name}', {$type}, {$areas_id})";
+		$query = "INSERT INTO {$this->table} (name, type, areas_id) VALUES (:name, :type, :areas_id)";
 		$stmt = $this->pdo->prepare($query);
+		$stmt->bindValue(":name", $name);
+		$stmt->bindValue(":type", $type);
+		$stmt->bindValue(":areas_id", $areas_id);
 		$result = $stmt->execute();
 		$stmt->CloseCursor();
 		return $result;
 	}
 
-	public function all () // mostrando todos os dados da tabela
-	{
+	public function all() {
 		$query = "SELECT * FROM {$this->table}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
@@ -38,40 +57,37 @@ class Course
 		return $result;
 	}
 
-	public function findById($id) //encontrando o curso através do id
-	{
+	public function findById($id) {
 		$query = "SELECT * FROM {$this->table} WHERE id=:id";
 		$stmt =$this->pdo->prepare($query);
 		$stmt->bindValue(":id",$id);
 		$stmt->execute();
 		$result = $stmt->fetch();
 		$stmt->CloseCursor();
-		return $result;
+		return $this->replaceToType($result);
 	}
 
-	public function findByName($name) //encontrando o curso através do name
-	{
+	public function findByName($name) {
 		$query = "SELECT * FROM {$this->table} WHERE name=:name";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindValue(":name",$name);
 		$stmt->execute();
 		$result = $stmt->fetch();
 		$stmt->CloseCursor();
-		return $result;
+		return $this->replaceToType($result);
 	}
 
 	public function findByArea($areas_id) {
-		$query = "SELECT {$this->table}.name, {$this->table}.type, areas.name AS area FROM {$this->table} JOIN areas ON courses.areas_id = areas.id WHERE areas_id=:areas_id";
+		$query = "SELECT {$this->table}.id, {$this->table}.name, {$this->table}.type, areas.name AS area FROM {$this->table} JOIN areas ON courses.areas_id = areas.id WHERE areas_id=:areas_id";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindValue(":areas_id",$areas_id);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		$stmt->CloseCursor();
-		return $result;
+		return $this->replaceToType($result);
 	}
 
-	public function update($id, $name, $type, $areas_id) //atualizando cursos
-	{
+	public function update($id, $name, $type, $areas_id) {
 		$query = "UPDATE {$this->table} SET name=:name, type=:type, areas_id=:areas_id WHERE id=:id";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindValue(":id",$id);
@@ -83,8 +99,7 @@ class Course
 		return $result;
 	}
 
-	public function delete($id) // excluindo cursos
-	{
+	public function delete($id) {
         $query = "DELETE FROM {$this->table} WHERE id =:id";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(":id",$id);

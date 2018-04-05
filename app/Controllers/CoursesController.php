@@ -38,6 +38,9 @@ class CoursesController extends BaseController {
 	}
 
 	public function show($id) {
+		$components = Container::getModel("Component");
+		$this->view->components = $components->readByCourse($id);
+
 		$this->view->course = $this->course->findById($id);
 		$this->setPageTitle("{$this->view->course->name}");
 		return $this->renderView('courses/show', 'layout');

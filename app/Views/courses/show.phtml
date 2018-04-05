@@ -1,5 +1,24 @@
-<div class ="container">
-	<h1 class ="h1"> <?php  echo $this->view->course->name; ?> </h1>
-	<p class ="text-justify"> <?php echo $this->view->course->type; ?> </p>
-</div>
-
+<section>
+	<table class="display">
+		<thead>
+			<tr>
+				<td>Código</td>
+				<td>Nome</td>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->view->components as $component):?>
+			<tr onclick="window.location='/component/<?php echo $component->id;?>/show'">
+				<td><?php echo $component->code;?></td>
+				<td><?php echo $component->name;?></td>
+			</tr>
+			<?php endforeach?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>Código</td>
+				<td>Nome</td>
+			</tr>
+		</tfoot>
+	</table>
+</section>

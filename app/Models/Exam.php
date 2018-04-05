@@ -60,7 +60,11 @@
             return $result;
         }
         public function readByComponent($components_id){
-            $query = "SELECT * FROM {$this->table} WHERE components_id = :components_id";
+            $query = "
+            SELECT {$this->table}.*, users.name  FROM {$this->table}
+            JOIN users ON users.id = {$this->table}.users_id
+            WHERE components_id = :components_id";
+
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":components_id", $components_id);
             $stmt->execute();
@@ -88,12 +92,6 @@
             $stmt->bindValue(":exam_id", $exam_id);
             $result = $stmt->execute();
             $stmt->closeCursor();
-
-            if ($result) {
-                echo "Atualização sucedida";
-            }else {
-                echo "Não foi possível atualizar";
-            }
             return $result;
         }
 
@@ -103,13 +101,6 @@
             $stmt->bindValue(":exam_id", $exam_id);
             $result = $stmt->execute();
             $stmt->closeCursor();
-
-            if ($result) {
-                echo "Prova excluída com sucesso";
-            }else {
-                echo "Não foi possível excluir";
-            }
             return $result;
         }
-
     }

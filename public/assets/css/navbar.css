@@ -59,13 +59,13 @@ nav a {
     float: left;
     padding: 0;
 }
-li:not(.search) {
+li:not(.not-menu) {
     border: solid rgb(192, 191, 231) 1px;
     border-radius: 5px;
     padding : 0;
     margin: 0 10px;
 }
-#menu li:hover:not(.search) {
+#menu li:hover:not(.not-menu) {
     border: solid rgb(220, 219, 233) 1px;
 }
 #menu a:hover {

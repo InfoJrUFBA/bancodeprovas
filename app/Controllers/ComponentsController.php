@@ -45,6 +45,9 @@ class ComponentsController extends BaseController {
     }
 
     public function show($id) {
+        $exam = Container::getModel("Exam");
+        $this->view->exam = $exam->readByComponent($id);
+
         $this->view->component = $this->component->readById($id);
         $this->setPageTitle("Component - {$this->view->component->name}");
         return $this->renderView('components/show', 'layout');

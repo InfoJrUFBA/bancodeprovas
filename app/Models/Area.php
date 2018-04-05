@@ -4,8 +4,7 @@ namespace App\Models;
 
 use PDO;
 
-class Area
-{
+class Area {
 	private $pdo;
 	protected $table = "areas";
 	private $id;
@@ -18,11 +17,10 @@ class Area
 	public function create($name) {
 		$query = "INSERT INTO {$this->table} (id,name) VALUES (NULL, :name)";
 		$stmt = $this->pdo->prepare($query);
-		$stmt->bindValue(":name",$name);
+		$stmt->bindValue(":name", $name);
 		$result = $stmt->execute();
 		$stmt->CloseCursor();
 		return $result;
-
 	}
 
 	public function all () {
@@ -37,30 +35,28 @@ class Area
 	public function findById($id) {
 		$query = "SELECT * FROM {$this->table} WHERE id=:id";
 		$stmt =$this->pdo->prepare($query);
-		$stmt->bindValue(":id",$id);
+		$stmt->bindValue(":id", $id);
 		$stmt->execute();
 		$result = $stmt->fetch();
 		$stmt->CloseCursor();
 		return $result;
-
 	}
 
 	public function findByName($name) {
 		$query = "SELECT * FROM {$this->table} WHERE name=:name";
 		$stmt = $this->pdo->prepare($query);
-		$stmt->bindValue(":name",$name);
+		$stmt->bindValue(":name", $name);
 		$stmt->execute();
 		$result = $stmt->fetch();
 		$stmt->CloseCursor();
 		return $result;
-
 	}
 
 	public function update($id, $name) {
 		$query = "UPDATE {$this->table} SET name=:name WHERE id=:id";
 		$stmt = $this->pdo->prepare($query);
-		$stmt->bindValue(":id",$id);
-		$stmt->bindValue(":name",$name);
+		$stmt->bindValue(":id", $id);
+		$stmt->bindValue(":name", $name);
 		$result = $stmt->execute();
 		$stmt->CloseCursor();
 		return $result;
@@ -74,7 +70,5 @@ class Area
         $result = $stmt->execute();
         $stmt->closeCursor();
         return $result;
-
     }
-
 }
