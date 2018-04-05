@@ -25,6 +25,8 @@
             <li>Data de Nascimento: <?php echo date('d-m-Y', strtotime($user->birthdate)); ?> </li>
             <li>Score: <?php echo $user->score; ?> </li>
             <li>ID do Curso: <?php echo $user->courses_id; ?>
+            <img src= " <?php echo  $user->image;?> "  width=200 height=200 />
+            <?php  echo "<br>"; ?>
             <br/>
         </ul>
         <a href="/user/<?php echo $user->id ?>/edit"> Edit </a>
