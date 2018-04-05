@@ -1,19 +1,19 @@
-<div class = "container" >
-		<h1 class =" h1">
+<div>
+		<h1>
 			<?php $this->getPageTitle(); ?>
-			<a href = "/course/create" class="btn btn-primary pull-right"> Adicione o curso </a>
+			<a href = "/course/create" > Adicione o curso </a>
 		</h1>
 	</div>
 	<?php  if($this->auth->check()) : ?>
      <li > <?php echo $this->auth->name() ?> </li>
     <?php else : ?>
      <?php endif; ?>
-	
+
 	<?php
-	var_dump($this->view->success);
-    var_dump($this->view->errors);
+	//var_dump($this->view->success);
+    //var_dump($this->view->errors);
 	foreach ($this->view->courses as $course): ?>
-	<h3 class="h3">
+	<h3 >
 	<a href="course/<?php echo $course->id ?>/show">  <?php echo $course->name;?> </a>
 	</h3>
 	<p class="text-jutify"> Tipo:

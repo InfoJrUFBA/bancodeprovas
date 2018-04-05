@@ -11,10 +11,10 @@
      <?php endif; ?>
     ID | Código | Disciplina
     <?php
-    var_dump($this->view->success);
-    var_dump($this->view->errors);
+    //var_dump($this->view->success);
+    //var_dump($this->view->errors);
     foreach ($this->view->components as $component): ?>
-    <div class="row">
+    <div>
         <a href="/component/<?php echo $component->id;?>/show">
             <?php echo "{$component->id}  | {$component->code} | {$component->name}"; ?>
         </a>

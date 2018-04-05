@@ -9,13 +9,13 @@
     <?php else : ?>
      <?php endif; ?>
 
-<div class = "container">
+<div ">
     <a href ="/exam/create" class "btn btn-primary pull-right">
         Adicionar Prova
     </a>
     <?php
-    var_dump($this->view->success);
-    var_dump($this->view->errors);
+    //var_dump($this->view->success);
+    //var_dump($this->view->errors);
     foreach($this->view->exams as $exam): ?>
     <h3 class = "h3"></h3>
     <div class = "row">
@@ -62,9 +62,9 @@
             <?php  echo "<br>"; ?>
             <a href= "<?php echo $exam->image;?>"> Dowload </a>
 
-        
-           
-         
+
+
+
         </ul>
         <a href="/exam/<?php echo $exam->id?>/edit">
             <button type="button">Editar</button>
