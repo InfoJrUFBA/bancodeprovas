@@ -72,7 +72,7 @@
                      return false;
                 }
             }
-        
+
 
         public function updateVerify($id, $request){
             $this->info = $this->user->findById($id);
@@ -153,19 +153,17 @@
                 if( (strlen($request->post->password) >= 5) && (strlen($request->post->password) <=10 ) ){
                     if ($this->newEmailVerify($request)) {
                         if ($request->post->password == $request->post->password_confirmation) {
-                            if($this->imageRedirect()){
-                                if($this->user->create("{$request->post->name}", "{$request->post->email}", password_hash($request->post->password, PASSWORD_DEFAULT), "{$this->fileDestination}", "{$this->dateConvert($request)}", "{$request->post->courses_id}", $this->tokenHash() )){
-                                    Email::send("{$request->post->name}","{$request->post->email}","{$this->token}");
-                                    return Redirect::route("/users", [
-                                        'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
-                                    ]);
-                                }else {
-                                    return Redirect::route("/users", [
-                                        'errors' => ['Erro ao criar novo usuário.']
-                                    ]);
-                                }
+                            $this->imageRedirect();
+
+                            if($this->user->create("{$request->post->name}", "{$request->post->email}", password_hash($request->post->password, PASSWORD_DEFAULT), "{$this->fileDestination}", "{$this->dateConvert($request)}", "{$request->post->courses_id}", $this->tokenHash() )){
+                                Email::send("{$request->post->name}","{$request->post->email}","{$this->token}");
+                                return Redirect::route("/users", [
+                                    'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
+                                ]);
                             }else {
-                                return Redirect::route("/user/create", ['errors']);
+                                return Redirect::route("/users", [
+                                    'errors' => ['Erro ao criar novo usuário.']
+                                ]);
                             }
                         }else {
                             return Redirect::route("/user/create", [
@@ -272,9 +270,7 @@
         public function auth($request)
         {
             if(!empty($request->post->email) && !empty($request->post->password)){
-
                     $result= $this->user->where($request->post->email);
-
                     if($result && password_verify($request->post->password, $result->password)){
                         $login = [
                             'id' => $result->id,
@@ -282,12 +278,15 @@
                             'email' => $result->email,
                             'level'=>$result->level
                         ];
-
                         Session::destroy('errors');
                         Session::set('login', $login);
-
                         return Redirect::route('/users');
 
+                    }else {
+
+                        return Redirect::route('/users', [
+                             'errors' => ['email não autenticado ou senha incorreta']
+                            ]);
                     }
 
                 }else{
