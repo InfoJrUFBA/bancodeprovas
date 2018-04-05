@@ -46,24 +46,32 @@
             $fileActualExt= strtolower(end($fileExt));
             $allowed = array('jpg','jpeg','png','pdf');
 
-            if(in_array($fileActualExt, $allowed)){
-                if($fileError===0){
-                    if($fileSize<(3*1024*1024)){
-                        $fileNameNew= uniqid('',true).".".$fileActualExt;
-                        $this->fileDestination = 'uploads/'.$fileNameNew;
-                        move_uploaded_file( $fileTmpName,$this->fileDestination);
-                        return $fileDestination;
+                if(in_array($fileActualExt, $allowed)){
+                    if($fileError===0){
+                        if($fileSize<(3*1024*1024)){
+                            $fileNameNew= uniqid('',true).".".$fileActualExt;
+                            $this->fileDestination = 'uploads/'.$fileNameNew;
+                            move_uploaded_file( $fileTmpName,$this->fileDestination);
+                            return true;
+                        }else{
+                            Session::set('errors', [
+                                'Tamanho permitido excedido'
+                            ]);
+                            return false;
+                        }
                     }else{
-                        " Tamanho permitido excedido";
+                        Session::set('errors', [
+                            'Falha no upload do arquivo'
+                        ]);
+                         return false;
                     }
-                }else{ 
-                    echo " Falha no upload do arquivo";
+                }else{
+                    Session::set('errors', [
+                        'Formato inválido'
+                    ]);
+                     return false;
                 }
-            }else {
-                echo " Formato inválido";
-                } 
-        }
-
+            }
         
 
         public function updateVerify($id, $request){
@@ -145,15 +153,19 @@
                 if( (strlen($request->post->password) >= 5) && (strlen($request->post->password) <=10 ) ){
                     if ($this->newEmailVerify($request)) {
                         if ($request->post->password == $request->post->password_confirmation) {
-                            if($this->user->create("{$request->post->name}", "{$request->post->email}", password_hash($request->post->password, PASSWORD_DEFAULT), "{$this->fileDestination}", "{$this->dateConvert($request)}", "{$request->post->courses_id}", $this->tokenHash() )){
-                                Email::send("{$request->post->name}","{$request->post->email}","{$this->token}");
-                                return Redirect::route("/users", [
-                                    'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
-                                ]);
+                            if($this->imageRedirect()){
+                                if($this->user->create("{$request->post->name}", "{$request->post->email}", password_hash($request->post->password, PASSWORD_DEFAULT), "{$this->fileDestination}", "{$this->dateConvert($request)}", "{$request->post->courses_id}", $this->tokenHash() )){
+                                    Email::send("{$request->post->name}","{$request->post->email}","{$this->token}");
+                                    return Redirect::route("/users", [
+                                        'success' => ['Novo usuário cadastrado, por favor cheque sua caixa de email para a verificação de sua conta.']
+                                    ]);
+                                }else {
+                                    return Redirect::route("/users", [
+                                        'errors' => ['Erro ao criar novo usuário.']
+                                    ]);
+                                }
                             }else {
-                                return Redirect::route("/users", [
-                                    'errors' => ['Erro ao criar novo usuário.']
-                                ]);
+                                return Redirect::route("/user/create", ['errors']);
                             }
                         }else {
                             return Redirect::route("/user/create", [
