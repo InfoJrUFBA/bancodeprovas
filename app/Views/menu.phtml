@@ -7,8 +7,10 @@
         <input type="checkbox" id="check">
         <ul id="menu">
             <li class="search not-menu">
-                <input type="text" name="search" placeholder="Cód. da Disciplina" size="15">
-                <input type="image" src="/assets/img/lupa.png" alt="Pesquisar" class="lupa">
+                <form action="/search" method="post">
+                    <input type="text" name="search" placeholder="Cód. da Disciplina" size="15">
+                    <input type="image" src="/assets/img/lupa.png" alt="Pesquisar" class="lupa">
+                </form>
             </li>
             <li><a href="/areas">Áreas</a></li>
             <li class="not-menu">|</li>

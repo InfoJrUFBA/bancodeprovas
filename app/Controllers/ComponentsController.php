@@ -83,4 +83,10 @@ class ComponentsController extends BaseController {
     {
         return Redirect::route('/');
     }
+
+    public function search($request){
+        $this->view->components = $this->component->search($request->post->search);
+        $this->setPageTitle("Busca - {$request->post->search}");
+        return $this->renderView('components/search', 'layout');
+    }
 }
