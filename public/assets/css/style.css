@@ -27,6 +27,7 @@ section {
 h2 {
     font-family: "Open Sans", "Segoe UI", sans-serif;
     font-weight: 300;
+    margin: 20px;
 }
 
 a {
@@ -47,51 +48,6 @@ a:visited {
     display: -webkit-flex;
     justify-content: center;
     -webkit-justify-content: center;
-}
-
-label[for] {
-    text-align: left;
-}
-
-input[type=text], input[type=password] {
-    border: 1px solid;
-    border-radius: 5px;
-    padding: 8px;
-    margin: 0px;
-    transition: all 0.30s ease-in-out;
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
-    outline: none;
-}
-input[type=text]:focus, input[type=password]:focus {
-    box-shadow: 0 0 8px #ebecff;
-    -moz-box-shadow: 0 0 8px #ebecff;
-    -webkit-box-shadow: 0 0 8px #ebecff;
-    border: 1px solid #ebecff;
-}
-
-.form-pswd-group{
-    visibility: hidden;
-    display: none;
-}
-
-#pswd_setting{
-    display: none;
-}
-
-.new_pswd{
-    border: 1px black solid;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 1px;
-    margin: 20px 10px;
-}
-
-input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
-    visibility: visible;
-    display: block;
 }
 
 /* BEGIN BOXES */
@@ -174,7 +130,7 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
 
 /* ALERTS*/
 .alert {
-    padding: 20px;
+    padding: 10px 20px;
     color: white;
     margin-bottom: 15px;
 }
@@ -206,9 +162,50 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
 form label {
     font-size: 10pt;
 }
-.form-item {
+.form-group {
     margin: 10px 0;
 }
-.form-item > input {
+.popup input {
     width: 100%;
+}
+label[for] {
+    text-align: left;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=date] {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 0px;
+    transition: all 0.30s ease-in-out;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+}
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+    box-shadow: 0 0 8px #ebecff;
+    -moz-box-shadow: 0 0 8px #ebecff;
+    -webkit-box-shadow: 0 0 8px #ebecff;
+    border: 1px solid #ebecff;
+}
+
+.form-pswd-group{
+    visibility: hidden;
+    display: none;
+}
+#pswd_setting{
+    display: none;
+}
+.new_pswd{
+    border: 1px black solid;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 1px;
+    margin: 20px 10px;
+}
+input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
+    visibility: visible;
+    display: block;
 }

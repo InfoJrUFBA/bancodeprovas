@@ -19,11 +19,11 @@
                 </div><br>
                 <a href="#" class="close">&times;</a>
                 <form method="post" action="/auth">
-                    <div class="form-item">
+                    <div class="form-group">
                         <label for="email">E-Mail:</label><br>
                         <input type="text" name="email" required>
                     </div>
-                    <div class="form-item">
+                    <div class="form-group">
                         <label for="password">Senha:</label><br>
                         <input type="password" name="password" required>
                     </div>
@@ -41,6 +41,19 @@
             </div>
         </div>
         <?php require_once __DIR__ . "/menu.phtml";?>
+        <?php if(isset($this->view->success)): ?>
+            <div class="alert success">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <?php echo $this->view->success[0]; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if(isset($this->view->errors)): ?>
+            <div class="alert warning">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <?php echo $this->view->errors[0]; ?>
+            </div>
+        <?php endif; ?>
         <?php $this->content() ?>
     </body>
 </html>
