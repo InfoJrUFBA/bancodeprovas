@@ -10,6 +10,7 @@
     <?php else : ?>
      <?php endif; ?>
     ID | Código | Disciplina
+<<<<<<< HEAD
     <?php if(isset($this->view->success)): ?>
    	<div class="alert success">
    		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -23,6 +24,26 @@
    		<?php echo $this->view->errors[0]; ?>
    	</div>
    <?php endif;
+=======
+
+    <?php if(isset($this->view->success)): ?>
+    <div class="alert success">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <?php echo $this->view->success[0]; ?>
+    </div>
+<?php endif; ?>
+
+<?php if(isset($this->view->errors)): ?>
+    <div class="alert warning">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <?php echo $this->view->errors[0]; ?>
+    </div>
+<?php endif; ?>
+
+
+    <?php
+    
+>>>>>>> ab48a992c2c8a60fea06dda83015827f86d1afea
     foreach ($this->view->components as $component): ?>
     <div>
         <a href="/component/<?php echo $component->id;?>/show">
