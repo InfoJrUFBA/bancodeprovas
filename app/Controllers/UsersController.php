@@ -118,14 +118,7 @@
         }
 
         public function index(){
-            if(Session::get('success')){
-                $this->view->success = Session::get('success');
-                Session::destroy('success');
-            }
-            if(Session::get('errors')){
-                $this->view->errors = Session::get('errors');
-                Session::destroy('errors');
-            }
+            $this->getSession();
             $this->setPageTitle('Users');
             $this->view->users = $this->user->all();
             return $this->renderView('/users/index', 'layout');
