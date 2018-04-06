@@ -9,7 +9,7 @@ use Core\Session;
 class HomeController extends BaseController {
 
     public function index() {
-        if(Session::get('login')) {
+        if($this->getSession()) {
             $this->view->login = Session::get('login');
         }
         $this->area = Container::getModel("Area");

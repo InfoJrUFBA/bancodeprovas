@@ -13,17 +13,7 @@ class AreasController extends BaseController {
     }
 
     public function index () {
-        if(Session::get('success')){
-            $this->view->success = Session::get('success');
-            Session::destroy('success');
-        }
-        if(Session::get('errors')){
-            $this->view->errors = Session::get('errors');
-            Session::destroy('errors');
-        }
-        if(Session::get('login')){
-                $this->view->login=Session::get('login');
-            }
+        $this->getSession();
         $this->setPageTitle("Areas");
         $this->view->areas = $this->area->all();
         return $this->renderView('areas/index', 'layout');

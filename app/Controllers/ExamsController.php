@@ -71,17 +71,7 @@
         }
 
         public function index(){
-            if(Session::get('login')){
-            $this->view->login=Session::get('login');
-            }
-            if(Session::get('success')){
-                $this->view->success = Session::get('success');
-                Session::destroy('success');
-            }
-            if(Session::get('errors')){
-                $this->view->errors = Session::get('errors');
-                Session::destroy('errors');
-            }
+            $this->getSession();
             $this->setPageTitle('Provas');
             $this->view->exams = $this->exam->all();
             return $this->renderView('exams/index', 'layout');

@@ -20,18 +20,7 @@ class CoursesController extends BaseController {
 	}
 
 	public function index () {
-
-		if(Session::get('login')){
-            $this->view->login=Session::get('login');
-        }
-		if(Session::get('success')){
-			$this->view->success = Session::get('success');
-			Session::destroy('success');
-		}
-		if(Session::get('errors')){
-			$this->view->errors = Session::get('errors');
-			Session::destroy('errors');
-		}
+		$this->getSession();
 		$this->setPageTitle("Courses");
 		$this->view->courses = $this->course->all();
 		return $this->renderView('courses/index', 'layout');
