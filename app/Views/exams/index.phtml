@@ -4,79 +4,83 @@
         <p>Página de provas</p>
     </div>
 </section>
-<?php  if($this->auth->check()) : ?>
-     <li > <?php echo $this->auth->name() ?> </li>
-    <?php else : ?>
-     <?php endif; ?>
-<div >
+<div>
     <a href ="/exam/create" >
         Adicionar Prova
     </a>
-
-    <?php
-   // var_dump($this->view->success);
-    //var_dump($this->view->errors);
-    foreach($this->view->exams as $exam):
-
-    if($exam->status > 1 ||$this->auth->level()) :  ?>
-    <div >
-        <ul>
-            <li>Professor: <?php echo $exam->professor ?>  </li>
-            <li>Semestre: <?php echo $exam->period ?>  </li>
-            <li>
-                <?php switch($exam->unit) {
-                    case 1:
-                        echo "1ª Prova";
-                        break;
-                    case 2:
-                        echo "2ª Prova";
-                        break;
-                    case 3:
-                        echo "3ª Prova";
-                        break;
-                    case 4:
-                        echo "4ª Prova";
-                        break;
-                    case 5:
-                        echo "Segunda chamada da 1ª Prova";
-                        break;
-                    case 6:
-                        echo "Segunda chamada da 2ª Prova";
-                        break;
-                    case 7:
-                        echo "Segunda chamada da 3ª Prova";
-                        break;
-                    case 8:
-                        echo "Segunda chamada da 4ª Prova";
-                        break;
-                } ?>
-            </li>
-            <li>Adicionado em
-                <?php
-                echo date('d-m-Y', strtotime($exam->created_at));
-                ?>
-            </li>
-            <li>Adicionado por <a href="user/<?php echo $exam->creator_id ?>/show"> <?php echo $exam->created_by;?> </a></li>
-            <li> <?php echo $exam->code . " - " . $exam->name; ?> </li>
-
-            <img src= " <?php echo  $exam->image;?> "  width=200 height=200 />
-            <?php  echo "<br>"; ?>
-            <a href= "<?php echo $exam->image;?>"> Download </a>
-        </ul>
-        <?php  if($this->auth->level()) : ?>
-            <li>Status: <?php echo $exam->status;?></li>
-        <a href="/exam/<?php echo $exam->id?>/edit">
-            <button type="button">Editar</button>
-        </a>
-        <?php endif;?>
-        <?php  if($this->auth->level()) : ?>
-        <a href="/exam/<?php echo $exam->id?>/delete">
-            <button type="button">Deletar</button>
-        </a>
-        <?php endif;?>
-
+    <?php if(isset($this->view->success)): ?>
+    <div class="alert success">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <?php echo $this->view->success[0]; ?>
     </div>
     <?php endif; ?>
-    <?php endforeach; ?>
 
+    <?php if(isset($this->view->errors)): ?>
+        <div class="alert warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <?php echo $this->view->errors[0]; ?>
+        </div>
+    <?php endif; ?>
+    
+    <?php
+    foreach($this->view->exams as $exam):
+        if($exam->status > 1 ||$this->auth->level()) :  ?>
+        <div>
+            <ul>
+                <li>Professor: <?php echo $exam->professor ?>  </li>
+                <li>Semestre: <?php echo $exam->period ?>  </li>
+                <li>
+                    <?php switch($exam->unit) {
+                        case 1:
+                            echo "1ª Prova";
+                            break;
+                        case 2:
+                            echo "2ª Prova";
+                            break;
+                        case 3:
+                            echo "3ª Prova";
+                            break;
+                        case 4:
+                            echo "4ª Prova";
+                            break;
+                        case 5:
+                            echo "Segunda chamada da 1ª Prova";
+                            break;
+                        case 6:
+                            echo "Segunda chamada da 2ª Prova";
+                            break;
+                        case 7:
+                            echo "Segunda chamada da 3ª Prova";
+                            break;
+                        case 8:
+                            echo "Segunda chamada da 4ª Prova";
+                            break;
+                    } ?>
+                </li>
+                <li>Adicionado em
+                    <?php
+                    echo date('d-m-Y', strtotime($exam->created_at));
+                    ?>
+                </li>
+                <li>Adicionado por <a href="user/<?php echo $exam->creator_id ?>/show"> <?php echo $exam->created_by;?> </a></li>
+                <li> <?php echo $exam->code . " - " . $exam->name; ?> </li>
+
+                <img src= " <?php echo  $exam->image;?> "  width=200 height=200 />
+                <?php  echo "<br>"; ?>
+                <a href= "<?php echo $exam->image;?>"> Download </a>
+            </ul>
+            <?php  if($this->auth->level()) : ?>
+                <li>Status: <?php echo $exam->status;?></li>
+                <a href="/exam/<?php echo $exam->id?>/edit">
+                    <button type="button">Editar</button>
+                </a>
+            <?php endif;?>
+            <?php if($this->auth->level()) : ?>
+                <a href="/exam/<?php echo $exam->id?>/delete">
+                    <button type="button">Deletar</button>
+                </a>
+            <?php endif;?>
+        </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
 </div>

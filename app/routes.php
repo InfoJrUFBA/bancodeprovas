@@ -47,5 +47,7 @@ $route[] = ['/logout', 'UsersController@logout'];
 
 $route[] = ['/validation/{token}', 'UsersController@validate'];
 
+$route[] = ['/search', 'ComponentsController@search'];
+
 
 return $route;
