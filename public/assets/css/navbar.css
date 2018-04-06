@@ -37,12 +37,15 @@ nav ul {
     text-align: center;
 }
 
-.search {
+.search form {
     display: flex;
     display: -webkit-flex;
     align-items: center;
     -webkit-align-items: center;
     margin-right: 20px;
+}
+.search input[type=text] {
+    background-color: rgba(255,255,255,0.7);
 }
 .lupa {
     margin-left: 5px;
