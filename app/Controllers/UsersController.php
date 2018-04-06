@@ -288,6 +288,11 @@
 
                         return Redirect::route('/users');
 
+                    }else {
+                        return Redirect::route('/users', [
+                         'errors' => ['email não autenticado ou senha incorreta']
+                        ]);
+                        
                     }
 
                 }else{
