@@ -23,7 +23,7 @@ class AreasController extends BaseController {
         }
         if(Session::get('login')){
                 $this->view->login=Session::get('login');
-            }
+        }
         $this->setPageTitle("Areas");
         $this->view->areas = $this->area->all();
         return $this->renderView('areas/index', 'layout');
