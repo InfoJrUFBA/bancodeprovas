@@ -11,7 +11,7 @@
 		</thead>
 		<tbody>
 			<?php foreach ($this->view->exam as $exam):?>
-			<tr onclick="window.location='/component/<?php echo $exam->id;?>/show'">
+			<tr onclick="window.location='/exam/<?php echo $exam->id;?>/show'">
 				<td><?php echo date('d-m-Y', strtotime($exam->created_at));?></td>
 				<td><?php echo $exam->professor;?></td>
 				<td><?php echo $exam->period;?></td>
