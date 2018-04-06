@@ -1,0 +1,38 @@
+<section>
+    <h1>Hello!</h1>
+    <h2><?php $this->getPageTitle() ?></h2>
+
+    <a href="/component/create"><h3>Create Component</h3></a>
+</section>
+<section>
+    <?php  if($this->auth->check()) : ?>
+     <li > <?php echo $this->auth->name() ?> </li>
+    <?php else : ?>
+     <?php endif; ?>
+    ID | Código | Disciplina
+    <?php if(isset($this->view->success)): ?>
+   	<div class="alert success">
+   		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+   		<?php echo $this->view->success[0]; ?>
+   	</div>
+   <?php endif; ?>
+
+   <?php if(isset($this->view->erros)): ?>
+   	<div class="alert warning">
+   		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+   		<?php echo $this->view->errors[0]; ?>
+   	</div>
+   <?php endif;
+   
+    foreach ($this->view->components as $component): ?>
+    <div>
+        <a href="/component/<?php echo $component->id;?>/show">
+            <?php echo "{$component->id}  | {$component->code} | {$component->name}"; ?>
+        </a>
+        <?php echo " -- ";?>
+        <a href="/component/<?php echo $component->id;?>/edit">Edit</a>
+        <?php echo " -- ";?>
+        <a href="/component/<?php echo $component->id;?>/delete">Delete</a>
+    </div>
+    <?php endforeach; ?>
+</section>

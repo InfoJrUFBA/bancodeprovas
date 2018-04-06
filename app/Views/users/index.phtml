@@ -41,8 +41,11 @@
             <?php  echo "<br>"; ?>
             <br/>
         </ul>
+        <?php  if($this->auth->id()==$user->id) : ?>
         <a href="/user/<?php echo $user->id ?>/edit"> Edit </a>
         <a href="/user/<?php echo $user->id ?>/delete"> Delete </a>
+        <?php endif;?>
+
     </div>
 <?php endforeach;  ?>
 </div>
