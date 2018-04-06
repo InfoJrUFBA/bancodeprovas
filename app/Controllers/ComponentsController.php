@@ -14,17 +14,7 @@ class ComponentsController extends BaseController {
     }
 
     public function index() {
-        if(Session::get('login')){
-                $this->view->login=Session::get('login');
-            }
-        if(Session::get('success')){
-            $this->view->success = Session::get('success');
-            Session::destroy('success');
-        }
-        if (Session::get('errors')) {
-            $this->view->errors = Session::get('errors');
-            Session::destroy('errors');
-        }
+        $this->getSession();
         $this->setPageTitle("Components");
         $this->view->components = $this->component->all();
         return $this->renderView('components/index', 'layout');
@@ -36,7 +26,9 @@ class ComponentsController extends BaseController {
     }
     public function store($request) {
         if($this->component->create($request->post->code, $request->post->name)){
-            return Redirect::route("/components");
+            return Redirect::route("/components", [
+                'success' => ['Disciplina criada com sucesso.']
+            ]);
         } else {
             return Redirect::route("/components", [
                 'errors' => ['Erro ao inserir disciplina no banco de dados.']
@@ -86,7 +78,15 @@ class ComponentsController extends BaseController {
 
     public function search($request){
         $this->view->components = $this->component->search($request->post->search);
-        $this->setPageTitle("Busca - {$request->post->search}");
-        return $this->renderView('components/search', 'layout');
+        switch (count($this->view->components)) {
+            case 1:
+                return Redirect::route("/component/{$this->view->components[0]->id}/show");
+                break;
+
+            default:
+                $this->setPageTitle("Busca - {$request->post->search}");
+                return $this->renderView('components/search', 'layout');
+                break;
+        }
     }
 }
