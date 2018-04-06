@@ -80,5 +80,7 @@
         <li>Adicionado em <?php echo date('d-m-Y', strtotime($this->view->exam->created_at)); ?> </li>
         <li>Adicionado por <a href="user/<?php echo $this->view->exam->creator_id ?>/show"> <?php echo $this->view->exam->created_by;?> </a></li>
         <li> <?php echo $this->view->exam->code . " - " . $this->view->exam->name; ?> </li>
+        <br>
+        <img src="<?php echo $this->view->exam->image ?>" width="200px" height="200px">
     </ul>
 </div>
