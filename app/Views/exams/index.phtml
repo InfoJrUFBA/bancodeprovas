@@ -8,7 +8,7 @@
     <a href ="/exam/create" >
         Adicionar Prova
     </a>
-  
+
     <?php
     foreach($this->view->exams as $exam):
         if($exam->status > 1 ||$this->auth->level()) :  ?>
@@ -52,7 +52,7 @@
                 <li>Adicionado por <a href="user/<?php echo $exam->creator_id ?>/show"> <?php echo $exam->created_by;?> </a></li>
                 <li> <?php echo $exam->code . " - " . $exam->name; ?> </li>
 
-                <img src= " <?php echo  $exam->image;?> "  width=200 height=200 />
+                <?= "<a href='/exam/" . $exam->id . "/show'>" ?> <img src= " <?php echo  $exam->image;?> "  width=200 height=200 /> </a>
                 <?php  echo "<br>"; ?>
                 <a href= "<?php echo $exam->image;?>"> Download </a>
             </ul>
