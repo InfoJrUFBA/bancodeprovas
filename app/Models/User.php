@@ -110,7 +110,7 @@ class User {
     }
 
     public function where($email) {
-        $query = "SELECT id, name, email, password, level FROM {$this->table} WHERE email=:email";
+        $query = "SELECT * FROM {$this->table} WHERE email=:email";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(":email", $email);
         $stmt->execute();

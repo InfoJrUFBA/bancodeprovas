@@ -41,6 +41,8 @@ $route[] = ['/user/store', 'UsersController@store'];
 $route[] = ['/user/{id}/edit', 'UsersController@edit'];
 $route[] = ['/user/{id}/update', 'UsersController@update'];
 $route[] = ['/user/{id}/delete', 'UsersController@delete'];
+$route[] = ['/user/forgot', 'UsersController@forgot'];
+$route[] = ['/user/passwordrecovery', 'UsersController@passwordRecovery'];
 
 $route[] = ['/auth', 'UsersController@auth'];
 $route[] = ['/logout', 'UsersController@logout'];

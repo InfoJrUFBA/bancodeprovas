@@ -6,24 +6,10 @@
 	</div>
 	<?php  if($this->auth->check()) : ?>
      <li > <?php echo $this->auth->name() ?> </li>
-    <?php else : ?>
-     <?php endif; ?>
-     <?php if(isset($this->view->success)): ?>
-	<div class="alert success">
-		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-		<?php echo $this->view->success[0]; ?>
-	</div>
-<?php endif; ?>
-
-<?php if(isset($this->view->errors)): ?>
-	<div class="alert warning">
-		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-		<?php echo $this->view->errors[0]; ?>
-	</div>
-<?php endif; ?>
+    <?php endif; ?>
 
 	<?php
-	
+
 	foreach ($this->view->courses as $course): ?>
 	<h3 >
 	<a href="course/<?php echo $course->id ?>/show">  <?php echo $course->name;?> </a>
@@ -72,7 +58,7 @@
     </div>
     </hr>
      <?php endif;?>
-  
+
     </div>
     </hr>
 	<?php endforeach; ?>
