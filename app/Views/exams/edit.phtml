@@ -75,16 +75,17 @@
         </div>
         <div class="form-group">
             <label for= "components_id">Componente Curricular</label> <br>
+            <select name='components_id' required>
             <?php
-            foreach($this->obj as $component){
-                echo "<input type='radio' name='components_id' value=" .  $component->id;
-                if($this->view->exam->components_id == $component->id){
-                    echo " checked ";
+                foreach($this->obj as $component){
+                    if($this->view->exam->components_id == $component->id){
+                        echo    "<option value='" . $component->id . "' selected>" . $component->code . " - " . $component->name . "</option>";
+                    }else {
+                        echo    "<option value='" . $component->id . "'>" . $component->code . " - " . $component->name . "</option>";
+                    }
                 }
-                echo ">";
-                echo $component->code . " - " . $component->name . "<br>";
-            }
             ?>
+            </select>
         </div>
         <div class="form-group">
             <label for="unit">Unidade</label> <br>
