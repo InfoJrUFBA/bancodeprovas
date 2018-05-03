@@ -9,68 +9,15 @@
         <div class="form-group">
             <label for="period">Semestre</label> <br>
             <select name="period" required>
-                <option value="<?php echo $this->view->exam->period ?>">
                     <?php
-                        switch($this->view->exam->period){
-                            case 20111:
-                                echo "2011.1";
-                                break;
-                            case 20112:
-                                echo "2011.2";
-                                break;
-                            case 20121:
-                                echo "2012.1";
-                                break;
-                            case 20122:
-                                echo "2012.2";
-                                break;
-                            case 20131:
-                                echo "2013.1";
-                                break;
-                            case 20132:
-                                echo "2013.2";
-                                break;
-                            case 20141:
-                                echo "2014.1";
-                                break;
-                            case 20142:
-                                echo "2014.2";
-                                break;
-                            case 20151:
-                                echo "2015.1";
-                                break;
-                            case 20152:
-                                echo "2015.2";
-                                break;
-                            case 20161:
-                                echo "2016.1";
-                                break;
-                            case 20162:
-                                echo "2016.2";
-                                break;
-                            case 20171:
-                                echo "2017.1";
-                                break;
-                            case 20172:
-                                echo "2017.2";
-                                break;
+                        foreach($this->periods as $semester){
+                            if($this->view->exam->period == $semester){
+                                echo    "<option value='" . $semester . "' selected>" . $semester . "</option>";
+                            }else {
+                                echo    "<option value='" . $semester . "'>" . $semester . "</option>";
+                            }
                         }
                     ?>
-                </option>
-                <option value="20111">2011.1</option>
-                <option value="20112">2011.2</option>
-                <option value="20121">2012.1</option>
-                <option value="20122">2012.2</option>
-                <option value="20131">2013.1</option>
-                <option value="20132">2013.2</option>
-                <option value="20141">2014.1</option>
-                <option value="20142">2014.2</option>
-                <option value="20151">2015.1</option>
-                <option value="20152">2015.2</option>
-                <option value="20161">2016.1</option>
-                <option value="20162">2016.2</option>
-                <option value="20171">2017.1</option>
-                <option value="20172">2017.2</option>
             </select>
         </div>
         <div class="form-group">
@@ -90,52 +37,34 @@
         <div class="form-group">
             <label for="unit">Unidade</label> <br>
             <select name="unit" required>
-                <option value="<?php echo $this->view->exam->unit ?>">
-                    <?php
-                        switch ($this->view->exam->unit){
-                            case 1:
-                                echo "1ª Prova";
-                                break;
-                            case 2:
-                                echo "2ª Prova";
-                                break;
-                            case 3:
-                                echo "3ª Prova";
-                                break;
-                            case 4:
-                                echo "4ª Prova";
-                                break;
-                            case 5:
-                                echo "Segunda chamada da 1ª Prova";
-                                break;
-                            case 6:
-                                echo "Segunda chamada da 2ª Prova";
-                                break;
-                            case 7:
-                                echo "Segunda chamada da 3ª Prova";
-                                break;
-                            case 8:
-                                echo "Segunda chamada da 4ª Prova";
-                                break;
-                        }
-                    ?>
-                </option>
-                <option value="1">1ª Prova</option>
-                <option value="2">2ª Prova</option>
-                <option value="3">3ª Prova</option>
-                <option value="4">4ª Prova</option>
-                <option value="5">1ª Prova (2ª chamada)</option>
-                <option value="6">2ª Prova (2ª chamada)</option>
-                <option value="7">3ª Prova (2ª chamada)</option>
-                <option value="8">4ª Prova (2ª chamada)</option>
+                <?php
+                for ($i=0; $i <= 7; $i++){
+                    if($this->view->exam->unit == ($i + 1) ){
+                        echo    "<option value='" . $this->view->exam->unit . "' selected>" . $this->units[$i] . "</option>";
+                    }else {
+                        echo    "<option value='" . ($i + 1) . "'>" . $this->units[$i] . "</option>";
+                    }
+                }
+                ?>
             </select>
         </div>
         <div class="form-group">
             <label for="status">Status de Aprovação</label> <br>
             <select name="status" >
-                <option value=1>Pendente</option>
-                <option value=2>Aprovado</option>
+                <?php
+                for ($i=0; $i <= 1; $i++){
+                    if($this->view->exam->status == ($i + 1) ){
+                        echo    "<option value='" . $this->view->exam->status . "' selected>" . $this->status[$i] . "</option>";
+                    }else {
+                        echo    "<option value='" . ($i + 1) . "'>" . $this->status[$i] . "</option>";
+                    }
+                }
+                ?>
             </select>
+        </div>
+        <div class="form-group">
+          <label for="image">Imagem</label> <br>
+          <input type="file" name="new_image">
         </div>
         <a href="/exams"><button type="button">Cancelar</button></a>
         <button type="submit">Salvar</button>
