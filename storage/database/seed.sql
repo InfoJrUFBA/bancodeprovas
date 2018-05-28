@@ -1,4 +1,4 @@
-USE mydb;
+USE bancodeprovas;
 
 INSERT INTO areas (name) VALUES
 ('Ciências Físicas, Matemática e Tecnologia'),
