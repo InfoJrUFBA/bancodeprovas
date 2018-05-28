@@ -5,3 +5,4 @@ bancodeprovas.bat
 /vendor/
 composer.phar
 *.idea/*
+app/database.php

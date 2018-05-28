@@ -5,22 +5,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema bancodeprovas
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS `bancodeprovas` ;
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema bancodeprovas
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `bancodeprovas` DEFAULT CHARACTER SET utf8 ;
+USE `bancodeprovas` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`areas`
+-- Table `bancodeprovas`.`areas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`areas` ;
+DROP TABLE IF EXISTS `bancodeprovas`.`areas` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`areas` (
+CREATE TABLE IF NOT EXISTS `bancodeprovas`.`areas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`))
@@ -29,11 +29,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`components`
+-- Table `bancodeprovas`.`components`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`components` ;
+DROP TABLE IF EXISTS `bancodeprovas`.`components` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`components` (
+CREATE TABLE IF NOT EXISTS `bancodeprovas`.`components` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `code` VARCHAR(10) NOT NULL,
   `name` VARCHAR(100) NOT NULL,
@@ -43,11 +43,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`courses`
+-- Table `bancodeprovas`.`courses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`courses` ;
+DROP TABLE IF EXISTS `bancodeprovas`.`courses` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`courses` (
+CREATE TABLE IF NOT EXISTS `bancodeprovas`.`courses` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `type` TINYINT(1) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`courses` (
   INDEX `fk_courses_areas1_idx` (`areas_id` ASC),
   CONSTRAINT `fk_courses_areas1`
     FOREIGN KEY (`areas_id`)
-    REFERENCES `mydb`.`areas` (`id`)
+    REFERENCES `bancodeprovas`.`areas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -65,11 +65,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`courses_has_components`
+-- Table `bancodeprovas`.`courses_has_components`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`courses_has_components` ;
+DROP TABLE IF EXISTS `bancodeprovas`.`courses_has_components` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`courses_has_components` (
+CREATE TABLE IF NOT EXISTS `bancodeprovas`.`courses_has_components` (
   `courses_id` INT(11) NOT NULL,
   `components_id` INT(11) NOT NULL,
   PRIMARY KEY (`courses_id`, `components_id`),
@@ -77,12 +77,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`courses_has_components` (
   INDEX `fk_courses_has_components_courses1_idx` (`courses_id` ASC),
   CONSTRAINT `fk_courses_has_components_components1`
     FOREIGN KEY (`components_id`)
-    REFERENCES `mydb`.`components` (`id`)
+    REFERENCES `bancodeprovas`.`components` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_courses_has_components_courses1`
     FOREIGN KEY (`courses_id`)
-    REFERENCES `mydb`.`courses` (`id`)
+    REFERENCES `bancodeprovas`.`courses` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -90,11 +90,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`users`
+-- Table `bancodeprovas`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`users` ;
+DROP TABLE IF EXISTS `bancodeprovas`.`users` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`users` (
+CREATE TABLE IF NOT EXISTS `bancodeprovas`.`users` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`users` (
   UNIQUE INDEX `token_UNIQUE` (`token` ASC),
   CONSTRAINT `fk_users_courses`
     FOREIGN KEY (`courses_id`)
-    REFERENCES `mydb`.`courses` (`id`)
+    REFERENCES `bancodeprovas`.`courses` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -121,11 +121,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`exams`
+-- Table `bancodeprovas`.`exams`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`exams` ;
+DROP TABLE IF EXISTS `bancodeprovas`.`exams` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`exams` (
+CREATE TABLE IF NOT EXISTS `bancodeprovas`.`exams` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `professor` VARCHAR(100) NOT NULL,
   `period` VARCHAR(15) NOT NULL,
@@ -140,12 +140,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`exams` (
   INDEX `fk_exams_users1_idx` (`users_id` ASC),
   CONSTRAINT `fk_exams_components1`
     FOREIGN KEY (`components_id`)
-    REFERENCES `mydb`.`components` (`id`)
+    REFERENCES `bancodeprovas`.`components` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_exams_users1`
     FOREIGN KEY (`users_id`)
-    REFERENCES `mydb`.`users` (`id`)
+    REFERENCES `bancodeprovas`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
