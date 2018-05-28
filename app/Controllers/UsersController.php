@@ -34,6 +34,11 @@
             return $this->token;
         }
 
+        public function stringRand(){
+            $characters = str_shuffle("0123456789abcdefghijklmnopqrstvwxyzABCDEFGHIJKLMNOPQRSTVWXYZ");
+            return substr($characters, 2, 8);
+        }
+
         public function imageRedirect() {
             $file = $_FILES['image'];
             $fileName = $_FILES['image']['name'];
@@ -322,6 +327,43 @@
             }else{
                 return Redirect::route("/", [
                     'errors' => ['Falha ao tentar autenticar, por favor tente novamente.']
+                ]);
+            }
+        }
+
+        public function forgot(){
+            if(Session::get('errors')){
+                $this->view->errors = Session::get('errors');
+                Session::destroy('errors');
+            }
+            $this->getCourses();
+            $this->setPageTitle('Esqueceu sua senha?');
+            return $this->renderView('/users/forgot', 'layout');
+        }
+
+        public function passwordRecovery($request){
+            $newPswd = $this->stringRand();
+            $client = $this->user->where($request->post->email);
+            if($request->post->email == $request->post->email_confirmation){
+                if($client){
+                    if($this->user->update($client->id, $client->name, $client->email, password_hash($newPswd, PASSWORD_DEFAULT), $client->image, $client->birthdate, $client->courses_id)){
+                        Email::send($client->name,$request->post->email," ",$newPswd);
+                        return Redirect::route("/", [
+                            'success' => ['Email de recuperação enviado. Por favor, cheque sua Caixa de Entrada.']
+                        ]);
+                    }else{
+                        return Redirect::route("/user/forgot", [
+                            'errors' => ['Erro. Por favor, tente novamente ou contate nosso suporte.']
+                        ]);
+                    }
+                }else{
+                    return Redirect::route("/", [
+                        'errors' => ['Email não cadastrado.']
+                    ]);
+                }
+            }else{
+                return Redirect::route("/user/forgot", [
+                    'errors' => ['Emails inseridos discordantes.']
                 ]);
             }
         }
