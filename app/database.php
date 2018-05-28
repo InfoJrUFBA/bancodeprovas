@@ -3,9 +3,9 @@ return [
     'driver' => 'mysql',
     'mysql' => [
         'host' => 'localhost',
-        'database' => 'nomebd',
-        'username' => 'userbd',
-        'password' => 'passwordbd',
+        'database' => 'mydb',
+        'username' => 'root',
+        'password' => 'root',
         'charset' => 'utf8',
         'collation' =>'utf8_unicode_ci'
     ]
