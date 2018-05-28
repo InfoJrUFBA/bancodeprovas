@@ -70,7 +70,7 @@
             return $result;
         }
         public function readSingle($exam_id){
-            $query = "SELECT {$this->table}.id, {$this->table}.professor, {$this->table}.period, {$this->table}.created_at, {$this->table}.status, {$this->table}.unit, {$this->table}.image, users.id as creator_id, users.name as created_by, components.code, components.name FROM {$this->table} JOIN users on users_id = users.id JOIN components on components_id = components.id WHERE exams.id = :exam_id";
+            $query = "SELECT {$this->table}.id, {$this->table}.professor, {$this->table}.period, {$this->table}.created_at, {$this->table}.status, {$this->table}.unit, {$this->table}.image, users.id as creator_id, users.name as created_by, components.code, components.name, components.id as components_id FROM {$this->table} JOIN users on users_id = users.id JOIN components on components_id = components.id WHERE exams.id = :exam_id";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":exam_id", $exam_id);
             $stmt->execute();
@@ -79,8 +79,8 @@
             return $result;
         }
 
-        public function update($exam_id, $professor, $period,$status, $components_id, $unit){
-            $query = "UPDATE {$this->table} SET professor = :professor, period = :period, status =:status, components_id = :components_id, unit = :unit WHERE id = :exam_id";
+        public function update($exam_id, $professor, $period,$status, $components_id, $unit, $image){
+            $query = "UPDATE {$this->table} SET professor = :professor, period = :period, status =:status, components_id = :components_id, unit = :unit, image = :image WHERE id = :exam_id";
             $stmt = $this->pdo->prepare($query);
             $stmt->bindValue(":professor", $professor);
             $stmt->bindValue(":period", $period);
@@ -88,6 +88,7 @@
             $stmt->bindValue(":unit", $unit);
             $stmt->bindValue(":status", $status);
             $stmt->bindValue(":exam_id", $exam_id);
+            $stmt->bindValue(":image", $image);
             $result = $stmt->execute();
             $stmt->closeCursor();
 

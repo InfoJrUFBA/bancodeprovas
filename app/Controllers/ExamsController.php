@@ -123,6 +123,9 @@
         public function edit($id){
             $this->getComponents();
             $this->view->exam = $this->exam->readSingle($id);
+            $this->periods = array("20111", "20112", "20121", "20122", "20131", "20132", "20141", "20142", "20151", "20152", "20161", "20162", "20171", "20172");
+            $this->units = array("1ª Prova", "2ª Prova", "3ª Prova", "4ª Prova", "Segunda chamada da 1ª Prova", "Segunda chamada da 2ª Prova", "Segunda chamada da 3ª Prova", "Segunda chamada da 4ª Prova");
+            $this->status = array("Pendente", "Aprovado");
             $this->setPageTitle('Edição de prova');
             return $this->renderView('exams/edit', 'layout');
         }
