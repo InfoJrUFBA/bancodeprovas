@@ -4,3 +4,4 @@ bancodeprovas.bat
 # Removendo pasta vendor e arquivos composer
 /vendor/
 composer.phar
+*.idea/*
