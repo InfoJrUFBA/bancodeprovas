@@ -42,10 +42,10 @@ class Component {
 		return $result;
 	}
 
-	public function search($code) {
-		$query = "SELECT * FROM {$this->table} WHERE code LIKE :code '%' ";
+	public function search($searchedString) {
+		$query = "SELECT * FROM {$this->table} WHERE code LIKE :srchdStr '%' || LOCATE(:srchdStr, name)";
 		$stmt = $this->pdo->prepare($query);
-		$stmt->bindValue(":code", $code);
+		$stmt->bindValue(":srchdStr", $searchedString);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		$stmt->CloseCursor();
