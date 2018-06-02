@@ -202,6 +202,11 @@
         public function update($id, $request){
 
             $this->info = $this->user->findById($id);
+            if($this->imageRedirect()){
+                $userImage = $this->fileDestination;
+            }else {
+                $userImage = $this->info->image;
+            }
 
             if ($this->dataInsertionVerify($request)){
                 if( password_verify ($request->post->password, $this->info->password) ){
@@ -209,7 +214,7 @@
                         if( isset($request->post->new_password) ){
                             if( (strlen($request->post->new_password) >= 5) && (strlen($request->post->new_password) <=10 ) ){
                                 if($request->post->new_password == $request->post->new_password_confirmation){
-                                    if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", password_hash($request->post->new_password, PASSWORD_DEFAULT), "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                    if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", password_hash($request->post->new_password, PASSWORD_DEFAULT), "{$userImage}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
                                         return Redirect::route("/user/{$id}/show", [
                                             'success' => ['Informações atualizadas com sucesso.']
                                         ]);
@@ -230,7 +235,7 @@
                             }
                         }else{
                             if($this->updateVerify($id,$request)){
-                                if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->info->password}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->info->password}", "{$userImage}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
                                     return Redirect::route("/user/{$id}/show", [
                                         'success' => ['Informações atualizadas com sucesso.']
                                     ]);
