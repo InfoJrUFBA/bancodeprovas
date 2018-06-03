@@ -1,26 +1,25 @@
-<header>
-    <span class="nav-title box-center"><a href="/"><h1>Banco de Provas</h1></a></span>
-    <nav>
-        <ul id="btn-menu">
-            <li><label for="check"><a>MENU</a></label></li>
-        </ul>
-        <input type="checkbox" id="check">
-        <ul id="menu">
-            <li class="search not-menu">
-                <form action="/search" method="post">
-                    <input type="text" name="search" placeholder="Cód. da Disciplina" size="15" required>
-                    <input type="image" src="/assets/img/lupa.png" alt="Pesquisar" class="lupa">
-                </form>
+<header class="navbar navbar-expand-md navbar-dark">
+    <!-- <span class="nav-title box-center"><a href="/"><h1>Banco de Provas</h1></a></span> -->
+    <a href="/" class="navbar-brand">
+        Banco de Provas
+    </a>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button> -->
+    <div class="navbar-nav-scroll" id="navbar">
+        <ul class="navbar-nav">
+            <li>
+                <a href="#" class="btn btn-outline-light btn-menu" role="button" aria-pressed="true">Áreas</a>
             </li>
-            <li><a href="/areas">Áreas</a></li>
-            <li class="not-menu">|</li>
+            <li class="divider-vertical"></li>
             <?php
             if ($this->auth->check()):
-                echo '<li><a href="/user/'. $this->auth->id() . '/show">Perfil</a></li>';
-                echo '<li><a href="/logout">Sair</a></li>';
+                echo '<li><a class="btn btn-primary btn-menu" href="/exam/create">Enviar Prova</a></li>';
+                echo '<li><a class="btn btn-outline-light btn-menu" href="/user/'. $this->auth->id() . '/show">Perfil</a></li>';
+                echo '<li><a class="btn btn-outline-light btn-menu" href="/logout">Sair</a></li>';
             else:
-                echo '<li><a href="#popup-login">Login</a></li>';
+                echo '<li><a class="btn btn-outline-light btn-menu" href="#" data-toggle="modal" data-target="#modalLogin">Login</a></li>';
             endif;?>
         </ul>
-    </nav>
+    </div>
 </header>

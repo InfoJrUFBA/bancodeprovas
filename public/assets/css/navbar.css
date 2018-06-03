@@ -1,4 +1,51 @@
-.nav-title {
+.navbar {
+    background-color: rgb(117, 144, 223);
+    position: sticky;
+    top: 0;
+}
+.navbar-brand {
+    font-family: "Comfortaa", "Segoe UI", sans-serif;
+    font-weight: bold;
+}
+.navbar .divider-vertical {
+    height: 40px;
+    margin: 0 9px;
+    border-right: 1px solid #ffffff;
+}
+
+@media screen and (min-width: 768px) {
+    .navbar-nav-scroll {
+        display: flex;
+        flex-basis: auto;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+}
+
+@media screen and (max-width: 767.99px) {
+    .navbar {
+        flex-direction: column;
+    }
+    .navbar-brand {
+        margin: 0;
+    }
+    .navbar-nav-scroll {
+        max-width: 100%;
+        height: 2.5rem;
+        margin-top: .25rem;
+        overflow: hidden;
+        font-size: .875rem;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+        padding-bottom: 2rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+/* .nav-title {
     height: inherit;
     align-items: center;
     -webkit-align-items: center;
@@ -108,4 +155,4 @@ li:not(.not-menu) {
         justify-content: center;
         margin-top: 10px;
     }
-}
+} */

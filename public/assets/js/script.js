@@ -1,3 +1,11 @@
+// $(window).resize(function() {
+//     if ($(window).width() < 740) {
+//         $(".page-title").removeClass("display-4");
+//     } else {
+//         $(".page-title").addClass("display-4");
+//     }
+// });
+
 $(document).ready(function() {
     $('.display').DataTable();
 });

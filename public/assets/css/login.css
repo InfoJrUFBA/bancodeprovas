@@ -1,4 +1,4 @@
-.overlay {
+/* .overlay {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -10,7 +10,6 @@
     opacity: 0;
 }
 
-/* background para fechar popup */
 .overlay .cancel {
     position: absolute;
     width: 100%;
@@ -38,7 +37,6 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }
 
-/* CLOSE BUTTON */
 .popup .close {
     position: absolute;
     width: 20px;
@@ -54,4 +52,4 @@
 }
 .popup .close:hover {
     opacity: 1;
-}
+} */
