@@ -1,20 +1,21 @@
-<section>
-    <h1>
+<section class="container my-5">
+    <h1 class="text-center mb-5">
         <?php echo $this->getPageTitle(); ?>
     </h1>
+    <div class="form-center mw-50">
+        <form action="passwordrecovery" method="post" accept-charset="utf-8">
+            <div class="form-group">
+                <label for="email">Insira seu Email</label><br>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email_confirmation">Confirme seu Email</label><br>
+                <input type="email" id="email_confirmation" name="email_confirmation" class="form-control" required>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-bdp">Recuperar senha</button>
+                <a href="/" class="btn">Cancelar</a>
+            </div>
+        </form>
+    </div>
 </section>
-
-<form action="passwordrecovery" method="post" accept-charset="utf-8">
-    <div class="form-group">
-        <label for="email">Insira seu Email</label><br>
-        <input type="email" name="email" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="email">Confirme seu Email.</label><br>
-        <input type="email" name="email_confirmation" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <a href="/" class="btn">Cancel</a>
-        <button type="submit" class="btn">Recuperar senha</button>
-    </div>
-</form>
