@@ -11,3 +11,11 @@
     background-color: transparent;
     box-shadow: 0 0 3px whitesmoke;
 }
+
+.btn-bdp {
+    color: whitesmoke;
+    background-color: #7590df;
+}
+.btn-bdp:hover {
+    background-color: #5e76bc;
+}
