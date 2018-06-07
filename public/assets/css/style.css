@@ -163,6 +163,10 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
     margin-right: auto;
     max-width: 70%;
 }
+.row {
+    align-items: center;
+}
+
 .mw-50 {
     max-width: 50%;
 }
@@ -170,5 +174,8 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
 @media screen and (max-width: 576px) {
     .profile-img {
         width: 50% !important;
+    }
+    .row {
+        display: block;
     }
 }

@@ -1,57 +1,68 @@
-<div >
-    <h1 > <?php echo $this->getPageTitle() ?> </h1>
-
-    <form action="/exam/store" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="professor">Professor(a)</label> <br>
-            <input type="text" name="professor"  required>
-        </div>
-        <div class="form-group">
-            <label for="period">Semestre</label> <br>
-            <select name="period" required>
-                <option value=""></option>
-                <option value="20111">2011.1</option>
-                <option value="20112">2011.2</option>
-                <option value="20121">2012.1</option>
-                <option value="20122">2012.2</option>
-                <option value="20131">2013.1</option>
-                <option value="20132">2013.2</option>
-                <option value="20141">2014.1</option>
-                <option value="20142">2014.2</option>
-                <option value="20151">2015.1</option>
-                <option value="20152">2015.2</option>
-                <option value="20161">2016.1</option>
-                <option value="20162">2016.2</option>
-                <option value="20171">2017.1</option>
-                <option value="20172">2017.2</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for= "components_id">Componente Curricular</label> <br>
-            <?php foreach($this->obj as $component):?>
-                <input type="radio" name="components_id" value=" <?php echo $component->id; ?>" required> <?php echo $component->code . " - " . $component->name ?> <br>
-            <?php endforeach; ?>
-        </div>
-        <div class="form-group">
-            <label for="unit">Unidade</label> <br>
-            <select name="unit" required>
-                <option value=""></option>
-                <option value="1">1ª Prova</option>
-                <option value="2">2ª Prova</option>
-                <option value="3">3ª Prova</option>
-                <option value="4">4ª Prova</option>
-                <option value="5">1ª Prova (2ª chamada)</option>
-                <option value="6">2ª Prova (2ª chamada)</option>
-                <option value="7">3ª Prova (2ª chamada)</option>
-                <option value="8">4ª Prova (2ª chamada)</option>
-            </select>
-        </div>
-        <div class="form-group">
-          <label for="image">Imagem</label>
-          <input type="file" name="image"  required>
-        </div>
-        <a href="/exams"><button type="button">Cancelar</button></a>
-        <button type="submit">Salvar</button>
-    </form>
-
-</div>
+<section class="container my-5">
+    <h2 class="text-center mb-5"><?php echo $this->getPageTitle()?></h2>
+    <div class="form-center">
+        <form action="/exam/store" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            <div class="row">
+                <div class="form-group col">
+                    <label for="professor">Professor(a)</label> <br>
+                    <input type="text" class="form-control" id="professor" name="professor"  required>
+                </div>
+                <div class="form-group col">
+                    <label for="period">Semestre</label> <br>
+                    <select id="period" name="period" class="custom-select" required>
+                        <option value=""></option>
+                        <option value="20111">2011.1</option>
+                        <option value="20112">2011.2</option>
+                        <option value="20121">2012.1</option>
+                        <option value="20122">2012.2</option>
+                        <option value="20131">2013.1</option>
+                        <option value="20132">2013.2</option>
+                        <option value="20141">2014.1</option>
+                        <option value="20142">2014.2</option>
+                        <option value="20151">2015.1</option>
+                        <option value="20152">2015.2</option>
+                        <option value="20161">2016.1</option>
+                        <option value="20162">2016.2</option>
+                        <option value="20171">2017.1</option>
+                        <option value="20172">2017.2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label for= "components_id">Componente Curricular</label> <br>
+                    <select class="custom-select" id="components_id" name="components_id">
+                        <?php foreach($this->obj as $component):?>
+                            <option type="radio" name="components_id" value=" <?php echo $component->id; ?>" required> <?php echo $component->code . " - " . $component->name ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <label for="unit">Unidade</label> <br>
+                    <select id="unit" name="unit" class="custom-select" required>
+                        <option value=""></option>
+                        <option value="1">1ª Prova</option>
+                        <option value="2">2ª Prova</option>
+                        <option value="3">3ª Prova</option>
+                        <option value="4">4ª Prova</option>
+                        <option value="5">1ª Prova (2ª chamada)</option>
+                        <option value="6">2ª Prova (2ª chamada)</option>
+                        <option value="7">3ª Prova (2ª chamada)</option>
+                        <option value="8">4ª Prova (2ª chamada)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="image">Imagem de Perfil:</label>
+                <div class="custom-file">
+                    <label for="image" class="custom-file-label">Upload an image...</label>
+                    <input type="file" id="image" name="image" class="custom-file-input" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <a href="/exams" class="btn">Cancelar</a>
+                <button type="submit" class="btn btn-bdp">Salvar</button>
+            </div>
+        </form>
+    </div>
+</section>
