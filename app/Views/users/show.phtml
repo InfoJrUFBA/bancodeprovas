@@ -1,14 +1,12 @@
-<section>
-    <h2> <?php echo $this->view->users->name ?></h2>
-</section>
-<div class="container">
-    <div class="row">
-        <ul>
-            <li>Nome: <?php echo $this->view->users->name; ?> </li>
-            <li>Email: <?php echo $this->view->users->email; ?> </li>
-            <li>Data de Nascimento: <?php echo date('d-m-Y', strtotime($this->view->users->birthdate)); ?> </li>
-            <li>Score: <?php echo $this->view->users->score; ?> </li>
-            <li>ID do Curso: <?php echo $this->view->users->courses_id; ?>
+<section class="container my-5">
+    <h2 class="text-center"><?php echo $this->view->users->name ?></h2>
+    <div class="d-flex flex-row flex-wrap justify-content-center align-items-center bg-purple rounded my-5 p-3">
+        <img class="w-25 profile-img bg-light rounded-circle m-3" src="https://www.freeiconspng.com/uploads/profile-icon-9.png" alt="Imagem de Perfil">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Email: <?php echo $this->view->users->email; ?> </li>
+            <li class="list-group-item">Data de Nascimento: <?php echo date('d/m/Y', strtotime($this->view->users->birthdate)); ?> </li>
+            <li class="list-group-item">Score: <?php echo $this->view->users->score; ?> </li>
+            <li class="list-group-item">ID do Curso: <?php echo $this->view->users->courses_id; ?>
         </ul>
     </div>
-</div>
+</section>

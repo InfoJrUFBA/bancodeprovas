@@ -32,22 +32,15 @@ a {
     color: whitesmoke;
     background-color: #343a40;
 }
+
+.bg-purple {
+    background-color: #7590df;
+}
+
 .close span {
     color: #fff;
 }
 
-.txt-center {
-    text-align: center;
-}
-.div-center {
-    margin: 0 auto;
-}
-.box-center {
-    display: flex;
-    display: -webkit-flex;
-    justify-content: center;
-    -webkit-justify-content: center;
-}
 
 /* BEGIN BOXES */
 .area {
@@ -113,12 +106,10 @@ a {
 .display tr[onclick] {
     cursor: pointer;
 }
-
-
-
 /* END TABLES */
 
-/* ALERTS*/
+
+/* BEGIN ALERTS*/
 .alert {
     padding: 10px 20px;
     color: white;
@@ -146,40 +137,7 @@ a {
 .closebtn:hover {
     color: black;
 }
-
-
-/* FORMS */
-/* form label {
-    font-size: 10pt;
-}
-.form-group {
-    margin: 10px 0;
-}
-.popup input {
-    width: 100%;
-}
-label[for] {
-    text-align: left;
-}
-
-input[type=text], input[type=password], input[type=email], input[type=date] {
-    border: 1px solid;
-    border-radius: 5px;
-    padding: 8px;
-    margin: 0px;
-    transition: all 0.30s ease-in-out;
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
-    outline: none;
-}
-input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
-    box-shadow: 0 0 8px #ebecff;
-    -moz-box-shadow: 0 0 8px #ebecff;
-    -webkit-box-shadow: 0 0 8px #ebecff;
-    border: 1px solid #ebecff;
-}*/
+/* END ALERTS */
 
 .form-pswd-group{
     visibility: hidden;
@@ -207,4 +165,10 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
 }
 .mw-50 {
     max-width: 50%;
+}
+
+@media screen and (max-width: 576px) {
+    .profile-img {
+        width: 50% !important;
+    }
 }
