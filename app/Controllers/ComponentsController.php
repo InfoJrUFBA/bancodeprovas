@@ -77,7 +77,10 @@ class ComponentsController extends BaseController {
     }
 
     public function search($request){
-        $this->view->components = $this->component->search($request->post->search);
+        $from = explode (',', "À,Á,È,É,Ì,Í,Ò,Ó,Ú,Ù,ç,á,é,í,ó,ú,à,è,ì,ò,ù,ä,ë,ï,ö,ü,â,ê,î,ô,û");
+        $to = explode (',',"A,A,E,E,I,I,O,O,U,U,c,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u");
+        $searchedComponent = str_replace ($from, $to, $request->post->search);
+        $this->view->components = $this->component->search($searchedComponent);
         switch (count($this->view->components)) {
             case 1:
                 return Redirect::route("/component/{$this->view->components[0]->id}/show");
