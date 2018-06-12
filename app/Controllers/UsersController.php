@@ -130,6 +130,8 @@
         }
 
         public function show($id){
+            $this->exam = Container::getModel("Exam");
+            $this->view->exams = $this->exam->readByAuthor($id);
             $this->view->users = $this->user->findById($id);
             $this->setPageTitle("{$this->view->users->name}");
             return $this->renderView('/users/show', 'layout');
