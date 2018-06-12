@@ -275,16 +275,22 @@
             if(!empty($request->post->email) && !empty($request->post->password)){
                     $result= $this->user->where($request->post->email);
                     if($result && password_verify($request->post->password, $result->password)){
-                        $login = [
-                            'id' => $result->id,
-                            'name' => $result->name,
-                            'email' => $result->email,
-                            'level'=>$result->level
-                        ];
-                        Session::destroy('errors');
-                        Session::set('login', $login);
-                        return Redirect::route('/users');
-
+                        if($result->active > 0){
+                            $login = [
+                                'id' => $result->id,
+                                'name' => $result->name,
+                                'email' => $result->email,
+                                'level'=>$result->level,
+                                'active'=>$result->active
+                            ];
+                            Session::destroy('errors');
+                            Session::set('login', $login);
+                            return Redirect::route('/users');
+                        }else {
+                            return Redirect::route('/', [
+                                 'errors' => ['Email não autenticado. Por favor, verifique sua caixa de entrada e ative a sua conta.']
+                                ]);
+                        }
                     }else {
 
                         return Redirect::route('/users', [
