@@ -132,7 +132,11 @@
         public function show($id){
             $this->view->users = $this->user->findById($id);
             $this->setPageTitle("{$this->view->users->name}");
-            return $this->renderView('/users/show', 'layout');
+            if($this->view->users){
+                return $this->renderView('/users/show', 'layout');
+            }else{
+                return $this->renderView('/404');                
+            }
         }
 
         public function create(){

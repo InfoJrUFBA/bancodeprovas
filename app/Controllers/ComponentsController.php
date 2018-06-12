@@ -39,10 +39,13 @@ class ComponentsController extends BaseController {
     public function show($id) {
         $exam = Container::getModel("Exam");
         $this->view->exam = $exam->readByComponent($id);
-
         $this->view->component = $this->component->readById($id);
-        $this->setPageTitle("Component - {$this->view->component->name}");
-        return $this->renderView('components/show', 'layout');
+        if($this->view->component){
+            $this->setPageTitle("Component - {$this->view->component->name}");
+            return $this->renderView('components/show', 'layout');
+        }else{
+            return $this->renderView('404');
+        }
     }
 
     public function edit($id) {
