@@ -67,13 +67,16 @@ class Route {
                 if(isset($route[3]) && $route[3] == 'create' && !$auth->check()){
                     $action = 'forbiden';
                 }
+                if(isset($route[3]) && $route[3] == 'userAuth' && (($auth->id() != $routeArray[2]) && !$auth->level())) {
+                    $action = 'forbiden';
+                }
                 break;
             }
         }
 
         if (isset($found)) {
             $controller = Container::newController($controller);
-            
+
             switch (count($param)) {
                 case 1:
                     $controller->$action($param[0], $this->getRequest());

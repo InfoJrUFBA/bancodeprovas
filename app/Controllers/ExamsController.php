@@ -97,7 +97,7 @@
         public function store($request){
             date_default_timezone_set("America/Bahia");
 
-           if($this->dataVerify($request)){
+            if($this->dataVerify($request)){
                 if($this->imageRedirect()){
                 //if($img==1){
                     if( $this->exam->create("{$request->post->professor}", "{$request->post->period}", date('Y-m-d'), "{$request->post->components_id}", "{$request->post->unit}", Auth::id() ,"{$this->fileDestination}") ){
@@ -109,10 +109,10 @@
                             'errors' => ['Erro ao inserir prova no banco de dados.']
                         ]);
                     }
-              }else {
+                }else {
                 Session::get('errors');
                 return Redirect::route("/exams");
-              }
+                }
             }else {
                 return Redirect::route("/exams", [
                     'errors' => ['Há campos vazios.']
@@ -127,33 +127,43 @@
             $this->units = array("1ª Prova", "2ª Prova", "3ª Prova", "4ª Prova", "Segunda chamada da 1ª Prova", "Segunda chamada da 2ª Prova", "Segunda chamada da 3ª Prova", "Segunda chamada da 4ª Prova");
             $this->status = array("Pendente", "Aprovado");
             $this->setPageTitle('Edição de prova');
+            Session::set('currentTestImage', $this->view->exam->image);
             return $this->renderView('exams/edit', 'layout');
         }
 
         public function update($id, $request){
+            if($this->imageRedirect()){
+                $testImage = $this->fileDestination;
+            }else {
+                $testImage = Session::get('currentTestImage');
+            }
+            Session::destroy('currentTestImage');
+
             if($this->dataVerify($request)){
-                if ($this->exam->update("{$id}", "{$request->post->professor}", "{$request->post->period}", "{$request->post->components_id}","{$request->post->status}","{$request->post->unit}") ){
-                    if($request->post->status > 1){
-                        $this->points($id);
+                    if ($this->exam->update("{$id}", "{$request->post->professor}", "{$request->post->period}", "{$request->post->components_id}","{$request->post->status}","{$request->post->unit}","{$testImage}") ){
+                        if($request->post->status > 1){
+                            $this->points($id);
+                        }
+                        return Redirect::route("/exams", [
+                            'success' => ['Prova atualizada com sucesso.']
+                        ]);
+                    }else {
+                        return Redirect::route("/exams", [
+                            'errors' => ['Erro ao atualizar.']
+                        ]);
                     }
-                    return Redirect::route("/exams", [
-                        'success' => ['Prova atualizada com sucesso.']
-                    ]);
-                }else {
-                    return Redirect::route("/exams", [
-                        'errors' => ['Erro ao atualizar.']
-                    ]);
-                }
             }else {
                 return Redirect::route("/exam/{$id}/edit", [
                     'errors' => ['Há campos vazios.']
                 ]);
             }
         }
+
         public function points($id){
             $userId = $this->exam->readSingle($id)->creator_id;
             $this->user->updatePointsExam($userId);
         }
+
         public function delete($id){
             if($this->exam->deleteExam($id)){
                 return Redirect::route("/exams");
@@ -163,8 +173,8 @@
                 ]);
             }
         }
-        public function forbiden()
-    {
-        return Redirect::route('/');
-    }
+
+        public function forbiden(){
+            return Redirect::route('/');
+        }
     }
