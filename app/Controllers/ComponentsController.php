@@ -39,10 +39,13 @@ class ComponentsController extends BaseController {
     public function show($id) {
         $exam = Container::getModel("Exam");
         $this->view->exam = $exam->readByComponent($id);
-
         $this->view->component = $this->component->readById($id);
-        $this->setPageTitle("Component - {$this->view->component->name}");
-        return $this->renderView('components/show', 'layout');
+        if($this->view->component){
+            $this->setPageTitle("Component - {$this->view->component->name}");
+            return $this->renderView('components/show', 'layout');
+        }else{
+            return $this->renderView('404');
+        }
     }
 
     public function edit($id) {
@@ -77,7 +80,10 @@ class ComponentsController extends BaseController {
     }
 
     public function search($request){
-        $this->view->components = $this->component->search($request->post->search);
+        $from = explode (',', "À,Á,È,É,Ì,Í,Ò,Ó,Ú,Ù,ç,á,é,í,ó,ú,à,è,ì,ò,ù,ä,ë,ï,ö,ü,â,ê,î,ô,û");
+        $to = explode (',',"A,A,E,E,I,I,O,O,U,U,c,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u");
+        $searchedComponent = str_replace ($from, $to, $request->post->search);
+        $this->view->components = $this->component->search($searchedComponent);
         switch (count($this->view->components)) {
             case 1:
                 return Redirect::route("/component/{$this->view->components[0]->id}/show");

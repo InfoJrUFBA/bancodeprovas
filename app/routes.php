@@ -14,8 +14,8 @@ $route[] = ['/exams', 'ExamsController@index'];
 $route[] = ['/exam/create', 'ExamsController@create','create'];
 $route[] = ['/exam/store', 'ExamsController@store','create'];
 $route[] = ['/exam/{id}/show', 'ExamsController@show'];
-$route[] = ['/exam/{id}/edit', 'ExamsController@edit'];
-$route[] = ['/exam/{id}/update', 'ExamsController@update'];
+$route[] = ['/exam/{id}/edit', 'ExamsController@edit','auth'];
+$route[] = ['/exam/{id}/update', 'ExamsController@update','auth'];
 $route[] = ['/exam/{id}/delete', 'ExamsController@delete','auth'];
 
 $route[] = ['/courses', 'CoursesController@index'];
@@ -38,9 +38,9 @@ $route[] = ['/users', 'UsersController@index', 'auth'];
 $route[] = ['/user/{id}/show', 'UsersController@show'];
 $route[] = ['/user/create', 'UsersController@create',];
 $route[] = ['/user/store', 'UsersController@store'];
-$route[] = ['/user/{id}/edit', 'UsersController@edit'];
-$route[] = ['/user/{id}/update', 'UsersController@update'];
-$route[] = ['/user/{id}/delete', 'UsersController@delete'];
+$route[] = ['/user/{id}/edit', 'UsersController@edit', 'userAuth'];
+$route[] = ['/user/{id}/update', 'UsersController@update', 'userAuth'];
+$route[] = ['/user/{id}/delete', 'UsersController@delete', 'auth'];
 $route[] = ['/user/forgot', 'UsersController@forgot'];
 $route[] = ['/user/passwordrecovery', 'UsersController@passwordRecovery'];
 

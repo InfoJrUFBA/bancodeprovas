@@ -132,7 +132,11 @@
         public function show($id){
             $this->view->users = $this->user->findById($id);
             $this->setPageTitle("{$this->view->users->name}");
-            return $this->renderView('/users/show', 'layout');
+            if($this->view->users){
+                return $this->renderView('/users/show', 'layout');
+            }else{
+                return $this->renderView('/404');                
+            }
         }
 
         public function create(){
@@ -202,6 +206,11 @@
         public function update($id, $request){
 
             $this->info = $this->user->findById($id);
+            if($this->imageRedirect()){
+                $userImage = $this->fileDestination;
+            }else {
+                $userImage = $this->info->image;
+            }
 
             if ($this->dataInsertionVerify($request)){
                 if( password_verify ($request->post->password, $this->info->password) ){
@@ -209,7 +218,7 @@
                         if( isset($request->post->new_password) ){
                             if( (strlen($request->post->new_password) >= 5) && (strlen($request->post->new_password) <=10 ) ){
                                 if($request->post->new_password == $request->post->new_password_confirmation){
-                                    if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", password_hash($request->post->new_password, PASSWORD_DEFAULT), "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                    if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", password_hash($request->post->new_password, PASSWORD_DEFAULT), "{$userImage}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
                                         return Redirect::route("/user/{$id}/show", [
                                             'success' => ['Informações atualizadas com sucesso.']
                                         ]);
@@ -230,7 +239,7 @@
                             }
                         }else{
                             if($this->updateVerify($id,$request)){
-                                if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->info->password}", "{$request->post->image}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
+                                if( $this->user->update("{$id}", "{$request->post->name}", "{$request->post->email}", "{$this->info->password}", "{$userImage}", "{$this->dateConvert($request)}", "{$request->post->courses_id}") ){
                                     return Redirect::route("/user/{$id}/show", [
                                         'success' => ['Informações atualizadas com sucesso.']
                                     ]);
@@ -270,16 +279,22 @@
             if(!empty($request->post->email) && !empty($request->post->password)){
                     $result= $this->user->where($request->post->email);
                     if($result && password_verify($request->post->password, $result->password)){
-                        $login = [
-                            'id' => $result->id,
-                            'name' => $result->name,
-                            'email' => $result->email,
-                            'level'=>$result->level
-                        ];
-                        Session::destroy('errors');
-                        Session::set('login', $login);
-                        return Redirect::route('/users');
-
+                        if($result->active > 0){
+                            $login = [
+                                'id' => $result->id,
+                                'name' => $result->name,
+                                'email' => $result->email,
+                                'level'=>$result->level,
+                                'active'=>$result->active
+                            ];
+                            Session::destroy('errors');
+                            Session::set('login', $login);
+                            return Redirect::route('/users');
+                        }else {
+                            return Redirect::route('/', [
+                                 'errors' => ['Email não autenticado. Por favor, verifique sua caixa de entrada e ative a sua conta.']
+                                ]);
+                        }
                     }else {
 
                         return Redirect::route('/users', [
