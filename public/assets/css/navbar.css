@@ -46,6 +46,16 @@
         -webkit-overflow-scrolling: touch;
     }
 }
+
+.lupa {
+    margin-left: 5px;
+    width: 30px;
+    background-color: transparent;
+}
+.lupa-path {
+    fill: whitesmoke;
+}
+
 /* .nav-title {
     height: inherit;
     align-items: center;
