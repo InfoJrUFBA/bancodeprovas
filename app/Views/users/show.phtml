@@ -10,8 +10,8 @@
                 <li class="list-group-item">ID do Curso: <?php echo $this->view->users->courses_id; ?>
             </ul>
             <div class="d-flex justify-content-center mt-3">
-                <button type="button" role="button" class="btn text-center btn-primary">Editar Perfil</button>
-                <button type="button" role="button" class="btn btn-sm btn-danger">Deletar Conta</button>
+                <a href="/user/<?=$this->view->users->id;?>/edit" role="button" class="btn text-center btn-primary">Editar Perfil</a>
+                <a href="/user/<?=$this->view->users->id;?>/delete" role="button" class="btn btn-sm btn-danger">Deletar Conta</a>
             </div>
         </div>
     </div>
