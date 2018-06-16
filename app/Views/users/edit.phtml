@@ -1,51 +1,65 @@
-<div class="container">
-    <h1 class="h1"><?php echo $this->getPageTitle() ?></h1>
-
-    <form action="/user/<?php echo $this->view->user->id ?>/update" name="userUpdateForm" method= "post" accept-charset="utf-8" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="text" name="name" class="form-control" value="<?php echo $this->view->user->name ?>" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="image">Image</label>
-            <input type="file" name="image" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="birthdate">Data de Nascimento</label>
-            <input type="date" name="birthdate" class="form-control" value="<?php echo $this->view->user->birthdate ?>" required>
-        </div>
-        <div class="form-group">
-            <label for="courses_id">Curso</label> <br>
-            <?php
-            foreach($this->obj as $course){
-                    echo "<input type='radio' name='courses_id' value=" .  $course->id;
-                if($this->view->user->courses_id == $course->id){
-                    echo " checked ";
-                }
-                echo ">";
-                echo $course->name . "<br>";
-            }
-            ?>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" value="<?php echo $this->view->user->email ?>" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Current Password</label>
-            <input type="password" name="password" class="form-control" pattern=".{5,}" maxlength="10" required>
-        </div>
-
-        <input type="checkbox" id="pswd_setting" name="new_pswd_setting" onclick="activateInsertion()"/>
-            <label for="pswd_setting" class="new_pswd">Set new password</label>
-                <div class="form-pswd-group">
-                    <label for="new_password" class="pswd-ctrl">New Password (mínimo 5 caracteres, máximo 10)</label> <br>
-                    <input type="password" name="new_password" class="pswd-ctrl" pattern=".{5,}" maxlength="10" required disabled> <br>
-                    <label for="new_password_confirmation" class="pswd-ctrl">Confirm your new Password</label> <br>
-                    <input type="password" name="new_password_confirmation" class="pswd-ctrl" pattern=".{5,}" maxlength="10" required disabled>
+<section class="container my-5">
+    <h2 class="text-center mb-5">
+        <?php echo $this->getPageTitle() ?>
+    </h2><i class="fas fa-angle-down"></i>
+    <div class="form-center">
+        <form action="/user/<?php echo $this->view->user->id ?>/update" name="userUpdateForm" method= "post" accept-charset="utf-8" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" class="form-control" value="<?php echo $this->view->user->name ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="birthdate">Data de Nascimento</label>
+                <input type="date" id="birthdate" name="birthdate" class="form-control" value="<?php echo $this->view->user->birthdate ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                <div class="custom-file">
+                    <input type="file" id="image" name="image" class="custom-file-input">
+                    <label class="custom-file-label" for="image">Image</label>
                 </div>
-        <a href="/users" class="btn btn-default">Cancel</a>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-</div>
+            </div>
+            <div class="form-group">
+                <label for="courses_id">Curso</label><br>
+                <select id="courses_id" name="courses_id" class="custom-select" required>
+                    <option value=""></option>
+                    <?php foreach($this->obj as $course): ?>
+                        <option value= <?php echo $course->id; ?> 
+                        <?php if($this->view->user->courses_id == $course->id): echo "selected"; endif;
+                        ?>
+                        > <?php echo $course->name ?> </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-row">
+
+                <div class="form-group col">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control" value="<?php echo $this->view->user->email ?>" required>
+                </div>
+                <div class="form-group col">
+                    <label for="password">Senha Atual</label>
+                    <input type="password" name="password" class="form-control" pattern=".{5,}" maxlength="10" required>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <button type="button" id="new-pswd" class="btn btn-sm btn-outline-primary mb-2 mx-0">Alterar Senha</button>
+            </div>
+            <div id="pswd-group" class="form-row pswd-group">
+                <div class="form-group col">
+                    <label for="new_password">Nova senha: </label>
+                    <input type="password" name="new_password"  class="form-control" pattern=".{5,}" maxlength="10" required>
+                    <small id="password" class="form-text text-muted">Entre 5 e 10 caracteres</small>
+                </div>
+                <div class="form-group col">
+                    <label for="new_password_confirm">Confirme a nova senha: </label>
+                    <input type="password" name="new_password_confirm" class="form-control" pattern=".{5,}" maxlength="10" required>
+                </div>
+            </div>
+            <div class="form-group text-right">
+                <a href="/users" class="btn btn-default">Cancelar</a>
+                <button type="submit" class="btn btn-bdp">Salvar</button>
+            </div>
+        </form>
+    </div>
+</section>

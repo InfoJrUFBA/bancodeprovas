@@ -20,6 +20,15 @@ body {
     margin: 0;
 }
 
+.block {
+    height: 58px;
+}
+@media screen and (max-width: 991.98px) {
+    .block {
+        height: 92px;
+    }
+}
+
 h2 {
     font-weight: 300;
 }
@@ -161,25 +170,9 @@ a:not(:hover) > .box {
 }
 /* END ALERTS */
 
-.form-pswd-group{
-    visibility: hidden;
+.pswd-group {
     display: none;
 }
-#pswd_setting{
-    display: none;
-}
-.new_pswd{
-    border: 1px black solid;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 1px;
-    margin: 20px 10px;
-}
-input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
-    visibility: visible;
-    display: block;
-}
-
 .form-center {
     margin-left: auto;
     margin-right: auto;
@@ -187,6 +180,9 @@ input[name="new_pswd_setting"]:checked ~ .form-pswd-group{
 }
 .row {
     align-items: center;
+}
+.custom-file-input {
+    display: none;
 }
 
 .mw-50 {
