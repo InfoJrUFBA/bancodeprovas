@@ -49,9 +49,9 @@
             $fileType = $_FILES['image']['type'];
             $fileExt= explode('.',$fileName);
             $fileActualExt= strtolower(end($fileExt));
-            $allowed = array('jpg','jpeg','png','pdf');
+            $allowed = array('jpg','jpeg','png');
 
-                if(in_array($fileActualExt, $allowed)){
+                if(isset($fileName) && in_array($fileActualExt, $allowed)){
                     if($fileError===0){
                         if($fileSize<(3*1024*1024)){
                             $fileNameNew= uniqid('',true).".".$fileActualExt;
@@ -72,7 +72,7 @@
                     }
                 }else{
                     Session::set('errors', [
-                        'Formato inválido'
+                        'Formato inválido de imagem'
                     ]);
                      return false;
                 }
@@ -135,7 +135,7 @@
             if($this->view->users){
                 return $this->renderView('/users/show', 'layout');
             }else{
-                return $this->renderView('/404');                
+                return $this->renderView('/404');
             }
         }
 
