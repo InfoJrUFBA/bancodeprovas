@@ -70,6 +70,9 @@ class Route {
                 if(isset($route[3]) && $route[3] == 'userAuth' && (($auth->id() != $routeArray[2]) && !$auth->level())) {
                     $action = 'forbiden';
                 }
+                if(isset($route[3]) && $route[3] == 'newUser' && $auth->check() && !$auth->level()){
+                    $action = 'forbiden';
+                }
                 break;
             }
         }
