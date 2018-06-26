@@ -1,31 +1,28 @@
-<header class="navbar fixed-top navbar-expand-lg navbar-dark px-2 py-1">
+<header class="navbar fixed-top navbar-expand-md navbar-dark px-2 py-1">
     <div class="d-flex flex-row justify-content-between align-items-start">
         <a href="/" class="navbar-brand">
             Banco de Provas
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#search-box" aria-controls="search-box" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span></button>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#search-box" aria-controls="search-box" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
     <div class="collapse navbar-collapse my-2 search-box" id="search-box">
-        <form class="form-inline mr-3" action="/search" method="post">
-            <input class="form-control w-auto mx-auto p-1" type="search" placeholder="Cód. ou Nome da Disciplina" name="search" required>
+        <form class="form-inline justify-content-center" action="/search" method="post">
+            <input class="form-control w-auto" type="search" placeholder="Cód. ou Nome da Disciplina" name="search" required>
             <input type="image" src="/assets/img/search-icon.svg" alt="Pesquisar" class="lupa">
         </form>
     </div>
     <div class="navbar-nav-scroll mx-auto" id="navbar">
         <ul class="navbar-nav">
-            <li>
-                <a href="#" class="btn btn-sm btn-outline-light btn-menu" role="button" aria-pressed="true">Áreas</a>
-            </li>
-            <li class="divider-vertical h-auto"></li>
-            <?php
-            if ($this->auth->check()):
-                echo '<li><a class="btn btn-sm btn-primary btn-menu" href="/exam/create">Enviar Prova</a></li>';
-                echo '<li><a class="btn btn-sm btn-outline-light btn-menu" href="/user/'. $this->auth->id() . '/show">Perfil</a></li>';
-                echo '<li><a class="btn btn-sm btn-outline-light btn-menu" href="/logout">Sair</a></li>';
-            else:
-                echo '<li><a class="btn btn-sm btn-outline-light btn-menu" href="#" data-toggle="modal" data-target="#modalLogin">Login</a></li>';
-            endif;?>
+            <!-- <li class="divider-vertical h-auto"></li> -->
+            <?php if ($this->auth->check()):?>
+                <li><a class="btn btn-sm btn-primary btn-menu" href="/exam/create">Enviar Prova</a></li>
+                <li><a class="btn btn-sm btn-outline-light btn-menu" href="/user/<?=$this->auth->id()?>/show">Perfil</a></li>
+                <li><a class="btn btn-sm btn-outline-light btn-menu" href="/logout">Sair</a></li>
+            <?php else: ?>
+                <li><a class="btn btn-sm btn-outline-light btn-menu" href="#" data-toggle="modal" data-target="#modalLogin">Login</a></li>
+            <?php endif;?>
         </ul>
     </div>
 </header>
