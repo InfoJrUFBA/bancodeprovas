@@ -2,7 +2,8 @@
 @import "navbar.css";
 @import "login.css";
 @import "button.css";
-@import "https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css";
+@import "fontawesome.css";
+@import url('https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css');
 
 * {
     box-sizing: border-box;
@@ -23,7 +24,7 @@ body {
 .block {
     height: 58px;
 }
-@media screen and (max-width: 991.98px) {
+@media screen and (max-width: 767.98px) {
     .block {
         height: 92px;
     }
@@ -65,7 +66,7 @@ a:not(:hover) > .box {
 .box img {
     width: 150px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767.98px) {
     .box {
         flex: initial;
     }
@@ -78,10 +79,12 @@ a:not(:hover) > .box {
 .area {
     background-color: #eae8ff;
     height: auto;
+    width: 100%;
 }
 .areas a {
     display: block;
     padding: 10px;
+    width: 100%;
 }
 .areas a:hover {
     text-decoration: none;
@@ -144,7 +147,7 @@ a:not(:hover) > .box {
 .alert {
     padding: 10px 20px;
     color: white;
-    margin-bottom: 15px;
+    margin-bottom: 15px;border-radius: 0;
 }
 
 .warning {
