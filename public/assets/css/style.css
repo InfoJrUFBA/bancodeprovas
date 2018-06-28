@@ -2,7 +2,7 @@
 @import "navbar.css";
 @import "button.css";
 @import "fontawesome.css";
-@import url('https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css');
+@import "datatables.min.css";
 
 * {
     box-sizing: border-box;
@@ -126,8 +126,7 @@ a:not(:hover) > .box {
     cursor: pointer;
 }
 
-
-.display tr[onclick] {
+.datatable tr[onclick] {
     cursor: pointer;
 }
 /* END TABLES */
