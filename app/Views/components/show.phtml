@@ -1,5 +1,18 @@
 <section class="container my-5">
-    <table class="datatable table table-striped table-bordered" style="width: 100%">
+    <div class="card-columns">
+    <?php foreach ($this->view->exam as $exam):?>
+        <div class="card">
+            <img class="card-img-top" src="/<?= $exam->image ?>" width="200px" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="h5 card-title">Criado em: <?= date('d-m-Y', strtotime($exam->created_at));?></h5>
+                <h5 class="h5">Professor: <?= $exam->professor;?></h5>
+                <h5 class="h5">Período: <?= $exam->period;?></h5>
+                <h5 class="h5">Unidade: <?= $exam->unit;?></h5>
+            </div>
+        </div>
+    <?php endforeach?>
+    </div>
+    <!-- <table class="datatable table table-striped table-bordered" style="width: 100%">
 		<thead>
 			<tr>
 				<td>Criado em</td>
@@ -18,5 +31,5 @@
 			</tr>
 			<?php endforeach?>
 		</tbody>
-	</table>
+	</table> -->
 </section>
