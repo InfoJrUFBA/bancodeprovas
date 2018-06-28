@@ -1,6 +1,6 @@
-<div >
+<section class="container my-5">
     <ul>
-        <li> Professor: <?php echo $this->view->exam->professor; ?>
+        <li> Professor: <?= $this->view->exam->professor; ?>
         <li> Semestre:
             <?php
                 switch($this->view->exam->period){
@@ -77,10 +77,10 @@
                     break;
             } ?>
         </li>
-        <li>Adicionado em <?php echo date('d-m-Y', strtotime($this->view->exam->created_at)); ?> </li>
-        <li>Adicionado por <a href="user/<?php echo $this->view->exam->creator_id ?>/show"> <?php echo $this->view->exam->created_by;?> </a></li>
-        <li> <?php echo $this->view->exam->code . " - " . $this->view->exam->name; ?> </li>
+        <li>Adicionado em <?= date('d-m-Y', strtotime($this->view->exam->created_at)); ?> </li>
+        <li>Adicionado por <a href="user/<?= $this->view->exam->creator_id ?>/show"> <?= $this->view->exam->created_by;?> </a></li>
+        <li> <?= $this->view->exam->code . " - " . $this->view->exam->name; ?> </li>
         <br>
-        <img src="/<?php echo $this->view->exam->image ?>" width="200px" height="200px">
+        <img src="/<?= $this->view->exam->image ?>" width="200px" height="200px">
     </ul>
-</div>
+</section>

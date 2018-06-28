@@ -1,12 +1,11 @@
-<section>
-    <table class="display">
+<section class="container my-5">
+    <table class="datatable table table-striped table-bordered" style="width: 100%">
 		<thead>
 			<tr>
 				<td>Criado em</td>
 				<td>Professor</td>
-				<td>Período</td>
-				<td>Unidade</td>
-				<td>Criado por</td>
+				<td data-priority="1">Período</td>
+				<td data-priority="2">Unidade</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -16,18 +15,8 @@
 				<td><?php echo $exam->professor;?></td>
 				<td><?php echo $exam->period;?></td>
 				<td><?php echo $exam->unit;?></td>
-				<td><?php echo $exam->creator_id;?></td>
 			</tr>
 			<?php endforeach?>
 		</tbody>
-		<tfoot>
-			<tr>
-				<td>Criado em</td>
-				<td>Professor</td>
-				<td>Período</td>
-				<td>Unidade</td>
-				<td>Criado por</td>
-			</tr>
-		</tfoot>
 	</table>
 </section>
