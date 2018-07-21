@@ -1,23 +1,22 @@
 .btn {
-    display: block;
-	  font-family: "Open Sans", "Segoe UI", "Arial", sans-serif;
-    font-size: 12pt;
-    color: #000;
-    background-color: whitesmoke;
-    margin: 10px 5px;
-    padding: 6px 15px;
-    border: 0;
-    border-radius: 3px;
-    box-shadow: 0 0 5px rgb(156, 156, 156);
-	transition: box-shadow 0.5s;
-    max-width: fit-content;
+    margin: auto 5px;
 }
 
-.btn:hover {
-    box-shadow: 0 0 10px rgb(117, 144, 223);
-	cursor: pointer;
+.btn-menu.btn-outline-light {
+    border-color: whitesmoke;
 }
 
-.btn a:visited {
-    text-decoration: none;
+.btn-menu.btn-outline-light:hover {
+    color: whitesmoke;
+    background-color: transparent;
+    box-shadow: 0 0 3px whitesmoke;
+}
+
+.btn-bdp {
+    color: whitesmoke;
+    background-color: #7590df;
+}
+.btn-bdp:hover {
+    color: whitesmoke;
+    background-color: #5e76bc;
 }

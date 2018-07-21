@@ -1,8 +1,10 @@
-<section class="flexbox">
-    <?php foreach ($this->view->areas as $area): ?>
-    <a href="area/<?php echo $area->id;?>/show"><section class="flex-col txt-center">
-        <h2>Área <?php echo $area->id;?></h2>
-        <h3><?php echo $area->name;?></h3>
-    </section></a>
-    <?php endforeach;?>
+<section class="container my-5">
+    <div class="areas d-flex flex-row flex-wrap">
+        <?php foreach ($this->view->areas as $area): ?>
+        <div class="box area text-center d-flex justify-content-center align-items-center"><a href="area/<?php echo $area->id;?>/show">
+            <h2>Área <?php echo $area->id;?></h2>
+            <h3><?php echo $area->name;?></h3>
+        </a></div>
+        <?php endforeach;?>
+    </div>
 </section>

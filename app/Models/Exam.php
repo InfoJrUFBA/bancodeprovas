@@ -69,6 +69,15 @@
             $stmt->closeCursor();
             return $result;
         }
+        public function readByAuthor($users_id) {
+            $query = "SELECT {$this->table}.id, {$this->table}.professor, {$this->table}.period, {$this->table}.created_at, {$this->table}.status, {$this->table}.unit, {$this->table}.image, users.id as creator_id, users.name as created_by, components.code, components.name, components.id as components_id FROM {$this->table} JOIN users on users_id = users.id JOIN components on components_id = components.id WHERE users_id = :users_id";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(":users_id", $users_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+            $stmt->closeCursor();
+            return $result;
+        }
         public function readSingle($exam_id){
             $query = "SELECT {$this->table}.id, {$this->table}.professor, {$this->table}.period, {$this->table}.created_at, {$this->table}.status, {$this->table}.unit, {$this->table}.image, users.id as creator_id, users.name as created_by, components.code, components.name, components.id as components_id FROM {$this->table} JOIN users on users_id = users.id JOIN components on components_id = components.id WHERE exams.id = :exam_id";
             $stmt = $this->pdo->prepare($query);

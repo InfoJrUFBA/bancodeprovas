@@ -5,56 +5,61 @@
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title><?php echo $this->getPageTitle("|"); ?>Banco de Provas</title>
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/style.css">
-        <script src="/assets/js/jquery.min.js"></script>
-        <script src="/assets/js/datatables.min.js"></script>
-        <script src="/assets/js/script.js"></script>
     </head>
     <body>
-        <div id="popup-login" class="overlay">
-            <a class="cancel" href="#"></a>
-            <div class="popup">
-                <div class="txt-center">
-                    <h2>Login</h2>
-                </div><br>
-                <a href="#" class="close">&times;</a>
-                <form method="post" action="/auth">
-                    <div class="form-group">
-                        <label for="email">E-Mail:</label><br>
-                        <input type="text" name="email" required>
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Login</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Senha:</label><br>
-                        <input type="password" name="password" required>
+                    <div class="modal-body">
+                        <form method="post" action="/auth">
+                            <div class="form-group">
+                                <label for="email">E-Mail:</label>
+                                <input class="form-control" type="text" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Senha:</label>
+                                <input class="form-control" type="password" name="password" required>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                                <a class="btn btn-secondary" href="/user/create">Cadastre-se</a>
+                            </div>
+                            <div class="form-group text-center">
+                                <a href="/user/forgot" class="btn btn-sm btn-outline-light">Esqueceu a senha?</a>
+                            </div>
+                        </form>
                     </div>
-                    <?php if(isset($this->view->errors)): ?>
-                    	<div class="alert warning">
-                    		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    		<?php echo $this->view->errors[0]; ?>
-                    	</div>
-                    <?php endif; ?>
-                    <div class="form-item box-center">
-                        <button class="btn" type="submit">Login</button>
-                        <a class="btn" href="/user/create">Cadastre-se</a>
-                    </div>
-                    <a href="/user/forgot">Esqueceu sua senha?</a>
-                </form>
+                </div>
             </div>
         </div>
         <?php require_once __DIR__ . "/menu.phtml";?>
+
         <?php if(isset($this->view->success)): ?>
             <div class="alert success">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                 <?php echo $this->view->success[0]; ?>
             </div>
         <?php endif; ?>
-
         <?php if(isset($this->view->errors)): ?>
             <div class="alert warning">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                 <?php echo $this->view->errors[0]; ?>
             </div>
         <?php endif; ?>
+
         <?php $this->content() ?>
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/datatables.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/script.js"></script>
     </body>
 </html>

@@ -1,10 +1,9 @@
-<section>
+<section class="container my-5">
 	<table class="tbl">
 		<thead>
 			<tr>
 				<td>Nome</td>
 				<td>Tipo</td>
-				<td>Área</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -12,15 +11,13 @@
 			<tr onclick="window.location='/course/<?php echo $course->id;?>/show'">
 				<td><?php echo $course->name;?></td>
 				<td><?php echo $course->type;?></td>
-				<td><?php echo $course->area;?></td>
 			</tr>
-			<?php endforeach?>
+			<?php endforeach;?>
 		</tbody>
 		<tfoot>
 			<tr>
 				<td>Nome</td>
 				<td>Tipo</td>
-				<td>Área</td>
 			</tr>
 		</tfoot>
 	</table>

@@ -10,7 +10,7 @@ $route[] = ['/component/{id}/edit', 'ComponentsController@edit','auth'];
 $route[] = ['/component/{id}/update', 'ComponentsController@update','auth'];
 $route[] = ['/component/{id}/delete', 'ComponentsController@delete','auth'];
 
-$route[] = ['/exams', 'ExamsController@index'];
+$route[] = ['/exams', 'ExamsController@index', 'userAuth'];
 $route[] = ['/exam/create', 'ExamsController@create','create'];
 $route[] = ['/exam/store', 'ExamsController@store','create'];
 $route[] = ['/exam/{id}/show', 'ExamsController@show'];
