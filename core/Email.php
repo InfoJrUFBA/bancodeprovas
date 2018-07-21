@@ -16,7 +16,7 @@ class Email {
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'sistemabdp@gmail.com';
-            $mail->Password = 'melhordiretoria';
+            $mail->Password = '';
             $mail->SMTPSecure = 'ssl';
             $mail->Port = 465;
             $mail->CharSet="utf8";
