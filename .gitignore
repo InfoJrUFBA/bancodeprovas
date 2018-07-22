@@ -2,4 +2,6 @@
 /vendor/
 composer.phar
 *.idea/*
-app/database.php
+
+# app/database.php
+app/config.php

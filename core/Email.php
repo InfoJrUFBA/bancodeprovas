@@ -9,19 +9,25 @@ class Email {
     public function send ($name, $email, $token, $password = NULL) {
         $mail = new PHPMailer(true);
 
-        try {
+        $conf = __DIR__ . '../app/config.php';
+        $siteUrl = $conf['siteUrl'];
+        $bdpEmail = $conf['email']['username'];
+        $bdpPassword = $conf['email']['password'];
+        $protocol = $conf['email']['protocol'];
+        $port = $conf['email']['port'];
 
+        try {
             $mail->SMTPDebug = 2;
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'sistemabdp@gmail.com';
-            $mail->Password = '';
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port = 465;
-            $mail->CharSet="utf8";
+            $mail->Username = $bdpEmail;
+            $mail->Password = $bdpPassword;
+            $mail->SMTPSecure = $protocol;
+            $mail->Port = $port;
+            $mail->CharSet = "utf8";
 
-            $mail->setFrom('sistemabdp@gmail.com', 'Banco de Provas');
+            $mail->setFrom($bdpEmail, 'Banco de Provas');
             $mail->addAddress($email, $name);
 
             $mail->isHTML(true);
@@ -34,8 +40,8 @@ class Email {
             } else {
                 $mail->Subject = 'E-mail de Confirmação';
                 $mail->Body    = "<p>Olá, {$name}. Seja bem vindo(a) ao nosso Banco de Provas.</p>
-                <p>Seu email ainda não foi confirmado. Por favor, clique no link abaixo para confirmar o seu email.</p>
-                <a href='http://{$_SERVER['HTTP_HOST']}/validation/{$token}'>http://{$_SERVER['HTTP_HOST']}/validation/{$token}</a><br><br>
+                <p>Seu email ainda não foi confirmado. Por favor, clique no link abaixo ou cole na barra de endereço do navegador para confirmar o seu email.</p>
+                <a href='{$siteUrl}/validation/{$token}'>{$siteUrl}/validation/{$token}</a><br><br>
                 <center><b>Email automático de confirmação. Favor não responder.</b></center>";
             }
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
