@@ -83,6 +83,8 @@ class ComponentsController extends BaseController {
         $from = explode (',', "À,Á,È,É,Ì,Í,Ò,Ó,Ú,Ù,ç,á,é,í,ó,ú,à,è,ì,ò,ù,ä,ë,ï,ö,ü,â,ê,î,ô,û");
         $to = explode (',',"A,A,E,E,I,I,O,O,U,U,c,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u,a,e,i,o,u");
         $searchedComponent = str_replace ($from, $to, $request->post->search);
+        preg_match_all("/[a-zA-Z0-9 ]+/", $searchedComponent, $output);
+        $searchedComponent = implode($output[0]);
         $this->view->components = $this->component->search($searchedComponent);
         switch (count($this->view->components)) {
             case 1:
